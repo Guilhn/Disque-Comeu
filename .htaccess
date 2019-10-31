@@ -1,0 +1,6 @@
+RewriteEngine On
+
+# Se não for para a pasta pública, executa o index.php
+RewriteCond %{REQUEST_FILENAME} !Disque-Comeu/publico/
+RewriteRule ^ index.php
+  
