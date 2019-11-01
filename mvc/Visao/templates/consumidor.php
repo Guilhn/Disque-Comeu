@@ -21,14 +21,23 @@
       <a id="logo" href="javascript:;" class="brand-logo"><span class="front-logo hide-on-small-only">Disque</span> <span class="back-logo hide-on-small-only">Comeu</span> <i class="fas fa-hamburger"></i></a>
       <ul class="right hide-on-med-and-down">
         <li><a href="javascript:;">Inicio</a></li>
-        <li><a href="pages/cadastro.html">Cadastre-se</a></li>
-        <li><a href="pages/login.html">Entrar</a></li>
+        <li><a href="carrinho.html">Carrinho</a></li>
+        <li><a class="dropdown-trigger fontMenu" href="javascript:;" data-target="dropdown1">Maria<i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a title="Sair" href="../../../index.html"><i class="material-icons right">exit_to_app</i>Sair</a></li>
+      </ul>
+
+      <ul id="dropdown1" class="dropdown-content">
+        <li><a href="perfil.html"><span class=""> Perfil</span></a></li>
+        <li><a href="pedidos.html"><span class=""> Pedidos</span></a></li>
       </ul>
 
       <ul id="nav-mobile" class="sidenav">
         <li><a href="javascript:;">Inicio</a></li>
-        <li><a href="pages/cadastro.html">Cadastre-se</a></li>
-        <li><a href="pages/login.html">Entrar</a></li>
+        <li><a href="carrinho.html">Carrinho</a></li>
+        <li><a href="perfil.html">Perfil</a></li>
+        <li><a href="pedidos.html">Pedidos</a></li>
+        <li class="divider" tabindex="-1"></li>
+        <li><a title="Sair" href="../../../index.html"><i class="material-icons right">exit_to_app</i>Sair</a></li>
       </ul>
       <a href="javascript:;" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
@@ -36,7 +45,7 @@
 
   <main>
 
-    <?php $this->imprimirConteudo() ?>
+      <?php $this->imprimirConteudo() ?>
 
   </main>
 
@@ -48,19 +57,20 @@
 
 
         </div>
-        <div class="col l3 s12">
-          <h5 class="texto-branco">Cadastre-se</h5>
+        <div class="col l3 s6">
+          <h5 class="texto-branco">Carrinho</h5>
           <ul>
-            <li><a class="white-text" href="pages/cadastro.html"><b>Criar Conta</b></a></li>
+            <li><a class="white-text" href="carrinho.html"><b>Meu Carrinho</b></a></li>
           </ul>
-
 
         </div>
-        <div class="col l3 s12">
-          <h5 class="texto-branco">Entrar</h5>
+        <div class="col l3 s6">
+          <h5 class="texto-branco">Usuario</h5>
           <ul>
-            <li><a class="white-text" href="pages/login.html"><b>Login</b></a></li>
+            <li><a class="white-text" href="perfil.html"><b>Meu Perfil</b></a></li>
+            <li><a class="white-text" href="pedidos.html"><b>Meus Pedidos</b></a></li>
           </ul>
+
         </div>
       </div>
     </div>
@@ -82,3 +92,4 @@
 </body>
 
 </html>
+  ''
