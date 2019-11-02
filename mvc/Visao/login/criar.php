@@ -1,22 +1,54 @@
-<div class="center-block site">
-    <div class="col-sm-6 col-sm-offset-3">
-        <h1 class="text-center">Login</h1>
-        <form action="<?= URL_RAIZ . 'login' ?>" method="post" class="margin-bottom">
-            <div class="form-group <?= $this->getErroCss('login') ?>">
-                <label class="control-label" for="email">E-mail</label>
-                <input id="email" name="email" class="form-control" autofocus value="<?= $this->getPost('email') ?>">
+<div class="pageFormulario">
+
+    <div id="login-page" class="row">
+      <div class="col s10 offset-s1 m8 offset-m2 l4 offset-l4 card-panel">
+        <form action="login" method="post" id="formulario" class="login-form">
+          <div class="row">
+            <div class="input-field col s12 center">
+              <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="hamburger" class="cor-texto-primaria" role="img" width="20%" viewBox="0 0 512 512">
+                <path fill="currentColor"
+                  d="M464 256H48a48 48 0 0 0 0 96h416a48 48 0 0 0 0-96zm16 128H32a16 16 0 0 0-16 16v16a64 64 0 0 0 64 64h352a64 64 0 0 0 64-64v-16a16 16 0 0 0-16-16zM58.64 224h394.72c34.57 0 54.62-43.9 34.82-75.88C448 83.2 359.55 32.1 256 32c-103.54.1-192 51.2-232.18 116.11C4 180.09 24.07 224 58.64 224zM384 112a16 16 0 1 1-16 16 16 16 0 0 1 16-16zM256 80a16 16 0 1 1-16 16 16 16 0 0 1 16-16zm-128 32a16 16 0 1 1-16 16 16 16 0 0 1 16-16z">
+                </path>
+              </svg>
+              <h4 class="center login-form-text">Login</h4>
             </div>
-            <div class="form-group <?= $this->getErroCss('login') ?>">
-                <label class="control-label" for="senha">Senha</label>
-                <input id="senha" name="senha" class="form-control" type="password">
+          </div>
+          <div class="row margin">
+
+            <div class="input-field col s12">
+              <div class="col s12">
+                <i class="material-icons prefix cor-texto-primaria ">account_circle</i>
+                <input placeholder="Usuário" id="username" name="login" data-position="top" data-tooltip="Digite <b>admin</b> para acessar as telas de  <b>administrador</b> <br><br> ou <b>qualquer</b> outra coisa para as telas de <b>consumidor</b>"
+                  value="" class="tooltipped" type="text">
+              </div>
+
             </div>
-            <div class="form-group has-error text-center">
-                <?php $this->incluirVisao('util/formErro.php', ['campo' => 'login']) ?>
+          </div>
+          <div class="row margin">
+            <div class="input-field col s12">
+              <div class="col s12">
+                <i class="material-icons prefix cor-texto-primaria">vpn_key</i>
+                <input placeholder="Senha" id="password" name="senha" type="password">
+
+              </div>
             </div>
-            <button type="submit" class="btn btn-default center-block">Entrar</button>
+
+          </div>
+
+          <div class="row">
+            <div class="input-field col offset-s3 s6">
+              <a id="logar" class="btn cor-fundo-primaria corHover waves-effect waves-light col s12 tooltipped" data-position="top"
+                data-tooltip="Digite <b>admin</b> para acessar as telas de  <b>administrador</b> <br><br> ou <b>qualquer</b> outra coisa para as telas de <b>consumidor</b>">Entrar</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col offset-s3 s6">
+              <p class="center medium-small"><a href="cadastro.html">Registrar agora!</a></p>
+            </div>
+
+          </div>
+
         </form>
-        <p class="text-center">
-            <a href="<?= URL_RAIZ . 'usuarios/criar' ?>">Não tem um usuário? Cadastrar-se aqui!</a>
-        </p>
+      </div>
     </div>
-</div>
+  </div>

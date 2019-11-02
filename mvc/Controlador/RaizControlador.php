@@ -5,6 +5,6 @@ class RaizControlador extends Controlador
 {
     public function index()
     {
-        $this->redirecionar(URL_RAIZ . 'login');
+        $this->redirecionar(URL_RAIZ . 'inicio');
     }
 }
