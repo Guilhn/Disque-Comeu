@@ -16,44 +16,49 @@
 
 
         <div class="card-content">
-          <form action="/projeto/question/usuarios" method="post" enctype="multipart/form-data" class="col s12">
+          <form action="<?= URL_RAIZ . 'usuarios' ?>" method="post" enctype="multipart/form-data" class="col s12">
 
             <div class="row">
               <div>
-                <div class="input-field col s12 m6">
+                <div class="input-field col s12 m6 <?= $this->getErroCss('nome') ?>">
                   <i class="material-icons prefix cor-texto-primaria">person</i>
-                  <input class="" value="" type="text" placeholder="Nome" name="nome">
+                  <input class="" value="<?= $this->getPost('nome') ?>" type="text" placeholder="Nome" name="nome">
                   <label class="black-text active">Nome <span class="red-text">*</span></label>
+                  <?php $this->incluirVisao('util/formErro.php', ['campo' => 'nome']) ?>
                 </div>
-                <div class="input-field col s12 m6">
+                <div class="input-field col s12 m6 <?= $this->getErroCss('sobrenome') ?>">
                   <i class="material-icons prefix cor-texto-primaria">person</i>
-                  <input class="" value="" type="text" placeholder="Sobrenome" name="sobrenome">
+                  <input class="" value="<?= $this->getPost('sobrenome') ?>" type="text" placeholder="Sobrenome" name="sobrenome">
                   <label class="black-text active">Sobrenome <span class="red-text">*</span></label>
+                  <?php $this->incluirVisao('util/formErro.php', ['campo' => 'sobrenome']) ?>
                 </div>
               </div>
 
             </div>
 
             <div class="row">
-              <div class="input-field col s12 m6">
+              <div class="input-field col s12 m6 <?= $this->getErroCss('nome_usuario') ?>">
                 <i class="material-icons prefix cor-texto-primaria">account_circle</i>
-                <input class="" value="" placeholder="Usuário" id="user" type="text" name="login">
+                <input class="" value="<?= $this->getPost('nome_usuario') ?>" placeholder="Usuário" id="user" type="text" name="nome_usuario">
                 <label class="black-text active">Login <span class="red-text">*</span></label>
+                <?php $this->incluirVisao('util/formErro.php', ['campo' => 'nome_usuario']) ?>
               </div>
 
-              <div class="input-field col s12 m6">
+              <div class="input-field col s12 m6 <?= $this->getErroCss('senha') ?>">
                 <i class="material-icons prefix cor-texto-primaria">vpn_key</i>
-                <input class="" value="" id="password" type="password" placeholder="Senha" name="senha">
+                <input class="" value="<?= $this->getPost('senha') ?>" id="password" type="password" placeholder="Senha" name="senha">
                 <label class="black-text active">Senha <span class="red-text">*</span></label>
+                <?php $this->incluirVisao('util/formErro.php', ['campo' => 'senha']) ?>
 
               </div>
             </div>
 
             <div class="row">
-              <div class="input-field col s12">
+              <div class="input-field col s12 <?= $this->getErroCss('email') ?>">
                 <i class="material-icons prefix cor-texto-primaria">email</i>
-                <input class="" value="" placeholder="Email" id="email" type="email" name="email">
+                <input class=""  value="<?= $this->getPost('email') ?>" placeholder="Email" id="email"  name="email">
                 <label class="black-text active" for="email">Email <span class="red-text">*</span></label>
+                <?php $this->incluirVisao('util/formErro.php', ['campo' => 'email']) ?>
               </div>
             </div>
 
@@ -62,27 +67,12 @@
               <div class="input-field col s12">
                 <div class="row">
                   <div class="input-field col s12">
-                    <div class="">
+                    <div class="center <?= $this->getErroCss('foto') ?>">
 
                       <h5 class="cor-texto-primaria center">Foto do Perfil</h5>
-                      <div class="dropify-wrapper">
-                        <div class="dropify-message"><span class="file-icon"></span>
-                          <p>Arraste e solte um arquivo aqui ou clique</p>
-                          <p class="dropify-error">Ooops, algo errado aconteceu.</p>
-                        </div>
-                        <div class="dropify-loader"></div>
-                        <div class="dropify-errors-container">
-                          <ul></ul>
-                        </div><input id="foto" name="foto" type="file" class="dropify form-control" data-default-file=""><button type="button" class="dropify-clear">Remover</button>
-                        <div class="dropify-preview"><span class="dropify-render"></span>
-                          <div class="dropify-infos">
-                            <div class="dropify-infos-inner">
-                              <p class="dropify-filename"><span class="dropify-filename-inner"></span></p>
-                              <p class="dropify-infos-message">Arraste e solte ou clique para substituir</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      
+                      <input type="file" value="<?= $this->getPost('foto') ?>" name="foto" id="fileToUpload">
+                      <?php $this->incluirVisao('util/formErro.php', ['campo' => 'foto']) ?>
                     </div>
                   </div>
                 </div>
@@ -93,7 +83,7 @@
 
               <div class="row">
                 <div class="input-field offset-s4 col s4">
-                  <a class="btn cor-fundo-primaria CorLink waves-effect waves-light col s12" href="../index.html">Cadastrar</a>
+                  <button type="submit" class="btn cor-fundo-primaria CorLink waves-effect waves-light col s12">Cadastrar-se</button>
                 </div>
               </div>
 

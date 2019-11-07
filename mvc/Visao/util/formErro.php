@@ -1,3 +1,3 @@
 <?php if ($this->temErro($campo)): ?>
-    <span class="help-block"><?= $this->getErro($campo) ?></span>
+    <span class="helper-text red-text" data-error="wrong" data-success="right"><?= $this->getErro($campo) ?></span>
 <?php endif ?>

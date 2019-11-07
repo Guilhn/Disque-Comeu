@@ -13,7 +13,7 @@ class UsuarioControlador extends Controlador
     public function armazenar()
     {
         $foto = array_key_exists('foto', $_FILES) ? $_FILES['foto'] : null;
-        $usuario = new Usuario($_POST['email'], $_POST['senha'], $foto);
+        $usuario = new Usuario($_POST['nome'], $_POST['sobrenome'], $_POST['nome_usuario'], $_POST['email'], $_POST['senha'], $foto);
 
         if ($usuario->isValido()) {
             $usuario->salvar();

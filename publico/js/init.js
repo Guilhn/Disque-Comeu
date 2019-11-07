@@ -4,7 +4,6 @@
     $('.sidenav').sidenav();
     $('.scrollspy').scrollSpy();
     $(".dropdown-trigger").dropdown();
-    $('.tooltipped').tooltip();
     $('.modal').modal();
     $('select').formSelect();
      $('.collapsible').collapsible();

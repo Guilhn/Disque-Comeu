@@ -2,7 +2,7 @@
 
     <div id="login-page" class="row">
       <div class="col s10 offset-s1 m8 offset-m2 l4 offset-l4 card-panel">
-        <form action="login" method="post" id="formulario" class="login-form">
+        <form action="<?= URL_RAIZ . 'login' ?>" method="post" id="formulario" class="login-form">
           <div class="row">
             <div class="input-field col s12 center">
               <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="hamburger" class="cor-texto-primaria" role="img" width="20%" viewBox="0 0 512 512">
@@ -15,17 +15,22 @@
           </div>
           <div class="row margin">
 
-            <div class="input-field col s12">
+            <div class="center">
+
+            <?php $this->incluirVisao('util/loginErro.php', ['campo' => 'login']) ?>
+
+            </div>
+
+            <div class="input-field col s12 <?= $this->getErroCss('login') ?>">
               <div class="col s12">
                 <i class="material-icons prefix cor-texto-primaria ">account_circle</i>
-                <input placeholder="Usuário" id="username" name="login" data-position="top" data-tooltip="Digite <b>admin</b> para acessar as telas de  <b>administrador</b> <br><br> ou <b>qualquer</b> outra coisa para as telas de <b>consumidor</b>"
-                  value="" class="tooltipped" type="text">
+                <input placeholder="Usuário" id="nome_usuario" name="nome_usuario" value="<?= $this->getPost('nome_usuario') ?>" class="tooltipped" type="text">
               </div>
 
             </div>
           </div>
           <div class="row margin">
-            <div class="input-field col s12">
+            <div class="input-field col s12 <?= $this->getErroCss('login') ?>">
               <div class="col s12">
                 <i class="material-icons prefix cor-texto-primaria">vpn_key</i>
                 <input placeholder="Senha" id="password" name="senha" type="password">
@@ -37,8 +42,7 @@
 
           <div class="row">
             <div class="input-field col offset-s3 s6">
-              <a id="logar" class="btn cor-fundo-primaria corHover waves-effect waves-light col s12 tooltipped" data-position="top"
-                data-tooltip="Digite <b>admin</b> para acessar as telas de  <b>administrador</b> <br><br> ou <b>qualquer</b> outra coisa para as telas de <b>consumidor</b>">Entrar</a>
+              <button type="submit" class="btn cor-fundo-primaria corHover waves-effect waves-light col s12 tooltipped">Entrar</button>
             </div>
           </div>
           <div class="row">
