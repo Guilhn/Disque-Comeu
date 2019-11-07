@@ -18,6 +18,10 @@
 
           <!--  CARD   -->
 
+          <div class="center">
+            <!-- <p><?= $usuario->getNome() ?></p>  APENAS UM TESTE -->
+          </div>
+
 
           <div class="row">
             <div class="col s12 m8 offset-m2 l6 offset-l3">
