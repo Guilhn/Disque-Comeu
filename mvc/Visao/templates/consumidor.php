@@ -23,7 +23,7 @@
         <li><a href="javascript:;">Inicio</a></li>
         <li><a href="carrinho.html">Carrinho</a></li>
         <li><a class="dropdown-trigger fontMenu" href="javascript:;" data-target="dropdown1">Maria<i class="material-icons right">arrow_drop_down</i></a></li>
-        <li><a title="Sair" href="../../../index.html"><i class="material-icons right">exit_to_app</i>Sair</a></li>
+        <li><a title="Sair" href="<?= URL_RAIZ . 'sair' ?>"><i class="material-icons right">exit_to_app</i>Sair</a></li>
       </ul>
 
       <ul id="dropdown1" class="dropdown-content">

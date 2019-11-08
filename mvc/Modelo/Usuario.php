@@ -7,6 +7,7 @@ use \Framework\DW3ImagemUpload;
 
 class Usuario extends Modelo
 {
+    const BUSCAR_ID = 'SELECT * FROM usuarios WHERE id = ?';
     const BUSCAR_POR_NOME_USUARIO = 'SELECT * FROM usuarios WHERE nome_usuario = ? LIMIT 1';
     const INSERIR = 'INSERT INTO usuarios(nome,sobrenome,nome_usuario,email,senha) VALUES (?, ?, ?, ?, ?)';
     private $id;
@@ -16,6 +17,7 @@ class Usuario extends Modelo
     private $email;
     private $senha;
     private $senhaPlana;
+    private $admin;
     private $foto;
 
     public function __construct(
@@ -24,6 +26,7 @@ class Usuario extends Modelo
         $nome_usuario,
         $email,
         $senha,
+        $admin = false,
         $foto = null,
         $id = null
     ) {
@@ -34,6 +37,7 @@ class Usuario extends Modelo
         $this->email = $email;
         $this->foto = $foto;
         $this->senhaPlana = $senha;
+        $this->admin = $admin;
         $this->senha = password_hash($senha, PASSWORD_BCRYPT);
     }
 
@@ -60,6 +64,11 @@ class Usuario extends Modelo
     public function getEmail()
     {
         return $this->email;
+    }
+
+    public function isAdmin()
+    {
+        return $this->admin;
     }
 
     public function getImagem()
@@ -129,6 +138,24 @@ class Usuario extends Modelo
         }
     }
 
+    public static function buscarId($id)
+    {
+        $comando = DW3BancoDeDados::prepare(self::BUSCAR_ID);
+        $comando->bindValue(1, $id, PDO::PARAM_INT);
+        $comando->execute();
+        $registro = $comando->fetch();
+        return new Usuario(
+            $registro['nome'],
+            $registro['sobrenome'],
+            $registro['nome_usuario'],
+            $registro['email'],
+            '',
+            $registro['admin'],
+            null,
+            $registro['id']
+        );
+    }
+
     public static function buscarNomeUsuario($nome_usuario)
     {
         $comando = DW3BancoDeDados::prepare(self::BUSCAR_POR_NOME_USUARIO);
@@ -143,6 +170,7 @@ class Usuario extends Modelo
                 $registro['nome_usuario'],
                 $registro['email'],
                 '',
+                $registro['admin'],
                 null,
                 $registro['id']
             );

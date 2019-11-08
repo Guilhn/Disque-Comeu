@@ -11,10 +11,10 @@ abstract class Controlador extends DW3Controlador
     
     protected $usuario;
 
-	protected function verificarLogado()
+    protected function verificarLogado($admin = false)
     {
     	$usuario = $this->getUsuario();
-        if ($usuario == null) {
+        if ($usuario == null || ($admin && !$usuario->isAdmin()) ) {
         	$this->redirecionar(URL_RAIZ . 'login');
         }
     }
@@ -22,8 +22,12 @@ abstract class Controlador extends DW3Controlador
     protected function getUsuario()
     {
         if ($this->usuario == null) {
-        	$usuario = DW3Sessao::get('usuario');
+        	$usuarioId = DW3Sessao::get('usuario');
+        	if ($usuarioId == null) {
+        		return null;
+        	}
+        	$this->usuario = Usuario::buscarId($usuarioId);
         }
-        return $usuario;
+        return $this->usuario;
     }
 }

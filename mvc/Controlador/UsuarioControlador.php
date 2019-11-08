@@ -10,6 +10,11 @@ class UsuarioControlador extends Controlador
         $this->visao('usuarios/criar.php');
     }
 
+    public function criar_admin()
+    {
+        $this->visao('usuarios/criar_admin.php', [], 'administrador.php');
+    }
+
     public function armazenar()
     {
         $foto = array_key_exists('foto', $_FILES) ? $_FILES['foto'] : null;
