@@ -29,7 +29,7 @@
       </ul>
 
       <ul id="dropdown1" class="dropdown-content">
-        <li><a href="<?= URL_RAIZ . 'usuarios/criar_admin' ?>"><span>Cadastrar</span></a></li>
+        <li><a href="<?= URL_RAIZ . 'admin/criar' ?>"><span>Cadastrar</span></a></li>
       </ul>
 
       <ul id="dropdown2" class="dropdown-content">
@@ -55,7 +55,7 @@
   </nav>
   <main>
 
-      <?php $this->imprimirConteudo() ?>
+    <?php $this->imprimirConteudo() ?>
 
   </main>
 
@@ -77,7 +77,7 @@
         <div class="col l2 s6">
           <h5 class="texto-branco">Funcionario</h5>
           <ul>
-            <li><a class="white-text" href="<?= URL_RAIZ . 'usuarios/criar_admin' ?>"><b>Cadastrar Funcionario</b></a></li>
+            <li><a class="white-text" href="<?= URL_RAIZ . 'admin/criar' ?>"><b>Cadastrar Funcionario</b></a></li>
           </ul>
 
         </div>

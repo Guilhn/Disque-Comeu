@@ -8,7 +8,24 @@ class LoginControlador extends Controlador
 {
     public function criar()
     {
-        $this->visao('login/criar.php');
+        if (DW3Sessao::get('usuario') == null) {
+            $this->visao('login/criar.php');
+        }
+        else {
+            $usuario = DW3Sessao::get('usuario_full');
+            if ($usuario->isAdmin()) {
+                $this->visao('pedidos/index.php', [
+                    'usuario' => $usuario,
+                    null
+                ], 'administrador.php');
+            }
+            else{
+                $this->visao('inicio/index.php', [
+                    'usuario' => $usuario,
+                    null
+                ], 'consumidor.php');
+            }
+        }
     }
 
     public function armazenar()
@@ -16,12 +33,12 @@ class LoginControlador extends Controlador
         $usuario = Usuario::buscarNomeUsuario($_POST['nome_usuario']);
         if ($usuario && $usuario->verificarSenha($_POST['senha'])) {
             DW3Sessao::set('usuario', $usuario->getId());
+            DW3Sessao::set('usuario_full', $usuario);
             if ($usuario->isAdmin()) {
                 $this->visao('pedidos/index.php', [
                     'usuario' => $usuario,
                     null
                 ], 'administrador.php');
-                echo $usuarioId = DW3Sessao::get('usuario');
               } else {
                 $this->visao('inicio/index.php', [
                     'usuario' => $usuario,
@@ -37,6 +54,7 @@ class LoginControlador extends Controlador
     public function destruir()
     {
         DW3Sessao::deletar('usuario');
+        DW3Sessao::deletar('usuario_full');
         $this->redirecionar(URL_RAIZ . 'login');
     }
 }

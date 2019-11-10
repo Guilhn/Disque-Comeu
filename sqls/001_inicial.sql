@@ -1,6 +1,5 @@
 CREATE DATABASE disquecomeu COLLATE 'utf8_unicode_ci';
 
-
 CREATE TABLE usuarios (
     id INT NOT NULL AUTO_INCREMENT ,
     nome VARCHAR(255) NOT NULL ,
@@ -8,7 +7,7 @@ CREATE TABLE usuarios (
     nome_usuario VARCHAR(255) NOT NULL ,
     email VARCHAR(255) NOT NULL ,
     senha CHAR(60) NOT NULL ,
-    admin BOOLEAN NOT NULL DEFAULT 0,
+    administrador BOOLEAN NOT NULL DEFAULT 0,
     PRIMARY KEY (id)
 );
 
@@ -38,4 +37,4 @@ CREATE TABLE mensagens (
 
 INSERT INTO `categorias` (`id`, `categoria`) VALUES (NULL, 'Pizza'), (NULL, 'Lanche'), (NULL, 'Massa'), (NULL, 'Porção');
 
-INSERT INTO `usuarios` (`id`, `nome`, `sobrenome`, `nome_usuario`, `email`, `senha`, `admin`) VALUES (NULL, 'admin', 'admin', 'admin', 'admin@admin.com', '$2y$10$/6aH1pW4RKYRFcvKC83JJ.AMSerCItzea57qRHTTLACwRZpkGfs4q', '1');
+INSERT INTO `usuarios` (`id`, `nome`, `sobrenome`, `nome_usuario`, `email`, `senha`, `administrador`) VALUES (NULL, 'admin', 'admin', 'admin', 'admin@admin.com', '$2y$10$/6aH1pW4RKYRFcvKC83JJ.AMSerCItzea57qRHTTLACwRZpkGfs4q', '1');

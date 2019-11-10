@@ -3,7 +3,7 @@ namespace Controlador;
 
 use \Framework\DW3Controlador;
 use \Framework\DW3Sessao;
-use \Modelo\Usuario;
+
 
 /* Métodos úteis da visão */
 trait ControladorVisao

@@ -1,4 +1,5 @@
 <?php
+
 namespace Modelo;
 
 use \PDO;
@@ -7,8 +8,9 @@ use \Framework\DW3ImagemUpload;
 
 class Produto extends Modelo
 {
-    const BUSCAR_ID = 'SELECT * FROM produtos WHERE id = ?';
-    const BUSCAR_POR_CATEGORIA = 'SELECT * FROM produtos WHERE id_categoria = ? LIMIT 1';
+    const BUSCAR_ID = 'SELECT id, id_categoria, nome, descricao, valor FROM produtos WHERE id = ?';
+    const BUSCAR_PRODUTO = 'SELECT id, id_categoria, nome, descricao, valor FROM produtos';
+    const BUSCAR_POR_CATEGORIA = 'SELECT id, id_categoria, nome, descricao, valor FROM produtos WHERE id_categoria = ? LIMIT 1';
     const INSERIR = 'INSERT INTO produtos(nome,id_categoria,descricao,valor) VALUES (?, ?, ?, ?)';
     private $id;
     private $nome;
@@ -43,9 +45,20 @@ class Produto extends Modelo
         return $this->nome;
     }
 
+    public function setNome($nome)
+    {
+        $this->nome = $nome;
+    }
+
+
     public function getIdCategoria()
     {
         return $this->id_categoria;
+    }
+
+    public function setIdCategoria($id_categoria)
+    {
+        $this->id_categoria = $id_categoria;
     }
 
     public function getDescricao()
@@ -53,24 +66,54 @@ class Produto extends Modelo
         return $this->descricao;
     }
 
+    public function setDescricao($descricao)
+    {
+        $this->descricao = $descricao;
+    }
+
     public function getValor()
     {
         return $this->valor;
     }
 
+    public function setValor($valor)
+    {
+        $this->valor = $valor;
+    }
+
     public function getImagem()
     {
-        $imagemNome = "{$this->id}.png";
+        $imagemNome = "produto/{$this->id}.png";
         if (!DW3ImagemUpload::existe($imagemNome)) {
-            $imagemNome = 'padrao.png';
+            $imagemNome = 'produto/padrao.png';
         }
         return $imagemNome;
     }
 
 
     public function verificarErros()
-    {   
-       
+    { 
+        if (strlen($this->nome) < 3) {
+            $this->setErroMensagem('nome', 'O nome do produto deve ter no mínimo 3 caracteres.');
+        }
+        if (($this->id_categoria < 1) || ($this->id_categoria > 4)) {
+            $this->setErroMensagem('id_categoria', 'Categoria nao existente, escolha uma das disponiveis.');
+        }
+        if (strlen($this->descricao) < 5) {
+            $this->setErroMensagem('descricao', 'A Descrição Deve ter no mínimo 5 caracteres.');
+        }
+        if (($this->valor <= 0) || ($this->valor == null) || (!preg_match("/^[1-9]{1}([0-9]{1,3})?\.[0-9]{1,3}$/", $this->valor)) ) {
+            $this->setErroMensagem('valor', 'O valor deve ser maior que 0.99 e menor que 999.999');
+        }
+        if (
+            DW3ImagemUpload::existeUpload($this->foto)
+            && !DW3ImagemUpload::isValida($this->foto)
+        ) {
+            $this->setErroMensagem('foto', 'Deve ser de no máximo 500 KB.');
+        }
+
+
+
     }
 
     public function salvar()
@@ -103,10 +146,10 @@ class Produto extends Modelo
     public static function buscarId($id)
     {
         $comando = DW3BancoDeDados::prepare(self::BUSCAR_ID);
-        $comando->bindValue(1, $id, PDO::PARAM_INT);
+        $comando->bindValue(1, $id);
         $comando->execute();
         $registro = $comando->fetch();
-        return new Usuario(
+        return new Produto(
             $registro['nome'],
             $registro['id_categoria'],
             $registro['descricao'],
@@ -116,7 +159,7 @@ class Produto extends Modelo
         );
     }
 
-    public static function buscarCategoria($nome_usuario)
+    public static function buscarCategoria($id_categoria)
     {
         $comando = DW3BancoDeDados::prepare(self::BUSCAR_POR_CATEGORIA);
         $comando->bindValue(1, $id_categoria, PDO::PARAM_STR);
@@ -124,7 +167,7 @@ class Produto extends Modelo
         $objeto = null;
         $registro = $comando->fetch();
         if ($registro) {
-            $objeto = new Usuario(
+            $objeto = new Produto(
                 $registro['nome'],
                 $registro['id_categoria'],
                 $registro['descricao'],
@@ -132,8 +175,25 @@ class Produto extends Modelo
                 null,
                 $registro['id']
             );
-            $objeto->senha = $registro['senha'];
         }
         return $objeto;
+    }
+
+    public static function buscarProdutos()
+    {
+        $registros = DW3BancoDeDados::query(self::BUSCAR_PRODUTO);
+        $lista_produtos = [];
+        foreach ($registros as $registro) {
+            $lista_produtos[] = new Produto(
+                $registro['nome'],
+                $registro['id_categoria'],
+                $registro['descricao'],
+                $registro['valor'],
+                null,
+                $registro['id']
+
+            );
+        }
+        return $lista_produtos;
     }
 }

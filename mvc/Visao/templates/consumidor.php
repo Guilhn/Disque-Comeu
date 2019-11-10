@@ -45,7 +45,7 @@
 
   <main>
 
-      <?php $this->imprimirConteudo() ?>
+    <?php $this->imprimirConteudo() ?>
 
   </main>
 
@@ -92,4 +92,4 @@
 </body>
 
 </html>
-  ''
+''

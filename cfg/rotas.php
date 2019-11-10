@@ -19,14 +19,12 @@ $rotas = [
     ],
     '/usuarios/criar' => [
         'GET' => '\Controlador\UsuarioControlador#criar',
-        
     ],
-    '/usuarios/criar_admin' => [
-        'GET' => '\Controlador\UsuarioControlador#criar_admin',
-        
+    '/admin' => [
+        'POST' => '\Controlador\AdminControlador#armazenar',        
     ],
-    '/usuarios/sucesso' => [
-        'GET' => '\Controlador\UsuarioControlador#sucesso',
+    '/admin/criar' => [
+        'GET' => '\Controlador\AdminControlador#criar',        
     ],
     '/produtos' => [
         'GET' => '\Controlador\ProdutoControlador#index',
@@ -35,17 +33,14 @@ $rotas = [
     '/produtos/criar' => [
         'GET' => '\Controlador\ProdutoControlador#criar',
     ],
+    '/produtos/?' => [
+        'GET' => '\Controlador\ProdutoControlador#editar',
+        'PATCH' => '\Controlador\ProdutoControlador#atualizar',
+    ],
     '/pedidos' => [
         'GET' => '\Controlador\PedidoControlador#index',
     ],
     '/relatorio' => [
         'GET' => '\Controlador\RelatorioControlador#index',
-    ],
-    '/mensagens' => [
-        'GET' => '\Controlador\MensagemControlador#index',
-        'POST' => '\Controlador\MensagemControlador#armazenar',
-    ],
-    '/mensagens/?' => [
-        'DELETE' => '\Controlador\MensagemControlador#destruir',
     ],
 ];
