@@ -20,6 +20,15 @@ $rotas = [
     '/usuarios/criar' => [
         'GET' => '\Controlador\UsuarioControlador#criar',
     ],
+    '/usuarios/perfil' => [
+        'GET' => '\Controlador\UsuarioControlador#perfil',
+    ],
+    '/usuarios/pedidos' => [
+        'GET' => '\Controlador\UsuarioControlador#pedidos',
+    ],
+    '/usuarios/carrinho' => [
+        'GET' => '\Controlador\UsuarioControlador#carrinho',
+    ],
     '/admin' => [
         'POST' => '\Controlador\AdminControlador#armazenar',        
     ],
@@ -33,7 +42,7 @@ $rotas = [
     '/produtos/criar' => [
         'GET' => '\Controlador\ProdutoControlador#criar',
     ],
-    '/produtos/?' => [
+    '/produtos/editar/?' => [
         'GET' => '\Controlador\ProdutoControlador#editar',
         'PATCH' => '\Controlador\ProdutoControlador#atualizar',
     ],

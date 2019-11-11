@@ -13,6 +13,7 @@
   <link href="<?= URL_IMG . 'favicon.ico' ?>" rel="icon" type="image/png" sizes="16x16">
   <link href="<?= URL_CSS . 'style.css' ?>" type="text/css" rel="stylesheet" media="screen,projection" />
   <link href="<?= URL_CSS . 'dropify.css' ?>" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="<?= URL_CSS . 'mstepper.min.css' ?>" type="text/css" rel="stylesheet" media="screen,projection" />
 </head>
 
 <body class="fundo">
@@ -20,22 +21,21 @@
     <div class="nav-wrapper container ">
       <a id="logo" href="javascript:;" class="brand-logo"><span class="front-logo hide-on-small-only">Disque</span> <span class="back-logo hide-on-small-only">Comeu</span> <i class="fas fa-hamburger"></i></a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="javascript:;">Inicio</a></li>
-        <li><a href="carrinho.html">Carrinho</a></li>
-        <li><a class="dropdown-trigger fontMenu" href="javascript:;" data-target="dropdown1">Maria<i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a href="<?= URL_RAIZ . 'inicio' ?>">Inicio</a></li>
+        <li><a href="<?= URL_RAIZ . 'usuarios/carrinho' ?>">Carrinho</a></li>
+        <li><a class="dropdown-trigger fontMenu" href="javascript:;" data-target="dropdown1"><?php $usuario = \Framework\DW3Sessao::get("usuario_full"); echo $usuario->getNome(); ?><i class="material-icons right">arrow_drop_down</i></a></li>
         <li><a title="Sair" href="<?= URL_RAIZ . 'sair' ?>"><i class="material-icons right">exit_to_app</i>Sair</a></li>
       </ul>
 
       <ul id="dropdown1" class="dropdown-content">
-        <li><a href="perfil.html"><span class=""> Perfil</span></a></li>
-        <li><a href="pedidos.html"><span class=""> Pedidos</span></a></li>
+      <li><a href="<?= URL_RAIZ . 'usuarios/perfil' ?>"><span class=""> Perfil</span></a></li>
+        <li><a href="<?= URL_RAIZ . 'usuarios/pedidos' ?>"><span class=""> Pedidos</span></a></li>
       </ul>
-
       <ul id="nav-mobile" class="sidenav">
         <li><a href="javascript:;">Inicio</a></li>
-        <li><a href="carrinho.html">Carrinho</a></li>
-        <li><a href="perfil.html">Perfil</a></li>
-        <li><a href="pedidos.html">Pedidos</a></li>
+        <li><a href="<?= URL_RAIZ . 'usuarios/carrinho' ?>">Carrinho</a></li>
+        <li><a href="<?= URL_RAIZ . 'usuarios/perfil' ?>">Perfil</a></li>
+        <li><a href="<?= URL_RAIZ . 'usuarios/pedidos' ?>">Pedidos</a></li>
         <li class="divider" tabindex="-1"></li>
         <li><a title="Sair" href="../../../index.html"><i class="material-icons right">exit_to_app</i>Sair</a></li>
       </ul>
@@ -60,15 +60,15 @@
         <div class="col l3 s6">
           <h5 class="texto-branco">Carrinho</h5>
           <ul>
-            <li><a class="white-text" href="carrinho.html"><b>Meu Carrinho</b></a></li>
+            <li><a class="white-text" href="<?= URL_RAIZ . 'usuarios/carrinho' ?>"><b>Meu Carrinho</b></a></li>
           </ul>
 
         </div>
         <div class="col l3 s6">
           <h5 class="texto-branco">Usuario</h5>
           <ul>
-            <li><a class="white-text" href="perfil.html"><b>Meu Perfil</b></a></li>
-            <li><a class="white-text" href="pedidos.html"><b>Meus Pedidos</b></a></li>
+            <li><a class="white-text" href="<?= URL_RAIZ . 'usuarios/perfil' ?>"><b>Meu Perfil</b></a></li>
+            <li><a class="white-text" href="<?= URL_RAIZ . 'usuarios/pedidos' ?>"><b>Meus Pedidos</b></a></li>
           </ul>
 
         </div>
@@ -92,4 +92,3 @@
 </body>
 
 </html>
-''

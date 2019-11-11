@@ -11,6 +11,21 @@ class UsuarioControlador extends Controlador
         $this->visao('usuarios/criar.php');
     }
 
+    public function perfil()
+    {
+        $this->visao('usuarios/perfil.php', [], 'consumidor.php');
+    }
+
+    public function pedidos()
+    {
+        $this->visao('usuarios/pedidos.php', [], 'consumidor.php');
+    }
+
+    public function carrinho()
+    {
+        $this->visao('usuarios/carrinho.php', [], 'consumidor.php');
+    }
+    
     public function armazenar()
     {
         $foto = array_key_exists('foto', $_FILES) ? $_FILES['foto'] : null;
