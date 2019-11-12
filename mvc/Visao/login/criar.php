@@ -1,5 +1,18 @@
 <div class="pageFormulario">
 
+
+  <?php if ($mensagem) : ?>
+      <div class="row">
+        <div class="col s10 offset-s1 m4 offset-m4 l2 offset-l5 msg-green center toast" >
+          <p class="center"><?= $mensagem ?></p>
+        </div>
+      </div>
+      <br>
+      <br>
+  <?php endif ?>
+
+
+
   <div id="login-page" class="row">
     <div class="col s10 offset-s1 m8 offset-m2 l4 offset-l4 card-panel">
       <form action="<?= URL_RAIZ . 'login' ?>" method="post" id="formulario" class="login-form">

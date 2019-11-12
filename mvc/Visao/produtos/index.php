@@ -1,5 +1,16 @@
 <div class="section no-pad-bot" id="index-banner">
   <div class="container">
+
+    <?php if ($mensagem) : ?>
+        <div class="row">
+          <div class="col s12 m6 offset-m3 l4 offset-l4 msg-green center toast" >
+            <p class="center"><?= $mensagem ?></p>
+          </div>
+        </div>
+        <br>
+        <br>
+    <?php endif ?>
+
     <div class="row">
       <div>
         <p>

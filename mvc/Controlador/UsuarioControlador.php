@@ -3,6 +3,7 @@
 namespace Controlador;
 
 use \Modelo\Usuario;
+use \Framework\DW3Sessao;
 
 class UsuarioControlador extends Controlador
 {
@@ -34,6 +35,7 @@ class UsuarioControlador extends Controlador
 
         if ($usuario->isValido()) {
             $usuario->salvar();
+            DW3Sessao::setFlash('mensagem', 'Cadastro realizado com sucesso!');
             $this->redirecionar(URL_RAIZ . 'login');
             
         } else {

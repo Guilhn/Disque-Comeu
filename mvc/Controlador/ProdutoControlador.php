@@ -2,6 +2,7 @@
 namespace Controlador;
 
 use \Modelo\Produto;
+use \Framework\DW3Sessao;
 
 class ProdutoControlador extends Controlador
 {
@@ -10,7 +11,8 @@ class ProdutoControlador extends Controlador
     {
         $lista_produtos = Produto::buscarProdutos();
         $this->visao('produtos/index.php', [
-            'produtos' => $lista_produtos
+            'produtos' => $lista_produtos,
+            'mensagem' => DW3Sessao::getFlash('mensagem', null)
         ], 'administrador.php');
     }
 
@@ -26,6 +28,7 @@ class ProdutoControlador extends Controlador
 
         if ($produto->isValido()) {
             $produto->salvar();
+            DW3Sessao::setFlash('mensagem', 'Produto cadastrado com sucesso!');
             $this->redirecionar(URL_RAIZ . 'produtos');
 
         } else {
@@ -40,15 +43,6 @@ class ProdutoControlador extends Controlador
         $this->visao('produtos/editar.php', [
             'produto' => $produto
         ], 'administrador.php');
-    }
-
-    public function atualizar($id)
-    {
-        $this->verificarLogado(true);
-        $produto = Produto::buscarId($id);
-        $produto->salvar();
-        DW3Sessao::setFlash('mensagem', 'Reclamação atendida com sucesso.');
-        $this->redirecionar(URL_RAIZ . 'produtos');
     }
 
 }

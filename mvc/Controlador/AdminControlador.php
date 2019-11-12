@@ -2,12 +2,15 @@
 namespace Controlador;
 
 use \Modelo\Usuario;
+use \Framework\DW3Sessao;
 
 class AdminControlador extends Controlador
 {
     public function criar()
     {
-        $this->visao('admin/criar.php', [], 'administrador.php');
+        $this->visao('admin/criar.php', [
+            'mensagem' => DW3Sessao::getFlash('mensagem', null)
+        ], 'administrador.php');
     }
 
     public function armazenar()
@@ -18,6 +21,7 @@ class AdminControlador extends Controlador
 
         if ($usuario->isValido()) {
             $usuario->salvar();
+            DW3Sessao::setFlash('mensagem', 'Cadastro realizado com sucesso!');
             $this->redirecionar(URL_RAIZ . 'admin/criar');
 
         } else {

@@ -1,12 +1,14 @@
 (function($) {
   $(function() {
 
+
+    M.AutoInit();
     $('.sidenav').sidenav();
     $('.scrollspy').scrollSpy();
     $(".dropdown-trigger").dropdown();
     $('.modal').modal();
     $('select').formSelect();
-     $('.collapsible').collapsible();
+    $('.collapsible').collapsible();
 
     $('.datepicker').datepicker({
     format:'yyyy-mm-dd',

@@ -13,7 +13,6 @@
   <link href="<?= URL_IMG . 'favicon.ico' ?>" rel="icon" type="image/png" sizes="16x16">
   <link href="<?= URL_CSS . 'style.css' ?>" type="text/css" rel="stylesheet" media="screen,projection" />
   <link href="<?= URL_CSS . 'dropify.css' ?>" type="text/css" rel="stylesheet" media="screen,projection" />
-  <link href="<?= URL_CSS . 'mstepper.min.css' ?>" type="text/css" rel="stylesheet" media="screen,projection" />
 
 </head>
 
@@ -110,6 +109,7 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="<?= URL_JS . 'materialize.min.js' ?>"></script>
   <script src="<?= URL_JS . 'init.js' ?>"></script>
+  <script src="<?= URL_JS . 'mensagemFlash.js' ?>"></script>
   <script src="<?= URL_JS . 'all.min.js' ?>"></script>
   <script src="<?= URL_JS . 'dropify.js' ?>"></script>
 

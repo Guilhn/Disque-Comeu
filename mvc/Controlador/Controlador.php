@@ -1,6 +1,7 @@
 <?php
 namespace Controlador;
 
+use \Modelo\Usuario;
 use \Framework\DW3Controlador;
 use \Framework\DW3Sessao;
 

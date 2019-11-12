@@ -1,4 +1,15 @@
 <div class="pageFormulario">
+
+<?php if ($mensagem) : ?>
+      <div class="row">
+        <div class="col s10 offset-s1 m4 offset-m4 l2 offset-l5 msg-green center toast" >
+          <p class="center"><?= $mensagem ?></p>
+        </div>
+      </div>
+      <br>
+      <br>
+  <?php endif ?>
+
   <div class="row">
     <div class="col s12 m8 offset-m2 l6 offset-l3 card-panel">
       <div class="card-content">

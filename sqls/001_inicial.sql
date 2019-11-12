@@ -27,14 +27,7 @@ CREATE TABLE produtos (
     FOREIGN KEY (id_categoria) REFERENCES categorias (id)
 );
 
-CREATE TABLE mensagens (
-    id INT NOT NULL AUTO_INCREMENT ,
-    usuario_id INT NOT NULL ,
-    texto VARCHAR(255) NOT NULL ,
-    PRIMARY KEY (id),
-    FOREIGN KEY (usuario_id) REFERENCES usuarios (id)
-);
+INSERT INTO categorias (id, categoria) VALUES (NULL, 'Pizza'), (NULL, 'Lanche'), (NULL, 'Massa'), (NULL, 'Porção');
 
-INSERT INTO `categorias` (`id`, `categoria`) VALUES (NULL, 'Pizza'), (NULL, 'Lanche'), (NULL, 'Massa'), (NULL, 'Porção');
+INSERT INTO usuarios (id, nome, sobrenome, nome_usuario, email, senha, administrador) VALUES (NULL, 'admin', 'admin', 'admin', 'admin@admin.com', '$2y$10$/6aH1pW4RKYRFcvKC83JJ.AMSerCItzea57qRHTTLACwRZpkGfs4q', '1');
 
-INSERT INTO `usuarios` (`id`, `nome`, `sobrenome`, `nome_usuario`, `email`, `senha`, `administrador`) VALUES (NULL, 'admin', 'admin', 'admin', 'admin@admin.com', '$2y$10$/6aH1pW4RKYRFcvKC83JJ.AMSerCItzea57qRHTTLACwRZpkGfs4q', '1');

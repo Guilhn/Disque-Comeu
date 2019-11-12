@@ -32,6 +32,21 @@ main {
   width: 50%;
   margin-right: 25%;
 }
+.msg-green{
+  background-color: #43a047 !important;
+}
+.msg-red{
+  background-color: #e53935  !important;
+}
+.msg-yellow{
+  background-color: #ffd740   !important;
+}
+.msg-blue{
+  background-color: #2196f3   !important;
+}
+.msg-white{
+  background-color: #f5f5f5  !important;
+}
 .cor-texto-primaria {
   color: #b71c1c;
 }

@@ -9,7 +9,9 @@ class LoginControlador extends Controlador
     public function criar()
     {
         if (DW3Sessao::get('usuario') == null) {
-            $this->visao('login/criar.php');
+            $this->visao('login/criar.php', [
+                'mensagem' => DW3Sessao::getFlash('mensagem', null)
+            ]);
         }
         else {
             $usuario = DW3Sessao::get('usuario_full');
