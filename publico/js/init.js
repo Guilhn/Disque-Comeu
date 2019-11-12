@@ -1,8 +1,6 @@
 (function($) {
   $(function() {
 
-
-    M.AutoInit();
     $('.sidenav').sidenav();
     $('.scrollspy').scrollSpy();
     $(".dropdown-trigger").dropdown();

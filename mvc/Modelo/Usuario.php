@@ -9,7 +9,7 @@ use \Framework\DW3ImagemUpload;
 class Usuario extends Modelo
 {
     const BUSCAR_ID = 'SELECT * FROM usuarios WHERE id = ?';
-    const BUSCAR_POR_NOME_USUARIO = 'SELECT * FROM usuarios WHERE nome_usuario = ? LIMIT 1';
+    const BUSCAR_NOME_USUARIO = 'SELECT * FROM usuarios WHERE nome_usuario = ? LIMIT 1';
     const INSERIR = 'INSERT INTO usuarios(nome, sobrenome, nome_usuario, email, senha, administrador) VALUES (?, ?, ?, ?, ?, ?)';
     private $id;
     private $nome;
@@ -164,7 +164,7 @@ class Usuario extends Modelo
 
     public static function buscarNomeUsuario($nome_usuario)
     {
-        $comando = DW3BancoDeDados::prepare(self::BUSCAR_POR_NOME_USUARIO);
+        $comando = DW3BancoDeDados::prepare(self::BUSCAR_NOME_USUARIO);
         $comando->bindValue(1, $nome_usuario, PDO::PARAM_STR);
         $comando->execute();
         $objeto = null;

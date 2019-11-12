@@ -47,6 +47,8 @@
         </div>
       </div>
 
+      <div><h4 class="center cor-texto-terciaria font-title ">Produtos</h4></div>
+
       <div class="col s12 m4 l4">
         <div class="card  ">
           <div class="card-content">

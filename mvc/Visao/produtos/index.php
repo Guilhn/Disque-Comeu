@@ -56,7 +56,7 @@
             <div class="card">
               <div class="card-image">
                 <img width="100%" src="<?= URL_IMG . $produtos->getImagem() ?>">
-                <a class="btn-floating halfway-fab waves-effect waves-light blue" href="<?= URL_RAIZ . 'produtos/' . $produtos->getId() ?>" title="Editar Prato" h><i class="material-icons">edit</i></a>
+                <a class="btn-floating halfway-fab waves-effect waves-light blue" href="<?= URL_RAIZ . 'produtos/editar/' . $produtos->getId() ?>" title="Editar Prato" h><i class="material-icons">edit</i></a>
               </div>
               <div class="card-content">
                 <div class="row">

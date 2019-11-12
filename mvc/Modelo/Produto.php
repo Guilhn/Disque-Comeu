@@ -12,6 +12,7 @@ class Produto extends Modelo
     const BUSCAR_PRODUTO = 'SELECT id, id_categoria, nome, descricao, valor FROM produtos';
     const BUSCAR_POR_CATEGORIA = 'SELECT id, id_categoria, nome, descricao, valor FROM produtos WHERE id_categoria = ? LIMIT 1';
     const INSERIR = 'INSERT INTO produtos(nome,id_categoria,descricao,valor) VALUES (?, ?, ?, ?)';
+    const ATUALIZAR = 'UPDATE produtos SET id_categoria = ?, nome = ?, descricao = ?, valor = ?  WHERE id = ?';
     private $id;
     private $nome;
     private $id_categoria;
@@ -118,8 +119,13 @@ class Produto extends Modelo
 
     public function salvar()
     {
-        $this->inserir();
-        $this->salvarImagem();
+        if ($this->id == null) {
+            $this->inserir();
+            $this->salvarImagem();
+        } else {
+            $this->atualizar();
+        }
+        
     }
 
     private function inserir()
@@ -141,6 +147,17 @@ class Produto extends Modelo
             $nomeCompleto = PASTA_PUBLICO . "img/produto/{$this->id}.png";
             DW3ImagemUpload::salvar($this->foto, $nomeCompleto);
         }
+    }
+
+    public function atualizar()
+    {
+        $comando = DW3BancoDeDados::prepare(self::ATUALIZAR);
+        $comando->bindValue(1, $this->id_categoria, PDO::PARAM_STR);
+        $comando->bindValue(2, $this->nome, PDO::PARAM_STR);
+        $comando->bindValue(3, $this->descricao, PDO::PARAM_STR);
+        $comando->bindValue(4, $this->valor, PDO::PARAM_STR);
+        $comando->bindValue(5, $this->id, PDO::PARAM_INT);
+        $comando->execute();
     }
 
     public static function buscarId($id)

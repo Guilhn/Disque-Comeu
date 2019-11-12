@@ -45,4 +45,19 @@ class ProdutoControlador extends Controlador
         ], 'administrador.php');
     }
 
+    public function atualizar($id)
+    {
+        $this->verificarLogado(true);
+        $produto = Produto::buscarId($id);
+        $produto->setNome($_POST['nome']);
+        $produto->setIdCategoria($_POST['id_categoria']);
+        $produto->setDescricao($_POST['descricao']);
+        $produto->setValor($_POST['valor']);
+        $produto->salvar();
+        DW3Sessao::setFlash('mensagem', 'Produto atualizado com sucesso.');
+        $this->redirecionar(URL_RAIZ . 'produtos');
+    }
+
+    
+
 }

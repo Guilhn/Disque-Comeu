@@ -37,15 +37,9 @@ class LoginControlador extends Controlador
             DW3Sessao::set('usuario', $usuario->getId());
             DW3Sessao::set('usuario_full', $usuario);
             if ($usuario->isAdmin()) {
-                $this->visao('pedidos/index.php', [
-                    'usuario' => $usuario,
-                    null
-                ], 'administrador.php');
+                $this->visao('pedidos/index.php', [], 'administrador.php');
               } else {
-                $this->visao('inicio/index.php', [
-                    'usuario' => $usuario,
-                    null
-                ], 'consumidor.php');
+                $this->visao('inicio/index.php', [], 'consumidor.php');
               }
         } else {
             $this->setErros(['login' => 'Usuário ou senha inválido.']);
