@@ -9,8 +9,9 @@ use \Framework\DW3ImagemUpload;
 class Produto extends Modelo
 {
     const BUSCAR_ID = 'SELECT id, id_categoria, nome, descricao, valor FROM produtos WHERE id = ?';
-    const BUSCAR_PRODUTO = 'SELECT id, id_categoria, nome, descricao, valor FROM produtos';
+    const BUSCAR_PRODUTOS = 'SELECT id, id_categoria, nome, descricao, valor FROM produtos';
     const BUSCAR_POR_CATEGORIA = 'SELECT id, id_categoria, nome, descricao, valor FROM produtos WHERE id_categoria = ? LIMIT 1';
+    const BUSCAR_NOME_CATEGORIA = 'SELECT categoria FROM categorias WHERE id = ?';
     const INSERIR = 'INSERT INTO produtos(nome,id_categoria,descricao,valor) VALUES (?, ?, ?, ?)';
     const ATUALIZAR = 'UPDATE produtos SET id_categoria = ?, nome = ?, descricao = ?, valor = ?  WHERE id = ?';
     private $id;
@@ -54,7 +55,6 @@ class Produto extends Modelo
     {
         $this->nome = $nome;
     }
-
 
     public function getIdCategoria()
     {
@@ -180,6 +180,20 @@ class Produto extends Modelo
         );
     }
 
+    public static function buscarNomeCategoria($id_categoria)
+    {
+        $comando = DW3BancoDeDados::prepare(self::BUSCAR_NOME_CATEGORIA);
+        $comando->bindValue(1, $id_categoria, PDO::PARAM_STR);
+        $comando->execute();
+        $objeto = null;
+        $registro = $comando->fetch();
+        if ($registro) {
+
+            $objeto = $registro['categoria'];
+        }
+        return $objeto;
+    }
+
     public static function buscarCategoria($id_categoria)
     {
         $comando = DW3BancoDeDados::prepare(self::BUSCAR_POR_CATEGORIA);
@@ -202,7 +216,7 @@ class Produto extends Modelo
 
     public static function buscarProdutos()
     {
-        $registros = DW3BancoDeDados::query(self::BUSCAR_PRODUTO);
+        $registros = DW3BancoDeDados::query(self::BUSCAR_PRODUTOS);
         $lista_produtos = [];
         foreach ($registros as $registro) {
             $lista_produtos[] = new Produto(

@@ -7,6 +7,7 @@
     $('.modal').modal();
     $('select').formSelect();
     $('.collapsible').collapsible();
+    $('.materialboxed').materialbox();
 
     $('.datepicker').datepicker({
     format:'yyyy-mm-dd',

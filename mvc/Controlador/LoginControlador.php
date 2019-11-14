@@ -3,6 +3,7 @@ namespace Controlador;
 
 use \Framework\DW3Sessao;
 use \Modelo\Usuario;
+use \Modelo\Produto;
 
 class LoginControlador extends Controlador
 {
@@ -39,7 +40,10 @@ class LoginControlador extends Controlador
             if ($usuario->isAdmin()) {
                 $this->visao('pedidos/index.php', [], 'administrador.php');
               } else {
-                $this->visao('inicio/index.php', [], 'consumidor.php');
+                $lista_produtos = Produto::buscarProdutos();
+                $this->visao('inicio/index.php', [
+                    'produtos' => $lista_produtos
+                ], 'consumidor.php');
               }
         } else {
             $this->setErros(['login' => 'Usuário ou senha inválido.']);
