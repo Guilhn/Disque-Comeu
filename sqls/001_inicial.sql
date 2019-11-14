@@ -41,7 +41,7 @@ CREATE TABLE pedidos (
     total DOUBLE NOT NULL ,
     PRIMARY KEY (id),
     FOREIGN KEY (id_usuario) REFERENCES usuarios (id),
-    FOREIGN KEY (id_status_pedido) REFERENCES status_pedido (id)
+    FOREIGN KEY (id_status_pedido) REFERENCES status_pedidos (id)
 );
 
 CREATE TABLE itens_pedidos (

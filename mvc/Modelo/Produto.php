@@ -188,7 +188,6 @@ class Produto extends Modelo
         $objeto = null;
         $registro = $comando->fetch();
         if ($registro) {
-
             $objeto = $registro['categoria'];
         }
         return $objeto;

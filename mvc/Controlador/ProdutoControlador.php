@@ -45,8 +45,10 @@ class ProdutoControlador extends Controlador
     {
         $this->verificarLogado();
         $produto = Produto::buscarId($id);
+        $categoria = Produto::buscarNomeCategoria($produto->getId());
         $this->visao('produtos/editar.php', [
-            'produto' => $produto
+            'produto' => $produto,
+            'categoria' => $categoria
         ], 'administrador.php');
     }
 
@@ -54,6 +56,7 @@ class ProdutoControlador extends Controlador
     {
         $this->verificarLogado();
         $produto = Produto::buscarId($id);
+        $categoria = Produto::buscarNomeCategoria($produto->getId());
         $produto->setNome($_POST['nome']);
         $produto->setIdCategoria($_POST['id_categoria']);
         $produto->setDescricao($_POST['descricao']);
@@ -67,7 +70,8 @@ class ProdutoControlador extends Controlador
         } else {
             $this->setErros($produto->getValidacaoErros());
             $this->visao('produtos/editar.php', [
-                'produto' => $produto
+                'produto' => $produto,
+                'categoria' => $categoria
             ], 'administrador.php');
         }
         

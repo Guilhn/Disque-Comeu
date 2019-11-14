@@ -52,4 +52,7 @@ $rotas = [
     '/relatorio' => [
         'GET' => '\Controlador\RelatorioControlador#index',
     ],
+    '/carrinho/?' => [
+        'GET' => '\Controlador\CarrinhoControlador#armazenar',
+    ],
 ];

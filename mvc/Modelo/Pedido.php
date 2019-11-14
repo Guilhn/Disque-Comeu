@@ -23,9 +23,9 @@ class Pedido extends Modelo
 
     public function __construct(
         $id_usuario,
-        $id_status_pedido,
-        $data_pedido,
-        $total,
+        $id_status_pedido = 1,
+        $data_pedido = null,
+        $total = null,
         $id = null
     ) {
         $this->id = $id;
@@ -60,10 +60,17 @@ class Pedido extends Modelo
         return $this->data_pedido;
     }
 
-    public function setDataPedido($data_pedido)
+    public function getDataPedidoFormatada()
     {
-        $this->data_pedido = $data_pedido;
+        $data = date_create($this->data_pedido);
+        return date_format($data, 'd/m/Y');
     }
+
+    public function setDataPedido()
+    {
+        $this->data_pedido = date('Y-m-d h:i:s');
+    }
+
 
     public function getIdStausPedido()
     {
@@ -96,7 +103,6 @@ class Pedido extends Modelo
     {
         if ($this->id == null) {
             $this->inserir();
-            $this->salvarImagem();
         } else {
             $this->atualizar();
         }

@@ -57,14 +57,14 @@
               <span class="card-title text-ellipsis"> <?= $produtos->getNome() ?></span>
               <img width="100%" height="200px" src="<?= URL_IMG . $produtos->getImagem() ?>"  class=" materialboxed" alt="">
               <div class="row">
-                <h5 class="col s12 m12 l8">R$: <?= $produtos->getValor() ?></h5>
-                <a class="col s12 m12 l4 margin-btn waves-effect waves-light btn-esquerda btn modal-trigger" href="#modal1">VER</a>
+                <h5 class="col s12 m12 l8">R$ <?= $produtos->getValor() ?></h5>
+                <a class="col s12 m12 l4 margin-btn waves-effect waves-light btn-esquerda btn modal-trigger" href="#modal<?= $produtos->getId()?>">VER</a>
               </div>
             </div>
           </div>
 
           <!-- Modal Structure -->
-          <div id="modal1" class="modal" tabindex="0">
+          <div id="modal<?= $produtos->getId()?>" class="modal" tabindex="0">
             <div class="modal-content">
               <a class="modal-close right "><i class="material-icons black-text">close</i></a>
               <div class="row" id="product-two">
@@ -75,8 +75,8 @@
                   <h5><?= $produtos->getNome() ?></h5>
                   <hr class="mb-5">
                   <p class="mt-3"><?= $produtos->getDescricao() ?></p>
-                  <h5>R$: <?= $produtos->getValor() ?></h5>
-                  <a class="waves-effect waves-light btn btn-esquerda margin-btn" href="<?= URL_RAIZ . 'login' ?>">+ CARRINHO</a>
+                  <h5>R$ <?= $produtos->getValor() ?></h5>
+                  <a class="waves-effect waves-light btn btn-esquerda margin-btn" href="<?= URL_RAIZ . 'carrinho/' . $produtos->getId()?>">+ CARRINHO</a>
                   <a class="waves-effect waves-light btn btn-direita margin-btn" href="<?= URL_RAIZ . 'login' ?>">COMPRAR</a>
                 </div>
               </div>
