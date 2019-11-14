@@ -50,11 +50,12 @@
       <div><h4 class="center cor-texto-terciaria font-title ">Produtos</h4></div>
 
       <?php foreach ($produtos as $produtos) : ?>
+        
         <div class="col s12 m4 l4">
           <div class="card  ">
             <div class="card-content">
               <span class="card-title text-ellipsis"> <?= $produtos->getNome() ?></span>
-              <img width="100%" src="<?= URL_IMG . $produtos->getImagem() ?>" class="responsive-img materialboxed" alt="">
+              <img width="100%" height="200px" src="<?= URL_IMG . $produtos->getImagem() ?>"  class=" materialboxed" alt="">
               <div class="row">
                 <h5 class="col s12 m12 l8">R$: <?= $produtos->getValor() ?></h5>
                 <a class="col s12 m12 l4 margin-btn waves-effect waves-light btn-esquerda btn modal-trigger" href="#modal1">VER</a>
