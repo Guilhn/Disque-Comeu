@@ -15,6 +15,16 @@ class ProdutoControlador extends Controlador
         $this->visao('produtos/index.php', [
             'produtos' => $lista_produtos,
             'mensagem' => DW3Sessao::getFlash('mensagem', null)
+        ],'consumidor.php');
+    }
+
+    public function listar()
+    {
+        $this->verificarLogado();
+        $lista_produtos = Produto::buscarProdutos();
+        $this->visao('produtos/listar.php', [
+            'produtos' => $lista_produtos,
+            'mensagem' => DW3Sessao::getFlash('mensagem', null)
         ], 'administrador.php');
     }
 
@@ -33,7 +43,7 @@ class ProdutoControlador extends Controlador
         if ($produto->isValido()) {
             $produto->salvar();
             DW3Sessao::setFlash('mensagem', 'Produto cadastrado com sucesso!');
-            $this->redirecionar(URL_RAIZ . 'produtos');
+            $this->redirecionar(URL_RAIZ . 'produtos/listar');
 
         } else {
             $this->setErros($produto->getValidacaoErros());
@@ -65,7 +75,7 @@ class ProdutoControlador extends Controlador
         if ($produto->isValido()) {
             $produto->salvar();
             DW3Sessao::setFlash('mensagem', 'Produto atualizado com sucesso.');
-            $this->redirecionar(URL_RAIZ . 'produtos');
+            $this->redirecionar(URL_RAIZ . 'produtos/listar');
 
         } else {
             $this->setErros($produto->getValidacaoErros());

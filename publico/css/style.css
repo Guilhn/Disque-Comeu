@@ -91,6 +91,10 @@ main {
   background-color: #fff3e0;
   top: 63px !important;
 }
+.padd-buttom{
+  padding-left: 15px;
+  padding-right: 15px;
+}
 .vazia {
   height: 70vh;
 }
@@ -109,6 +113,9 @@ main {
 }
 .margin-btn {
   margin-top: 15px;
+}
+.tam-btn{
+  width: 100% !important;
 }
 .card-title p {
   font-size: 80%;

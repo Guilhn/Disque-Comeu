@@ -98,8 +98,8 @@ class Produto extends Modelo
 
     public function verificarErros()
     { 
-        if (strlen($this->nome) < 3) {
-            $this->setErroMensagem('nome', 'O nome do produto deve ter no mínimo 3 caracteres.');
+        if ((strlen($this->nome) < 3) || (!preg_match("/^[A-Za-z\s]+$/", $this->nome))) {
+            $this->setErroMensagem('nome', 'deve ter no mínimo 3 letras e não pode possuir numeros e caracteres especiais.');
         }
         if (($this->id_categoria < 1) || ($this->id_categoria > 4)) {
             $this->setErroMensagem('id_categoria', 'Categoria nao existente, escolha uma das disponiveis.');
@@ -107,8 +107,8 @@ class Produto extends Modelo
         if (strlen($this->descricao) < 5) {
             $this->setErroMensagem('descricao', 'A Descrição Deve ter no mínimo 5 caracteres.');
         }
-        if (($this->valor <= 0) || ($this->valor == null) || (!preg_match("/^[1-9]{1}([0-9]{1,3})?\.[0-9]{1,3}$/", $this->valor)) ) {
-            $this->setErroMensagem('valor', 'O valor deve ser maior que 0.99 e menor que 999.999');
+        if (($this->valor <= 0) || ($this->valor == null) || (!preg_match("/^[0-9]+$/", $this->valor)) ) {
+            $this->setErroMensagem('valor', 'O valor deve ser um numero maior que 0, sem ponto e virgula!');
         }
         if (
             DW3ImagemUpload::existeUpload($this->foto)

@@ -26,7 +26,7 @@
                                         </div>
                                         <div class="input-field col s12 m6">
                                             <select name="id_categoria" >
-                                                <option value="<?php $produto->getIdCategoria() ?>" selected><?php echo $categoria; ?></option>
+                                                <option value="<?php echo $produto->getIdCategoria(); ?>" selected><?php echo $categoria; ?></option>
                                                 <option value="1">Pizza</option>
                                                 <option value="2">Lanche</option>
                                                 <option value="3">Massa</option>

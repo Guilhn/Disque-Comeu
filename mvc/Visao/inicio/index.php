@@ -76,7 +76,7 @@
                   <hr class="mb-5">
                   <p class="mt-3"><?= $produtos->getDescricao() ?></p>
                   <h5>R$ <?= $produtos->getValor() ?></h5>
-                  <a class="waves-effect waves-light btn btn-esquerda margin-btn" href="<?= URL_RAIZ . 'carrinho/' . $produtos->getId()?>">+ CARRINHO</a>
+                  <a class="waves-effect waves-light btn btn-esquerda margin-btn" href="<?= URL_RAIZ . 'login' ?>">+ CARRINHO</a>
                   <a class="waves-effect waves-light btn btn-direita margin-btn" href="<?= URL_RAIZ . 'login' ?>">COMPRAR</a>
                 </div>
               </div>
@@ -87,24 +87,7 @@
 
       
 
-
-
-      <!-- CARD -->
-
     </div>
-
-
-    <ul class="pagination center">
-      <li class="disabled"><a href="javascript:;"><i class="material-icons">chevron_left</i></a></li>
-      <li class="active"><a href="javascript:;">1</a></li>
-      <li class="waves-effect "><a href="pages/produtos/02.html">2</a></li>
-      <li class="waves-effect"><a href="pages/produtos/03.html">3</a></li>
-      <li class="waves-effect"><a href="pages/produtos/04.html">4</a></li>
-      <li class="waves-effect"><a href="pages/produtos/05.html">5</a></li>
-      <li class="waves-effect"><a href="pages/produtos/02.html"><i class="material-icons">chevron_right</i></a></li>
-    </ul>
-
-
 
   </div>
   <br><br>

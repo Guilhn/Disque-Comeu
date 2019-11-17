@@ -27,8 +27,7 @@
                                         </div>
                                         <div class="input-field col s12 m6">
                                             <select name="id_categoria" >
-                                                <option disabled selected>Categoria</option>
-                                                <option value="1">Pizza</option>
+                                                <option selected value="1">Pizza</option>
                                                 <option value="2">Lanche</option>
                                                 <option value="3">Massa</option>
                                                 <option value="4">Porção</option>

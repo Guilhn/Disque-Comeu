@@ -34,7 +34,7 @@
 
       <ul id="dropdown2" class="dropdown-content">
         <li><a href="<?= URL_RAIZ . 'produtos/criar' ?>"><span>Cadastrar</span></a></li>
-        <li><a href="<?= URL_RAIZ . 'produtos' ?>"><span>Listar</span></a></li>
+        <li><a href="<?= URL_RAIZ . 'produtos/listar' ?>"><span>Listar</span></a></li>
       </ul>
 
       <ul id="nav-mobile" class="sidenav">
@@ -46,9 +46,9 @@
         <li class="divider" tabindex="-1"></li>
         <li class="cor-texto-primaria titulo-itens"><b>Pratos</b></li>
         <li><a href="<?= URL_RAIZ . 'produtos/criar' ?>">Cadastrar</a></li>
-        <li><a href="<?= URL_RAIZ . 'produtos' ?>">Listar</a></li>
+        <li><a href="<?= URL_RAIZ . 'produtos/listar' ?>">Listar</a></li>
         <li class="divider" tabindex="-1"></li>
-        <li><a title="Sair" href="../../../index.html"><i class="material-icons right">exit_to_app</i>Sair</a></li>
+        <li><a title="Sair" href="<?= URL_RAIZ . 'sair' ?>"><i class="material-icons right">exit_to_app</i>Sair</a></li>
       </ul>
       <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
@@ -85,7 +85,7 @@
           <h5 class="texto-branco">Pratos</h5>
           <ul>
             <li><a class="white-text" href="<?= URL_RAIZ . 'produtos/criar' ?>"><b>Cadastrar Prato</b></a></li>
-            <li><a class="white-text" href="<?= URL_RAIZ . 'produtos' ?>"><b>Listar Pratos</b></a></li>
+            <li><a class="white-text" href="<?= URL_RAIZ . 'produtos/listar' ?>"><b>Listar Pratos</b></a></li>
           </ul>
         </div>
         <div class="col l2 s6">

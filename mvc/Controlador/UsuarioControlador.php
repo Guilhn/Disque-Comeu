@@ -23,12 +23,6 @@ class UsuarioControlador extends Controlador
         $this->verificarLogado();
         $this->visao('usuarios/pedidos.php', [], 'consumidor.php');
     }
-
-    public function carrinho()
-    {
-        $this->verificarLogado();
-        $this->visao('usuarios/carrinho.php', [], 'consumidor.php');
-    }
     
     public function armazenar()
     {

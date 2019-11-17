@@ -26,9 +26,6 @@ $rotas = [
     '/usuarios/pedidos' => [
         'GET' => '\Controlador\UsuarioControlador#pedidos',
     ],
-    '/usuarios/carrinho' => [
-        'GET' => '\Controlador\UsuarioControlador#carrinho',
-    ],
     '/admin' => [
         'POST' => '\Controlador\AdminControlador#armazenar',        
     ],
@@ -38,6 +35,9 @@ $rotas = [
     '/produtos' => [
         'GET' => '\Controlador\ProdutoControlador#index',
         'POST' => '\Controlador\ProdutoControlador#armazenar',
+    ],
+    '/produtos/listar' => [
+        'GET' => '\Controlador\ProdutoControlador#listar',
     ],
     '/produtos/criar' => [
         'GET' => '\Controlador\ProdutoControlador#criar',
@@ -54,5 +54,11 @@ $rotas = [
     ],
     '/carrinho/?' => [
         'GET' => '\Controlador\CarrinhoControlador#armazenar',
+    ],
+    '/carrinho/criar' => [
+        'GET' => '\Controlador\CarrinhoControlador#criar',
+    ],
+    '/carrinho/deletar' => [
+        'GET' => '\Controlador\CarrinhoControlador#destruir',
     ],
 ];

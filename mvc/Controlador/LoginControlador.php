@@ -7,6 +7,8 @@ use \Modelo\Produto;
 
 class LoginControlador extends Controlador
 {
+
+
     public function criar()
     {
         if (DW3Sessao::get('usuario') == null) {
@@ -23,10 +25,7 @@ class LoginControlador extends Controlador
                 ], 'administrador.php');
             }
             else{
-                $this->visao('inicio/index.php', [
-                    'usuario' => $usuario,
-                    null
-                ], 'consumidor.php');
+                $this->redirecionar(URL_RAIZ . 'produtos');
             }
         }
     }
@@ -40,10 +39,7 @@ class LoginControlador extends Controlador
             if ($usuario->isAdmin()) {
                 $this->visao('pedidos/index.php', [], 'administrador.php');
               } else {
-                $lista_produtos = Produto::buscarProdutos();
-                $this->visao('inicio/index.php', [
-                    'produtos' => $lista_produtos
-                ], 'consumidor.php');
+                $this->redirecionar(URL_RAIZ . 'produtos');
               }
         } else {
             $this->setErros(['login' => 'Usuário ou senha inválido.']);

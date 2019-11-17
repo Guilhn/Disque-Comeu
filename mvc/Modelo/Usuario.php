@@ -90,14 +90,14 @@ class Usuario extends Modelo
 
     public function verificarErros()
     {
-        if (strlen($this->nome) < 2) {
-            $this->setErroMensagem('nome', 'Deve ter no mínimo 2 caracteres');
+        if ((strlen($this->nome) < 2) || (!preg_match("/^[A-Za-z\s]+$/", $this->nome))) {
+            $this->setErroMensagem('nome', 'deve ter no mínimo 3 letras e não pode possuir numeros e caracteres especiais.');
         }
-        if (strlen($this->sobrenome) < 3) {
-            $this->setErroMensagem('sobrenome', 'Deve ter no mínimo 3 caracteres.');
+        if ((strlen($this->sobrenome) < 3)  || (!preg_match("/^[A-Za-z]+$/", $this->sobrenome))) {
+            $this->setErroMensagem('sobrenome', 'deve ter no mínimo 3 letras e não pode possuir numeros e caracteres especiais.');
         }
-        if (strlen($this->nome_usuario) < 6) {
-            $this->setErroMensagem('nome_usuario', 'Deve ter no mínimo 6 caracteres.');
+        if ((strlen($this->nome_usuario) < 6) || (!preg_match("/^[A-Za-z]+$/", $this->nome_usuario))) {
+            $this->setErroMensagem('nome_usuario', 'deve ter no mínimo 6 caracteres e não pode possuir numeros e caracteres especiais.');
         }
         if (!preg_match("/^[^0-9][A-z0-9_]+([.][A-z0-9_]+)*[@][A-z0-9_]+([.][A-z0-9_]+)*[.][A-z]{2,4}$/", $this->email)) {
             $this->setErroMensagem('email', 'O email deve conter um inicio, @dominio e um/ou mais .prefix');

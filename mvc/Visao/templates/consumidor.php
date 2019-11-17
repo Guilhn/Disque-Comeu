@@ -19,10 +19,10 @@
 <body class="fundo">
   <nav class="cor-fundo-primaria" role="navigation">
     <div class="nav-wrapper container ">
-      <a id="logo" href="javascript:;" class="brand-logo"><span class="front-logo hide-on-small-only">Disque</span> <span class="back-logo hide-on-small-only">Comeu</span> <i class="fas fa-hamburger"></i></a>
+      <a id="logo" href="<?= URL_RAIZ . 'produtos' ?>" class="brand-logo"><span class="front-logo hide-on-small-only">Disque</span> <span class="back-logo hide-on-small-only">Comeu</span> <i class="fas fa-hamburger"></i></a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="<?= URL_RAIZ . 'inicio' ?>">Inicio</a></li>
-        <li><a href="<?= URL_RAIZ . 'usuarios/carrinho' ?>">Carrinho</a></li>
+        <li><a href="<?= URL_RAIZ . 'produtos' ?>">Inicio</a></li>
+        <li><a href="<?= URL_RAIZ . 'carrinho/criar' ?>">Carrinho</a></li>
         <li><a class="dropdown-trigger fontMenu" href="javascript:;" data-target="dropdown1"><?php $usuario = \Framework\DW3Sessao::get("usuario_full"); echo $usuario->getNome(); ?><i class="material-icons right">arrow_drop_down</i></a></li>
         <li><a title="Sair" href="<?= URL_RAIZ . 'sair' ?>"><i class="material-icons right">exit_to_app</i>Sair</a></li>
       </ul>
@@ -32,12 +32,12 @@
         <li><a href="<?= URL_RAIZ . 'usuarios/pedidos' ?>"><span class=""> Pedidos</span></a></li>
       </ul>
       <ul id="nav-mobile" class="sidenav">
-        <li><a href="javascript:;">Inicio</a></li>
-        <li><a href="<?= URL_RAIZ . 'usuarios/carrinho' ?>">Carrinho</a></li>
+        <li><a href="<?= URL_RAIZ . 'produtos' ?>">Inicio</a></li>
+        <li><a href="<?= URL_RAIZ . 'carrinho/criar' ?>">Carrinho</a></li>
         <li><a href="<?= URL_RAIZ . 'usuarios/perfil' ?>">Perfil</a></li>
         <li><a href="<?= URL_RAIZ . 'usuarios/pedidos' ?>">Pedidos</a></li>
         <li class="divider" tabindex="-1"></li>
-        <li><a title="Sair" href="../../../index.html"><i class="material-icons right">exit_to_app</i>Sair</a></li>
+        <li><a title="Sair" href="<?= URL_RAIZ . 'sair' ?>"><i class="material-icons right">exit_to_app</i>Sair</a></li>
       </ul>
       <a href="javascript:;" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
@@ -53,14 +53,14 @@
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
-          <h4><a href="javascript:;" class="brand-logo texto-branco"><span class="front-logo">Disque</span> <span class="back-logo">Comeu</span> <i class="fas fa-hamburger"></i></a></h4>
+          <h4><a href="<?= URL_RAIZ . 'produtos' ?>" class="brand-logo texto-branco"><span class="front-logo">Disque</span> <span class="back-logo">Comeu</span> <i class="fas fa-hamburger"></i></a></h4>
 
 
         </div>
         <div class="col l3 s6">
           <h5 class="texto-branco">Carrinho</h5>
           <ul>
-            <li><a class="white-text" href="<?= URL_RAIZ . 'usuarios/carrinho' ?>"><b>Meu Carrinho</b></a></li>
+            <li><a class="white-text" href="<?= URL_RAIZ . 'carrinho/criar' ?>"><b>Meu Carrinho</b></a></li>
           </ul>
 
         </div>
