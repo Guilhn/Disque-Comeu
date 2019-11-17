@@ -57,21 +57,6 @@
 
 
                                 <div class="row">
-                                    <div class="input-field col s12">
-                                        <div class="row">
-                                            <div class="input-field col s12">
-                                                <div class="center">
-
-                                                    <h5 class="cor-texto-primaria center">Foto do Prato</h5>
-                                                    <input type="file" value="" name="foto" disabled>
-                                                    <?php $this->incluirVisao('util/formErro.php', ['campo' => 'foto']) ?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
 
                                     <div class="row">
                                         <div class="input-field offset-s4 col s4">

@@ -51,6 +51,7 @@ class LoginControlador extends Controlador
     {
         DW3Sessao::deletar('usuario');
         DW3Sessao::deletar('usuario_full');
-        $this->redirecionar(URL_RAIZ . 'login');
+        DW3Sessao::deletar('carrinho');
+        $this->redirecionar(URL_RAIZ);
     }
 }

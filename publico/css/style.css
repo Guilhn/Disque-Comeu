@@ -27,6 +27,9 @@ main {
 .cor-fundo-secundaria {
   background-color: #fb6f0c;
 }
+.cor-fundo-aviso{
+  background-color: #ff8521;
+}
 .select-status {
   margin-left: 25%;
   width: 50%;
@@ -100,6 +103,9 @@ main {
 }
 .banner-perfil {
   height: 40px;
+}
+.banner-aviso {
+  height: 20px;
 }
 .dropdown-content li > a,
 .dropdown-content li > span {
