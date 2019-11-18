@@ -48,7 +48,6 @@ CREATE TABLE itens_pedidos (
     id INT NOT NULL AUTO_INCREMENT ,
     id_pedido INT NOT NULL ,
     id_produto INT NOT NULL ,
-    quantidade VARCHAR(255) NOT NULL ,
     valor DOUBLE NOT NULL ,
     PRIMARY KEY (id),
     FOREIGN KEY (id_pedido) REFERENCES pedidos (id),

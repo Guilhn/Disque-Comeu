@@ -65,8 +65,12 @@
             </table>
 
             <div class="center btn-carrinho">
-              <a class="waves-effect waves-light btn btn-esquerda margin-btn" href="pedidos.html">Finalizar Compra</a>
+            <form id="logout" action="<?= URL_RAIZ . 'pedidos' ?>" method="post" class="hidden">
+              <input type="hidden" name="total" value="<?php echo $total; ?>">
+              <button type="submit" class="waves-effect waves-light btn btn-esquerda margin-btn">Finalizar Compra</button>
               <a class="waves-effect waves-light btn btn-direita margin-btn" href="<?= URL_RAIZ . 'carrinho/deletar' ?>">Deletar Carrinho</a>
+            </form>
+              
             </div>
 
             <br>

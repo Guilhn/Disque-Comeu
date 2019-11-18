@@ -19,10 +19,7 @@ class LoginControlador extends Controlador
         else {
             $usuario = DW3Sessao::get('usuario_full');
             if ($usuario->isAdmin()) {
-                $this->visao('pedidos/index.php', [
-                    'usuario' => $usuario,
-                    null
-                ], 'administrador.php');
+                $this->redirecionar(URL_RAIZ . 'pedidos');
             }
             else{
                 $this->redirecionar(URL_RAIZ . 'produtos');
@@ -37,7 +34,7 @@ class LoginControlador extends Controlador
             DW3Sessao::set('usuario', $usuario->getId());
             DW3Sessao::set('usuario_full', $usuario);
             if ($usuario->isAdmin()) {
-                $this->visao('pedidos/index.php', [], 'administrador.php');
+                $this->redirecionar(URL_RAIZ . 'pedidos');
               } else {
                 $this->redirecionar(URL_RAIZ . 'produtos');
               }

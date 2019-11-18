@@ -3,6 +3,9 @@
 namespace Controlador;
 
 use \Modelo\Usuario;
+use \Modelo\Produto;
+use \Modelo\Pedido;
+use \Modelo\Itens_Pedido;
 use \Framework\DW3Sessao;
 
 class UsuarioControlador extends Controlador
@@ -21,7 +24,12 @@ class UsuarioControlador extends Controlador
     public function pedidos()
     {
         $this->verificarLogado();
-        $this->visao('usuarios/pedidos.php', [], 'consumidor.php');
+        $usuarioId = DW3Sessao::get('usuario');
+        $lista_pedidos = Pedido::buscarPedidoIdUsuario($usuarioId);
+
+        $this->visao('usuarios/pedidos.php', [
+            'pedidos' => $lista_pedidos
+        ], 'consumidor.php');
     }
     
     public function armazenar()

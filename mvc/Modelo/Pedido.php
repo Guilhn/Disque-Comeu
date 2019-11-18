@@ -8,6 +8,7 @@ use \Framework\DW3BancoDeDados;
 class Pedido extends Modelo
 {
     const BUSCAR_ID = 'SELECT id, id_usuario, id_status_pedido, data_pedido, total FROM pedidos WHERE id = ?';
+    const BUSCAR_PEDIDO_ID_USUARIO = 'SELECT id, id_usuario, id_status_pedido, data_pedido, total FROM pedidos WHERE id_usuario = ?';
     const BUSCAR_PEDIDOS = 'SELECT id, id_usuario, id_status_pedido, data_pedido, total FROM pedidos';
     const BUSCAR_POR_STATUS = 'SELECT id, id_usuario, id_status_pedido, data_pedido, total FROM pedidos WHERE id_status_pedido = ? LIMIT 1';
     const BUSCAR_NOME_STAUS = 'SELECT status_pedido FROM status_pedidos WHERE id = ?';
@@ -25,7 +26,7 @@ class Pedido extends Modelo
         $id_usuario,
         $id_status_pedido = 1,
         $data_pedido = null,
-        $total = null,
+        $total,
         $id = null
     ) {
         $this->id = $id;
@@ -113,7 +114,7 @@ class Pedido extends Modelo
     {
         DW3BancoDeDados::getPdo()->beginTransaction();
         $comando = DW3BancoDeDados::prepare(self::INSERIR);
-        $comando->bindValue(1, $this->id_usuarioR);
+        $comando->bindValue(1, $this->id_usuario);
         $comando->bindValue(2, $this->id_status_pedido);
         $comando->bindValue(3, $this->data_pedido);
         $comando->bindValue(4, $this->total);
@@ -143,6 +144,26 @@ class Pedido extends Modelo
             $registro['total'],
             $registro['id']
         );
+    }
+
+    public static function buscarPedidoIdUsuario($id)
+    {
+        $comando = DW3BancoDeDados::prepare(self::BUSCAR_PEDIDO_ID_USUARIO);
+        $comando->bindValue(1, $id);
+        $comando->execute();
+        $registro = $comando->fetch();
+        $lista_pedidos = [];
+        // foreach ($registros as $registro) {
+        //     $lista_pedidos[] = new Pedido(
+        //         $registro['id_usuario'],
+        //         $registro['id_status_pedido'],
+        //         $registro['data_pedido'],
+        //         $registro['total'],
+        //         $registro['id']
+
+        //     );
+        // }
+        return $lista_pedidos;
     }
 
     public static function buscarNomeStatus($id_status_pedido)

@@ -48,6 +48,11 @@ $rotas = [
     ],
     '/pedidos' => [
         'GET' => '\Controlador\PedidoControlador#index',
+        'POST' => '\Controlador\PedidoControlador#armazenar',
+    ],
+    '/pedidos/?/editar' => [
+        'GET' => '\Controlador\PedidoControlador#editar',
+        'PATCH' => '\Controlador\PedidoControlador#atualizar',
     ],
     '/relatorio' => [
         'GET' => '\Controlador\RelatorioControlador#index',

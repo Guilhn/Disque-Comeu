@@ -7,29 +7,26 @@ use \Framework\DW3BancoDeDados;
 
 class Itens_Pedido extends Modelo
 {
-    const BUSCAR_ID = 'SELECT id, id_pedido, id_produto, quantidade, valor FROM itens_pedidos WHERE id = ?';
-    const BUSCAR_ID_PEDIDO = 'SELECT id, id_pedido, id_produto, quantidade, valor FROM itens_pedidos WHERE id_pedido = ?';
-    const BUSCAR_ITENS_PEDIDOS = 'SELECT id, id_pedido, id_produto, quantidade, valor FROM itens_pedidos';
-    const INSERIR = 'INSERT INTO itens_pedidos(id_pedido,id_produto,quantidade,valor) VALUES (?, ?, ?, ?)';
+    const BUSCAR_ID = 'SELECT id, id_pedido, id_produto, valor FROM itens_pedidos WHERE id = ?';
+    const BUSCAR_ID_PEDIDO = 'SELECT id, id_pedido, id_produto, valor FROM itens_pedidos WHERE id_pedido = ?';
+    const BUSCAR_ITENS_PEDIDOS = 'SELECT id, id_pedido, id_produto, valor FROM itens_pedidos';
+    const INSERIR = 'INSERT INTO itens_pedidos(id_pedido,id_produto,valor) VALUES (?, ?, ?)';
     
     private $id;
     private $id_pedido;
     private $id_produto;
-    private $quantidade;
     private $valor;
 
 
     public function __construct(
         $id_pedido,
         $id_produto,
-        $quantidade,
         $valor,
         $id = null
     ) {
         $this->id = $id;
         $this->id_pedido = $id_pedido;
         $this->id_produto = $id_produto;
-        $this->quantidade = $quantidade;
         $this->valor = $valor;
 
     }
@@ -63,17 +60,6 @@ class Itens_Pedido extends Modelo
         $this->id_produto = $id_produto;
     }
 
-
-    public function getQuantidade()
-    {
-        return $this->quantidade;
-    }
-
-    public function setQuantidade($quantidade)
-    {
-        $this->quantidade = $quantidade;
-    }
-
     public function getValor()
     {
         return $this->valor;
@@ -101,8 +87,7 @@ class Itens_Pedido extends Modelo
         $comando = DW3BancoDeDados::prepare(self::INSERIR);
         $comando->bindValue(1, $this->id_pedido);
         $comando->bindValue(2, $this->id_produto);
-        $comando->bindValue(3, $this->quantidade);
-        $comando->bindValue(4, $this->valor);
+        $comando->bindValue(3, $this->valor);
         $comando->execute();
         $this->id = DW3BancoDeDados::getPdo()->lastInsertId();
         DW3BancoDeDados::getPdo()->commit();
@@ -117,7 +102,6 @@ class Itens_Pedido extends Modelo
         return new Itens_Pedido(
             $registro['id_pedido'],
             $registro['id_produto'],
-            $registro['quantidade'],
             $registro['valor'],
             $registro['id']
         );
@@ -132,7 +116,6 @@ class Itens_Pedido extends Modelo
         return new Itens_Pedido(
             $registro['id_pedido'],
             $registro['id_produto'],
-            $registro['quantidade'],
             $registro['valor'],
             $registro['id']
         );
@@ -146,7 +129,6 @@ class Itens_Pedido extends Modelo
             $itens_pedido[] = new Itens_Pedido(
                 $registro['id_pedido'],
                 $registro['id_produto'],
-                $registro['quantidade'],
                 $registro['valor'],
                 $registro['id']
 
