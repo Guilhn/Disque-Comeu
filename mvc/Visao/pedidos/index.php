@@ -50,7 +50,7 @@
               <tr class="padbottom texto-branco cor-fundo-primaria">
                 <th class="center">Editar</th>
                 <th class="center">Pedido</th>
-                <th class="center">Valor</th>
+                <th class="center">Total</th>
                 <th class="center">Data</th>
                 <th class="center">Status</th>
               </tr>
@@ -68,16 +68,16 @@
                   <td class="center">R$ <?= number_format($pedidos->getTotal(), 2, ',', '.') ?></td>
                   <td class="center"><?= $pedidos->getDataPedidoFormatada() ?></td>
                   <?php if ($pedidos->getIdStausPedido() == 1) : ?>
-                    <td class="center green-text"><?= $pedidos->buscarNomeStatus($pedidos->getIdStausPedido()) ?></td>
+                    <td class="center green-text"><b><?= $pedidos->buscarNomeStatus($pedidos->getIdStausPedido()) ?></b></td>
                   <?php endif ?>
                   <?php if ($pedidos->getIdStausPedido() == 2) : ?>
-                    <td class="center amber-text"><?= $pedidos->buscarNomeStatus($pedidos->getIdStausPedido()) ?></td>
+                    <td class="center amber-text"><b><?= $pedidos->buscarNomeStatus($pedidos->getIdStausPedido()) ?></b></td>
                   <?php endif ?>
                   <?php if ($pedidos->getIdStausPedido() == 3) : ?>
-                    <td class="center orange-text"><?= $pedidos->buscarNomeStatus($pedidos->getIdStausPedido()) ?></td>
+                    <td class="center orange-text"><b><?= $pedidos->buscarNomeStatus($pedidos->getIdStausPedido()) ?></b></td>
                   <?php endif ?>
                   <?php if ($pedidos->getIdStausPedido() == 4) : ?>
-                    <td class="center blue-text"><?= $pedidos->buscarNomeStatus($pedidos->getIdStausPedido()) ?></td>
+                    <td class="center blue-text"><b><?= $pedidos->buscarNomeStatus($pedidos->getIdStausPedido()) ?></b></td>
                   <?php endif ?>
                 </tr>
               <?php endforeach ?>
