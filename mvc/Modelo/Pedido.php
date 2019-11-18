@@ -151,18 +151,18 @@ class Pedido extends Modelo
         $comando = DW3BancoDeDados::prepare(self::BUSCAR_PEDIDO_ID_USUARIO);
         $comando->bindValue(1, $id);
         $comando->execute();
-        $registro = $comando->fetch();
+        $registros = $comando->fetchAll();
         $lista_pedidos = [];
-        // foreach ($registros as $registro) {
-        //     $lista_pedidos[] = new Pedido(
-        //         $registro['id_usuario'],
-        //         $registro['id_status_pedido'],
-        //         $registro['data_pedido'],
-        //         $registro['total'],
-        //         $registro['id']
+        foreach ($registros as $registro) {
+            $lista_pedidos[] = new Pedido(
+                $registro['id_usuario'],
+                $registro['id_status_pedido'],
+                $registro['data_pedido'],
+                $registro['total'],
+                $registro['id']
 
-        //     );
-        // }
+            );
+        }
         return $lista_pedidos;
     }
 

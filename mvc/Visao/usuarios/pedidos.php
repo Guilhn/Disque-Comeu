@@ -14,17 +14,34 @@
                     <div class="col s12 card">
                       <div class="row">
                         <div class="col s3">
-                          <p class="grey-text  left"><b>Pedido: <?= $produtos->getId() ?></b></p>
+                          <p class="grey-text  left"><b>Pedido: <?= $pedidos->getId() ?></b></p>
+                          <p  class="grey-text  right"><b>Data: <?= $pedidos->getDataPedidoFormatada() ?></b></p>
                         </div>
                         <div class="col s12 ">
                           <h5 class="center cor-texto-primaria font-title">Status</h5>
                         </div>
                       </div>
                       <div class="col s12">
+                      <?php if ($pedidos->getIdStausPedido() == 1) : ?>
                         <ul class="stepper horizontal" id="horizontal">
-                          <li class="step ">
+                          <li class="step active">
                             <div class="step-title ">Pedido Novo</div>
-
+                          </li>
+                          <li class="step ">
+                            <div class="step-title waves-effect waves-dark">Leu o pedido</div>
+                          </li>
+                          <li class="step">
+                            <div class="step-title waves-effect waves-dark">Saiu para Entrega</div>
+                          </li>
+                          <li class="step ">
+                            <div class="step-title waves-effect waves-dark">Entregue</div>
+                          </li>
+                        </ul>
+                      <?php endif ?>
+                      <?php if ($pedidos->getIdStausPedido() == 2) : ?>
+                        <ul class="stepper horizontal" id="horizontal">
+                          <li class="step">
+                            <div class="step-title ">Pedido Novo</div>
                           </li>
                           <li class="step active">
                             <div class="step-title waves-effect waves-dark">Leu o pedido</div>
@@ -34,10 +51,42 @@
                           </li>
                           <li class="step ">
                             <div class="step-title waves-effect waves-dark">Entregue</div>
-
                           </li>
                         </ul>
-                      </div>
+                      <?php endif ?>
+                      <?php if ($pedidos->getIdStausPedido() == 3) : ?>
+                        <ul class="stepper horizontal" id="horizontal">
+                          <li class="step">
+                            <div class="step-title ">Pedido Novo</div>
+                          </li>
+                          <li class="step ">
+                            <div class="step-title waves-effect waves-dark">Leu o pedido</div>
+                          </li>
+                          <li class="step active">
+                            <div class="step-title waves-effect waves-dark">Saiu para Entrega</div>
+                          </li>
+                          <li class="step ">
+                            <div class="step-title waves-effect waves-dark">Entregue</div>
+                          </li>
+                        </ul>
+                      <?php endif ?>
+                      <?php if ($pedidos->getIdStausPedido() == 4) : ?>
+                        <ul class="stepper horizontal" id="horizontal">
+                          <li class="step">
+                            <div class="step-title ">Pedido Novo</div>
+                          </li>
+                          <li class="step ">
+                            <div class="step-title waves-effect waves-dark">Leu o pedido</div>
+                          </li>
+                          <li class="step">
+                            <div class="step-title waves-effect waves-dark">Saiu para Entrega</div>
+                          </li>
+                          <li class="step active">
+                            <div class="step-title waves-effect waves-dark">Entregue</div>
+                          </li>
+                        </ul>
+                      <?php endif ?>
+                    </div>
 
 
                       <div class="col s12">
@@ -52,10 +101,10 @@
                                 <p class="center"><b>Pizza de Calabresa</b></p>
                               </div>
                               <div class="col s12 m4">
-                                <p class="center">Data: 19/09/19</p>
+                                <p class="center">Categoria: </p>
                               </div>
                               <div class="col s12 m4">
-                                <p class="center"><b>1 un. R$ 35,00</b></p>
+                                <p class="center"><b>R$ 35,00</b></p>
                               </div>
                             </div>
                           </div>
@@ -70,10 +119,10 @@
                                 <p class="center"><b>Batata Frita</b></p>
                               </div>
                               <div class="col s12 m4">
-                                <p class="center">Data: 19/09/19</p>
+                                <p class="center">Categoria: </p>
                               </div>
                               <div class="col s12 m4">
-                                <p class="center"><b>1 un. R$ 10,00</b></p>
+                                <p class="center"><b>R$ 10,00</b></p>
                               </div>
                             </div>
                           </div>
@@ -81,7 +130,7 @@
 
                         <div class="row">
                           <div class="col s12">
-                            <h5 class="center"><b>Total:</b> R$ 45,00</h5>
+                            <h5 class="center"><b>Total:</b> R$ <?= number_format($pedidos->getTotal(), 2, ',', '.') ?></h5>
                           </div>
                         </div>
                       </div>
