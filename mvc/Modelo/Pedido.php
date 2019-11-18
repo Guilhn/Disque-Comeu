@@ -8,8 +8,8 @@ use \Framework\DW3BancoDeDados;
 class Pedido extends Modelo
 {
     const BUSCAR_ID = 'SELECT id, id_usuario, id_status_pedido, data_pedido, total FROM pedidos WHERE id = ?';
-    const BUSCAR_PEDIDO_ID_USUARIO = 'SELECT id, id_usuario, id_status_pedido, data_pedido, total FROM pedidos WHERE id_usuario = ?';
-    const BUSCAR_PEDIDOS = 'SELECT id, id_usuario, id_status_pedido, data_pedido, total FROM pedidos';
+    const BUSCAR_PEDIDO_ID_USUARIO = 'SELECT id, id_usuario, id_status_pedido, data_pedido, total FROM pedidos WHERE id_usuario = ?  ORDER BY id desc';
+    const BUSCAR_PEDIDOS = 'SELECT id, id_usuario, id_status_pedido, data_pedido, total FROM pedidos ORDER BY id desc';
     const BUSCAR_POR_STATUS = 'SELECT id, id_usuario, id_status_pedido, data_pedido, total FROM pedidos WHERE id_status_pedido = ? LIMIT 1';
     const BUSCAR_NOME_STAUS = 'SELECT status_pedido FROM status_pedidos WHERE id = ?';
     const INSERIR = 'INSERT INTO pedidos(id_usuario,id_status_pedido,data_pedido,total) VALUES (?, ?, ?, ?)';

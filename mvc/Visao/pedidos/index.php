@@ -64,7 +64,7 @@
                       </a>
                     </div>
                   </td>
-                  <td class="center">Batata Frita; Cheesecake</td>
+                  <td class="center">000<?= $pedidos->getId() ?></td>
                   <td class="center">R$ <?= number_format($pedidos->getTotal(), 2, ',', '.') ?></td>
                   <td class="center"><?= $pedidos->getDataPedidoFormatada() ?></td>
                   <?php if ($pedidos->getIdStausPedido() == 1) : ?>
