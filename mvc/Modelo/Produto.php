@@ -9,11 +9,13 @@ use \Framework\DW3ImagemUpload;
 class Produto extends Modelo
 {
     const BUSCAR_ID = 'SELECT id, categoria_id, nome, descricao, valor FROM produtos WHERE id = ?';
-    const BUSCAR_PRODUTOS = 'SELECT id, categoria_id, nome, descricao, valor FROM produtos';
+    const BUSCAR_PRODUTOS = 'SELECT id, categoria_id, nome, descricao, valor FROM produtos WHERE TRUE';
     const BUSCAR_POR_CATEGORIA = 'SELECT id, categoria_id, nome, descricao, valor FROM produtos WHERE categoria_id = ? LIMIT 1';
     const BUSCAR_NOME_CATEGORIA = 'SELECT categoria FROM categorias WHERE id = ?';
     const INSERIR = 'INSERT INTO produtos(nome,categoria_id,descricao,valor) VALUES (?, ?, ?, ?)';
     const ATUALIZAR = 'UPDATE produtos SET categoria_id = ?, nome = ?, descricao = ?, valor = ?  WHERE id = ?';
+    const CONTAR_TODOS = 'SELECT count(id) FROM produtos';
+
     private $id;
     private $nome;
     private $categoriaId;
@@ -213,9 +215,23 @@ class Produto extends Modelo
         return $objeto;
     }
 
-    public static function buscarProdutos()
+    public static function buscarProdutos($filtro = [], $limit = 6, $offset = 0)
     {
-        $registros = DW3BancoDeDados::query(self::BUSCAR_PRODUTOS);
+        $sqlWhere = '';
+        $parametro = '';
+
+        if (array_key_exists('categoria_id', $filtro) && $filtro['categoria_id'] != '') {
+            $parametro = $filtro['categoria_id'];
+            $sqlWhere .= ' AND id = ?';
+        }
+
+        $sql = self::BUSCAR_PRODUTOS . $sqlWhere . ' LIMIT ? OFFSET ?';
+        $comando = DW3BancoDeDados::prepare($sql);
+        $comando->bindValue(1, $parametro, PDO::PARAM_STR);
+        $comando->bindValue(2, $limit, PDO::PARAM_INT);
+        $comando->bindValue(3, $offset, PDO::PARAM_INT);
+        $comando->execute();
+        $registros = $comando->fetchAll();
         $listaProdutos = [];
         foreach ($registros as $registro) {
             $listaProdutos[] = new Produto(
@@ -229,5 +245,12 @@ class Produto extends Modelo
             );
         }
         return $listaProdutos;
+    }
+
+    public static function contarTodos()
+    {
+        $registros = DW3BancoDeDados::query(self::CONTAR_TODOS);
+        $total = $registros->fetch();
+        return intval($total[0]);
     }
 }

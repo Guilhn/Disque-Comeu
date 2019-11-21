@@ -1,5 +1,5 @@
 CREATE DATABASE disquecomeu COLLATE 'utf8_unicode_ci';
-
+USE disquecomeu;
 CREATE TABLE usuarios (
     id INT NOT NULL AUTO_INCREMENT ,
     nome VARCHAR(255) NOT NULL ,

@@ -99,6 +99,14 @@
               </div>
             </div>
             <?php endforeach ?>
+            <div class="center col s12">
+              <?php if ($pagina > 1) : ?>
+                <a href="<?= URL_RAIZ . 'produtos/listar?p=' . ($pagina - 1) ?>" class="center btn waves-effect waves-light btn btn-esquerda">Página anterior</a>
+              <?php endif ?>
+              <?php if ($pagina < $ultimaPagina) : ?>
+                <a href="<?= URL_RAIZ . 'produtos/listar?p=' . ($pagina + 1) ?>" class="btn waves-effect waves-light btn btn-direita">Próxima página</a>
+              <?php endif ?>
+            </div>
           <?php endif ?>
 
       </div>

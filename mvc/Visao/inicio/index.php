@@ -21,28 +21,27 @@
           <div class="col s12 m8 offset-m2 l6 offset-l3">
 
             <div class="card-panel">
-              <div>
-                <div class="input-field row">
-
-                  <div class=" col s12">
-                    <span class="grey-text">Categoria</span>
-                    <select>
-                      <option value="" disabled selected>Todas</option>
-                      <option value="1">Pizza</option>
-                      <option value="2">Lanche</option>
-                      <option value="3">Porção</option>
-                    </select>
-
+              <form method="get">
+                <div>
+                  <div class="input-field row">
+                    <div class=" col s12">
+                      <span class="grey-text">Categoria</span>
+                      <select name="categoria_id">
+                        <?php foreach ($categorias as $categorias) : ?>
+                            <option value="<?= $categorias->getId() ?>"><?= $categorias->getNome() ?></option>
+                        <?php endforeach ?>
+                      </select>
+                    </div>
                   </div>
-                </div>
-                <div class="card-action">
-                  <div class="row">
-                    <div class="col s12 m5 offset-m5">
-                      <a class="waves-effect waves-light btn btn-direita margin-btn" href="pedidos.html">Filtrar</a>
+                  <div class="card-action">
+                    <div class="row">
+                      <div class="col s12 m5 offset-m5">
+                        <a class="waves-effect waves-light btn btn-direita margin-btn" href="pedidos.html">Filtrar</a>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
@@ -115,7 +114,14 @@
         <?php endforeach ?>
       <?php endif ?>
 
-      
+      <div class="center col s12">
+        <?php if ($pagina > 1) : ?>
+          <a href="<?= URL_RAIZ . 'inicio?p=' . ($pagina - 1) ?>" class="center btn waves-effect waves-light btn btn-esquerda">Página anterior</a>
+        <?php endif ?>
+        <?php if ($pagina < $ultimaPagina) : ?>
+          <a href="<?= URL_RAIZ . 'inicio?p=' . ($pagina + 1) ?>" class="btn waves-effect waves-light btn btn-direita">Próxima página</a>
+        <?php endif ?>
+      </div>
 
     </div>
 

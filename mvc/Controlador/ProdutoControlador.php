@@ -9,24 +9,43 @@ use \Framework\DW3Controlador;
 class ProdutoControlador extends Controlador
 {
 
+    private function calcularPaginacao()
+    {
+        $pagina = array_key_exists('p', $_GET) ? intval($_GET['p']) : 1;
+        $limit = 6;
+        $limitListar = 8;
+        $offset = ($pagina - 1) * $limit;
+        $listaProdutos = Produto::buscarProdutos($limit, $offset);
+        $ultimaPagina = ceil(Produto::contarTodos() / $limit);
+        
+        $produtos = Produto::buscarProdutos($limitListar, $offset);
+        $ultimaPaginaListar = ceil(Produto::contarTodos() / $limitListar);
+        return compact('pagina', 'listaProdutos', 'produtos', 'ultimaPagina', 'ultimaPaginaListar');
+    }
+
     public function index()
     {
         $this->verificarLogado();
-        $listaProdutos = Produto::buscarProdutos();
+        $paginacao = $this->calcularPaginacao();
         $this->visao('produtos/index.php', [
-            'produtos' => $listaProdutos,
+            'produtos' => $paginacao['listaProdutos'],
+            'pagina' => $paginacao['pagina'],
+            'ultimaPagina' => $paginacao['ultimaPagina'],
             'mensagem' => DW3Sessao::getFlash('mensagem', null)
         ],'consumidor.php');
     }
 
     public function listar()
     {
+
         $this->verificarLogado();
-        $listaProdutos = Produto::buscarProdutos();
+        $paginacao = $this->calcularPaginacao();
         $this->visao('produtos/listar.php', [
-            'produtos' => $listaProdutos,
+            'produtos' => $paginacao['produtos'],
+            'pagina' => $paginacao['pagina'],
+            'ultimaPagina' => $paginacao['ultimaPaginaListar'],
             'mensagem' => DW3Sessao::getFlash('mensagem', null)
-        ], 'administrador.php');
+        ],'administrador.php');
     }
 
     public function criar()
@@ -37,6 +56,7 @@ class ProdutoControlador extends Controlador
             'categorias' => $categorias
         ], 'administrador.php');
     }
+
 
     public function armazenar()
     {
