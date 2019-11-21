@@ -8,22 +8,22 @@ use \Framework\DW3ImagemUpload;
 
 class Produto extends Modelo
 {
-    const BUSCAR_ID = 'SELECT id, id_categoria, nome, descricao, valor FROM produtos WHERE id = ?';
-    const BUSCAR_PRODUTOS = 'SELECT id, id_categoria, nome, descricao, valor FROM produtos';
-    const BUSCAR_POR_CATEGORIA = 'SELECT id, id_categoria, nome, descricao, valor FROM produtos WHERE id_categoria = ? LIMIT 1';
+    const BUSCAR_ID = 'SELECT id, categoria_id, nome, descricao, valor FROM produtos WHERE id = ?';
+    const BUSCAR_PRODUTOS = 'SELECT id, categoria_id, nome, descricao, valor FROM produtos';
+    const BUSCAR_POR_CATEGORIA = 'SELECT id, categoria_id, nome, descricao, valor FROM produtos WHERE categoria_id = ? LIMIT 1';
     const BUSCAR_NOME_CATEGORIA = 'SELECT categoria FROM categorias WHERE id = ?';
-    const INSERIR = 'INSERT INTO produtos(nome,id_categoria,descricao,valor) VALUES (?, ?, ?, ?)';
-    const ATUALIZAR = 'UPDATE produtos SET id_categoria = ?, nome = ?, descricao = ?, valor = ?  WHERE id = ?';
+    const INSERIR = 'INSERT INTO produtos(nome,categoria_id,descricao,valor) VALUES (?, ?, ?, ?)';
+    const ATUALIZAR = 'UPDATE produtos SET categoria_id = ?, nome = ?, descricao = ?, valor = ?  WHERE id = ?';
     private $id;
     private $nome;
-    private $id_categoria;
+    private $categoriaId;
     private $descricao;
     private $valor;
     private $foto;
 
     public function __construct(
         $nome,
-        $id_categoria,
+        $categoriaId,
         $descricao,
         $valor,
         $foto = null,
@@ -31,7 +31,7 @@ class Produto extends Modelo
     ) {
         $this->id = $id;
         $this->nome = $nome;
-        $this->id_categoria = $id_categoria;
+        $this->categoriaId = $categoriaId;
         $this->descricao = $descricao;
         $this->valor = $valor;
         $this->foto = $foto;
@@ -56,14 +56,14 @@ class Produto extends Modelo
         $this->nome = $nome;
     }
 
-    public function getIdCategoria()
+    public function getCategoriaId()
     {
-        return $this->id_categoria;
+        return $this->categoriaId;
     }
 
-    public function setIdCategoria($id_categoria)
+    public function setCategoriaId($categoriaId)
     {
-        $this->id_categoria = $id_categoria;
+        $this->categoriaId = $categoriaId;
     }
 
     public function getDescricao()
@@ -101,8 +101,8 @@ class Produto extends Modelo
         if ((strlen($this->nome) < 3) || (!preg_match("/^[A-Za-z\s]+$/", $this->nome))) {
             $this->setErroMensagem('nome', 'deve ter no mínimo 3 letras e não pode possuir numeros e caracteres especiais.');
         }
-        if (($this->id_categoria < 1) || ($this->id_categoria > 4)) {
-            $this->setErroMensagem('id_categoria', 'Categoria nao existente, escolha uma das disponiveis.');
+        if (($this->categoriaId < 1) || ($this->categoriaId > 4)) {
+            $this->setErroMensagem('categoria_id', 'Categoria nao existente, escolha uma das disponiveis.');
         }
         if (strlen($this->descricao) < 5) {
             $this->setErroMensagem('descricao', 'A Descrição Deve ter no mínimo 5 caracteres.');
@@ -137,7 +137,7 @@ class Produto extends Modelo
         DW3BancoDeDados::getPdo()->beginTransaction();
         $comando = DW3BancoDeDados::prepare(self::INSERIR);
         $comando->bindValue(1, $this->nome, PDO::PARAM_STR);
-        $comando->bindValue(2, $this->id_categoria, PDO::PARAM_STR);
+        $comando->bindValue(2, $this->categoriaId, PDO::PARAM_STR);
         $comando->bindValue(3, $this->descricao, PDO::PARAM_STR);
         $comando->bindValue(4, $this->valor, PDO::PARAM_STR);
         $comando->execute();
@@ -156,7 +156,7 @@ class Produto extends Modelo
     public function atualizar()
     {
         $comando = DW3BancoDeDados::prepare(self::ATUALIZAR);
-        $comando->bindValue(1, $this->id_categoria, PDO::PARAM_STR);
+        $comando->bindValue(1, $this->categoriaId, PDO::PARAM_STR);
         $comando->bindValue(2, $this->nome, PDO::PARAM_STR);
         $comando->bindValue(3, $this->descricao, PDO::PARAM_STR);
         $comando->bindValue(4, $this->valor, PDO::PARAM_STR);
@@ -172,7 +172,7 @@ class Produto extends Modelo
         $registro = $comando->fetch();
         return new Produto(
             $registro['nome'],
-            $registro['id_categoria'],
+            $registro['categoria_id'],
             $registro['descricao'],
             $registro['valor'],
             null,
@@ -180,10 +180,10 @@ class Produto extends Modelo
         );
     }
 
-    public static function buscarNomeCategoria($id_categoria)
+    public static function buscarNomeCategoria($categoriaId)
     {
         $comando = DW3BancoDeDados::prepare(self::BUSCAR_NOME_CATEGORIA);
-        $comando->bindValue(1, $id_categoria, PDO::PARAM_STR);
+        $comando->bindValue(1, $categoriaId, PDO::PARAM_STR);
         $comando->execute();
         $objeto = null;
         $registro = $comando->fetch();
@@ -193,17 +193,17 @@ class Produto extends Modelo
         return $objeto;
     }
 
-    public static function buscarCategoria($id_categoria)
+    public static function buscarCategoria($categoriaId)
     {
         $comando = DW3BancoDeDados::prepare(self::BUSCAR_POR_CATEGORIA);
-        $comando->bindValue(1, $id_categoria, PDO::PARAM_STR);
+        $comando->bindValue(1, $categoriaId, PDO::PARAM_STR);
         $comando->execute();
         $objeto = null;
         $registro = $comando->fetch();
         if ($registro) {
             $objeto = new Produto(
                 $registro['nome'],
-                $registro['id_categoria'],
+                $registro['categoria_id'],
                 $registro['descricao'],
                 $registro['valor'],
                 null,
@@ -216,11 +216,11 @@ class Produto extends Modelo
     public static function buscarProdutos()
     {
         $registros = DW3BancoDeDados::query(self::BUSCAR_PRODUTOS);
-        $lista_produtos = [];
+        $listaProdutos = [];
         foreach ($registros as $registro) {
-            $lista_produtos[] = new Produto(
+            $listaProdutos[] = new Produto(
                 $registro['nome'],
-                $registro['id_categoria'],
+                $registro['categoria_id'],
                 $registro['descricao'],
                 $registro['valor'],
                 null,
@@ -228,6 +228,6 @@ class Produto extends Modelo
 
             );
         }
-        return $lista_produtos;
+        return $listaProdutos;
     }
 }

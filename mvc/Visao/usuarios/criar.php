@@ -15,7 +15,7 @@
 
 
       <div class="card-content">
-        <form action="<?= URL_RAIZ . 'usuarios' ?>" method="post" enctype="multipart/form-data" class="col s12">
+        <form action="<?= URL_RAIZ . 'usuario' ?>" method="post" enctype="multipart/form-data" class="col s12">
 
           <div class="row">
             <div>

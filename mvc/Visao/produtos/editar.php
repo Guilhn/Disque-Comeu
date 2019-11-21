@@ -13,8 +13,8 @@
                         </div>
 
                         <div class="card-content">
-                            <form action="<?= URL_RAIZ . 'produtos/editar/' . $produto->getId() ?>" method="post" enctype="multipart/form-data" class="col s12">
-                            <input type="hidden" name="_metodo" value="PATCH">
+                            <form action="<?= URL_RAIZ . 'produtos/' . $produto->getId() . '/editar' ?>" method="post" enctype="multipart/form-data" class="col s12">
+                                <input type="hidden" name="_metodo" value="PATCH">
 
                                 <div class="row">
                                     <div>
@@ -25,15 +25,14 @@
                                             <?php $this->incluirVisao('util/formErro.php', ['campo' => 'nome']) ?>
                                         </div>
                                         <div class="input-field col s12 m6">
-                                            <select name="id_categoria" >
-                                                <option value="<?php echo $produto->getIdCategoria(); ?>" selected><?php echo $categoria; ?></option>
-                                                <option value="1">Pizza</option>
-                                                <option value="2">Lanche</option>
-                                                <option value="3">Massa</option>
-                                                <option value="4">Porção</option>
+                                            <select name="categoria_id">
+                                                <?php foreach ($categorias as $categorias) : ?>
+                                                    <?php $selected = $categorias->getId() == $produto->getCategoriaId() ? 'selected' : '' ?>
+                                                    <option value="<?= $categorias->getId() ?>"<?= $selected ?>><?= $categorias->getNome() ?></option>
+                                                <?php endforeach ?>
                                             </select>
                                             <label>Categoria</label>
-                                            <?php $this->incluirVisao('util/formErro.php', ['campo' => 'id_categoria']) ?>
+                                            <?php $this->incluirVisao('util/formErro.php', ['campo' => 'categoria_id']) ?>
                                         </div>
                                     </div>
 
@@ -60,7 +59,7 @@
 
                                     <div class="row">
                                         <div class="input-field offset-s4 col s4">
-                                            <button type="submit" class="btn cor-fundo-primaria CorLink waves-effect waves-light col s12">Cadastrar</button>
+                                            <button type="submit" class="btn cor-fundo-primaria CorLink waves-effect waves-light col s12">EDITAR</button>
                                         </div>
                                     </div>
 

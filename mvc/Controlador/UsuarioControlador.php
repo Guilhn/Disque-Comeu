@@ -5,7 +5,7 @@ namespace Controlador;
 use \Modelo\Usuario;
 use \Modelo\Produto;
 use \Modelo\Pedido;
-use \Modelo\Itens_Pedido;
+use \Modelo\ItemPedido;
 use \Framework\DW3Sessao;
 
 class UsuarioControlador extends Controlador
@@ -21,14 +21,25 @@ class UsuarioControlador extends Controlador
         $this->visao('usuarios/perfil.php', [], 'consumidor.php');
     }
 
+    private function calcularPaginacao()
+    {
+        $pagina = array_key_exists('p', $_GET) ? intval($_GET['p']) : 1;
+        $limit = 2;
+        $offset = ($pagina - 1) * $limit;
+        $usuario = DW3Sessao::get('usuario');
+        $pedidos = Pedido::buscarPedidoIdUsuario($usuario->getId(), $limit, $offset);
+        $ultimaPagina = ceil(Pedido::contarTodos($usuario->getId()) / $limit);
+        return compact('pagina', 'pedidos', 'ultimaPagina');
+    }
+
     public function pedidos()
     {
         $this->verificarLogado();
-        $usuarioId = DW3Sessao::get('usuario');
-        $lista_pedidos = Pedido::buscarPedidoIdUsuario($usuarioId);
-
+        $paginacao = $this->calcularPaginacao();
         $this->visao('usuarios/pedidos.php', [
-            'pedidos' => $lista_pedidos
+            'pedidos' => $paginacao['pedidos'],
+            'pagina' => $paginacao['pagina'],
+            'ultimaPagina' => $paginacao['ultimaPagina'],
         ], 'consumidor.php');
     }
     

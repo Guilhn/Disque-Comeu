@@ -186,6 +186,15 @@ ul.stepper.horizontal {
   background-color: #fb6f0c;
   border: none;
 }
+#form-sair{
+  display: none;
+}
+#form-deletar{
+  display: none;
+}
+#input-sair{
+  display: none;
+}
 @media only screen and (max-width: 600px) {
   .fa-hamburger {
     font-size: 120%;

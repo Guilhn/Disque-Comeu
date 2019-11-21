@@ -4,7 +4,8 @@ namespace Controlador;
 
 use \Modelo\Produto;
 use \Modelo\Pedido;
-use \Modelo\Itens_Pedido;
+use \Modelo\Categoria;
+use \Modelo\ItemPedido;
 use \Framework\DW3Sessao;
 use \Framework\DW3Controlador;
 
@@ -14,9 +15,9 @@ class PedidoControlador extends Controlador
     public function index()
     {
         $this->verificarLogado();
-        $lista_pedidos = Pedido::buscarPedido();
+        $listaPedidos = Pedido::buscarPedido();
         $this->visao('pedidos/index.php', [
-            'pedidos' => $lista_pedidos,
+            'pedidos' => $listaPedidos,
             'mensagem' => DW3Sessao::getFlash('mensagem', null)
         ], 'administrador.php');
     }
@@ -25,7 +26,7 @@ class PedidoControlador extends Controlador
     {
         $this->verificarLogado();
         $pedido = Pedido::buscarId($id);
-        $status = Pedido::buscarNomeStatus($pedido->getIdStausPedido());
+        $status = Categoria::buscarStatus();
         $this->visao('pedidos/editar.php', [
             'pedido' => $pedido,
             'status' => $status
@@ -36,7 +37,7 @@ class PedidoControlador extends Controlador
     {
         $this->verificarLogado();
         $pedido = Pedido::buscarId($id);
-        $pedido->setIdStausPedido($_POST['status_pedido']);
+        $pedido->setStausPedidoId($_POST['status_pedido']);
         $pedido->salvar();
         DW3Sessao::setFlash('mensagem', 'Status atualizado com sucesso!');
         $this->redirecionar(URL_RAIZ . 'pedidos');
@@ -46,21 +47,21 @@ class PedidoControlador extends Controlador
     public function armazenar()
     {
         $this->verificarLogado();
-        $usuarioId = DW3Sessao::get('usuario');
+        $usuario = DW3Sessao::get('usuario');
         $data = date('Y-m-d');
-        $pedido = new Pedido($usuarioId, '1', $data, $_POST['total'], null);
+        $pedido = new Pedido($usuario->getId(), '1', $data, $_POST['total'], null);
         $pedido->salvar();
 
         $idPedido = $pedido->getId();
-        $item_carrinho = DW3Sessao::get('carrinho');
-        if ($item_carrinho != null) {
-            $tamanho = count($item_carrinho);
+        $itemCarrinho = DW3Sessao::get('carrinho');
+        if ($itemCarrinho != null) {
+            $tamanho = count($itemCarrinho);
             $carrinho = [];
             for ($i = 0; $i < $tamanho; $i++) {
-                $carrinho[] = Produto::buscarId($item_carrinho[$i]);
+                $carrinho[] = Produto::buscarId($itemCarrinho[$i]);
             }
             for ($i = 0; $i < $tamanho; $i++) {
-                $itensPedido = new Itens_Pedido($idPedido, $carrinho[$i]->getId(), $carrinho[$i]->getValor());
+                $itensPedido = new ItemPedido($idPedido, $carrinho[$i]->getId(), $carrinho[$i]->getValor());
                 $itensPedido->salvar();
             }
             DW3Sessao::deletar('carrinho');

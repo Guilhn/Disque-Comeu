@@ -5,29 +5,29 @@ namespace Modelo;
 use \PDO;
 use \Framework\DW3BancoDeDados;
 
-class Itens_Pedido extends Modelo
+class ItemPedido extends Modelo
 {
-    const BUSCAR_ID = 'SELECT id, id_pedido, id_produto, valor FROM itens_pedidos WHERE id = ?';
-    const BUSCAR_NOME_PRODUTO = 'SELECT ip.id as id_item, ip.id_produto as id_produto, pr.nome as nome_produto  FROM itens_pedidos as ip join produtos as pr on ip.id_produto = pr.id where ip.id_pedido = ?';
-    const BUSCAR_ID_PEDIDO = 'SELECT id, id_pedido, id_produto, valor FROM itens_pedidos WHERE id_pedido = ?';
-    const BUSCAR_ITENS_PEDIDOS = 'SELECT id, id_pedido, id_produto, valor FROM itens_pedidos';
-    const INSERIR = 'INSERT INTO itens_pedidos(id_pedido,id_produto,valor) VALUES (?, ?, ?)';
+    const BUSCAR_ID = 'SELECT id, pedido_id, produto_id, valor FROM itens_pedidos WHERE id = ?';
+    const BUSCAR_NOME_PRODUTO = 'SELECT ip.id as id_item, ip.produto_id as produto_id, pr.nome as nome_produto  FROM itens_pedidos as ip join produtos as pr on ip.produto_id = pr.id where ip.pedido_id = ?';
+    const BUSCAR_ID_PEDIDO = 'SELECT id, pedido_id, produto_id, valor FROM itens_pedidos WHERE pedido_id = ?';
+    const BUSCAR_ITENS_PEDIDOS = 'SELECT id, pedido_id, produto_id, valor FROM itens_pedidos';
+    const INSERIR = 'INSERT INTO itens_pedidos(pedido_id,produto_id,valor) VALUES (?, ?, ?)';
     
     private $id;
-    private $id_pedido;
-    private $id_produto;
+    private $pedidoId;
+    private $produtoId;
     private $valor;
 
 
     public function __construct(
-        $id_pedido,
-        $id_produto,
+        $pedidoId,
+        $produtoId,
         $valor,
         $id = null
     ) {
         $this->id = $id;
-        $this->id_pedido = $id_pedido;
-        $this->id_produto = $id_produto;
+        $this->pedidoId = $pedidoId;
+        $this->produtoId = $produtoId;
         $this->valor = $valor;
 
     }
@@ -41,24 +41,24 @@ class Itens_Pedido extends Modelo
         $this->id = $id;
     }
 
-    public function getIdPedido()
+    public function getPedidoId()
     {
-        return $this->id_pedido;
+        return $this->pedidoId;
     }
 
-    public function setIdPedido($id_pedido)
+    public function setPedidoId($pedidoId)
     {
-        $this->id_pedido = $id_pedido;
+        $this->pedidoId = $pedidoId;
     }
 
-    public function getIdProduto()
+    public function getProdutoId()
     {
-        return $this->id_produto;
+        return $this->produtoId;
     }
 
-    public function setIdProduto($id_produto)
+    public function setProdutoId($produtoId)
     {
-        $this->id_produto = $id_produto;
+        $this->produtoId = $produtoId;
     }
 
     public function getValor()
@@ -86,8 +86,8 @@ class Itens_Pedido extends Modelo
     {
         DW3BancoDeDados::getPdo()->beginTransaction();
         $comando = DW3BancoDeDados::prepare(self::INSERIR);
-        $comando->bindValue(1, $this->id_pedido);
-        $comando->bindValue(2, $this->id_produto);
+        $comando->bindValue(1, $this->pedidoId);
+        $comando->bindValue(2, $this->produtoId);
         $comando->bindValue(3, $this->valor);
         $comando->execute();
         $this->id = DW3BancoDeDados::getPdo()->lastInsertId();
@@ -100,15 +100,15 @@ class Itens_Pedido extends Modelo
         $comando->bindValue(1, $id);
         $comando->execute();
         $registro = $comando->fetch();
-        return new Itens_Pedido(
-            $registro['id_pedido'],
-            $registro['id_produto'],
+        return new ItemPedido(
+            $registro['pedido_id'],
+            $registro['produto_id'],
             $registro['valor'],
             $registro['id']
         );
     }
 
-    public static function buscarIdPedido($id)
+    public static function buscarPedidoId($id)
     {
         $comando = DW3BancoDeDados::prepare(self::BUSCAR_ID_PEDIDO);
         $comando->bindValue(1, $id);
@@ -116,9 +116,9 @@ class Itens_Pedido extends Modelo
         $registros = $comando->fetchAll();
         $lista_itens_pedido=[];
         foreach ($registros as $registro) {
-            $lista_itens_pedido[] = new Itens_Pedido(
-                $registro['id_pedido'],
-                $registro['id_produto'],
+            $lista_itens_pedido[] = new ItemPedido(
+                $registro['pedido_id'],
+                $registro['produto_id'],
                 $registro['valor'],
                 $registro['id']
             );
@@ -131,9 +131,9 @@ class Itens_Pedido extends Modelo
         $registros = DW3BancoDeDados::query(self::BUSCAR_ITENS_PEDIDOS);
         $itens_pedido = [];
         foreach ($registros as $registro) {
-            $itens_pedido[] = new Itens_Pedido(
-                $registro['id_pedido'],
-                $registro['id_produto'],
+            $itens_pedido[] = new ItemPedido(
+                $registro['pedido_id'],
+                $registro['produto_id'],
                 $registro['valor'],
                 $registro['id']
 

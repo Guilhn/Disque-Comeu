@@ -10,27 +10,15 @@ $rotas = [
     '/login' => [
         'GET' => '\Controlador\LoginControlador#criar',
         'POST' => '\Controlador\LoginControlador#armazenar',
+        'DELETE' => '\Controlador\LoginControlador#destruir',
     ],
-    '/sair' => [
-        'GET' => '\Controlador\LoginControlador#destruir',
-    ],
-    '/usuarios' => [
-        'POST' => '\Controlador\UsuarioControlador#armazenar',
-    ],
-    '/usuarios/criar' => [
+    '/usuario' => [
         'GET' => '\Controlador\UsuarioControlador#criar',
-    ],
-    '/usuarios/perfil' => [
-        'GET' => '\Controlador\UsuarioControlador#perfil',
-    ],
-    '/usuarios/pedidos' => [
-        'GET' => '\Controlador\UsuarioControlador#pedidos',
-    ],
+        'POST' => '\Controlador\UsuarioControlador#armazenar',
+    ],    
     '/admin' => [
+        'GET' => '\Controlador\AdminControlador#criar',
         'POST' => '\Controlador\AdminControlador#armazenar',        
-    ],
-    '/admin/criar' => [
-        'GET' => '\Controlador\AdminControlador#criar',        
     ],
     '/produtos' => [
         'GET' => '\Controlador\ProdutoControlador#index',
@@ -42,7 +30,7 @@ $rotas = [
     '/produtos/criar' => [
         'GET' => '\Controlador\ProdutoControlador#criar',
     ],
-    '/produtos/editar/?' => [
+    '/produtos/?/editar' => [
         'GET' => '\Controlador\ProdutoControlador#editar',
         'PATCH' => '\Controlador\ProdutoControlador#atualizar',
     ],
@@ -54,16 +42,18 @@ $rotas = [
         'GET' => '\Controlador\PedidoControlador#editar',
         'PATCH' => '\Controlador\PedidoControlador#atualizar',
     ],
+    '/carrinho' => [
+        'GET' => '\Controlador\CarrinhoControlador#criar',
+        'DELETE' => '\Controlador\CarrinhoControlador#destruir',
+        'POST' => '\Controlador\CarrinhoControlador#armazenar',
+    ],
     '/relatorio' => [
         'GET' => '\Controlador\RelatorioControlador#index',
     ],
-    '/carrinho/?' => [
-        'GET' => '\Controlador\CarrinhoControlador#armazenar',
+    '/perfil' => [
+        'GET' => '\Controlador\UsuarioControlador#perfil',
     ],
-    '/carrinho/criar' => [
-        'GET' => '\Controlador\CarrinhoControlador#criar',
-    ],
-    '/carrinho/deletar' => [
-        'GET' => '\Controlador\CarrinhoControlador#destruir',
+    '/meus-pedidos' => [
+        'GET' => '\Controlador\UsuarioControlador#pedidos',
     ],
 ];

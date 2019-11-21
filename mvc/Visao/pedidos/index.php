@@ -67,17 +67,17 @@
                   <td class="center">000<?= $pedidos->getId() ?></td>
                   <td class="center">R$ <?= number_format($pedidos->getTotal(), 2, ',', '.') ?></td>
                   <td class="center"><?= $pedidos->getDataPedidoFormatada() ?></td>
-                  <?php if ($pedidos->getIdStausPedido() == 1) : ?>
-                    <td class="center green-text"><b><?= $pedidos->buscarNomeStatus($pedidos->getIdStausPedido()) ?></b></td>
+                  <?php if ($pedidos->getStausPedidoId() == 1) : ?>
+                    <td class="center green-text"><b><?= $pedidos->buscarNomeStatus($pedidos->getStausPedidoId()) ?></b></td>
                   <?php endif ?>
-                  <?php if ($pedidos->getIdStausPedido() == 2) : ?>
-                    <td class="center amber-text"><b><?= $pedidos->buscarNomeStatus($pedidos->getIdStausPedido()) ?></b></td>
+                  <?php if ($pedidos->getStausPedidoId() == 2) : ?>
+                    <td class="center amber-text"><b><?= $pedidos->buscarNomeStatus($pedidos->getStausPedidoId()) ?></b></td>
                   <?php endif ?>
-                  <?php if ($pedidos->getIdStausPedido() == 3) : ?>
-                    <td class="center orange-text"><b><?= $pedidos->buscarNomeStatus($pedidos->getIdStausPedido()) ?></b></td>
+                  <?php if ($pedidos->getStausPedidoId() == 3) : ?>
+                    <td class="center orange-text"><b><?= $pedidos->buscarNomeStatus($pedidos->getStausPedidoId()) ?></b></td>
                   <?php endif ?>
-                  <?php if ($pedidos->getIdStausPedido() == 4) : ?>
-                    <td class="center blue-text"><b><?= $pedidos->buscarNomeStatus($pedidos->getIdStausPedido()) ?></b></td>
+                  <?php if ($pedidos->getStausPedidoId() == 4) : ?>
+                    <td class="center blue-text"><b><?= $pedidos->buscarNomeStatus($pedidos->getStausPedidoId()) ?></b></td>
                   <?php endif ?>
                 </tr>
               <?php endforeach ?>

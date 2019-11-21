@@ -22,11 +22,11 @@ abstract class Controlador extends DW3Controlador
     protected function getUsuario()
     {
         if ($this->usuario == null) {
-        	$usuarioId = DW3Sessao::get('usuario');
-        	if ($usuarioId == null) {
+        	$usuario = DW3Sessao::get('usuario');
+        	if ($usuario == null) {
         		return null;
         	}
-        	$this->usuario = Usuario::buscarId($usuarioId);
+        	$this->usuario = Usuario::buscarId($usuario->getId());
         }
         return $this->usuario;
     }

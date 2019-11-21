@@ -7,32 +7,34 @@ use \Framework\DW3BancoDeDados;
 
 class Pedido extends Modelo
 {
-    const BUSCAR_ID = 'SELECT id, id_usuario, id_status_pedido, data_pedido, total FROM pedidos WHERE id = ?';
-    const BUSCAR_PEDIDO_ID_USUARIO = 'SELECT id, id_usuario, id_status_pedido, data_pedido, total FROM pedidos WHERE id_usuario = ?  ORDER BY id desc';
-    const BUSCAR_PEDIDOS = 'SELECT id, id_usuario, id_status_pedido, data_pedido, total FROM pedidos ORDER BY id desc';
-    const BUSCAR_POR_STATUS = 'SELECT id, id_usuario, id_status_pedido, data_pedido, total FROM pedidos WHERE id_status_pedido = ? LIMIT 1';
+    const BUSCAR_ID = 'SELECT id, usuario_id, status_pedido_id, data_pedido, total FROM pedidos WHERE id = ?';
+    const BUSCAR_PEDIDO_ID_USUARIO = 'SELECT id, usuario_id, status_pedido_id, data_pedido, total FROM pedidos WHERE usuario_id = ?  ORDER BY id desc LIMIT ? OFFSET ?';
+    const BUSCAR_PEDIDOS = 'SELECT id, usuario_id, status_pedido_id, data_pedido, total FROM pedidos ORDER BY id desc';
+    const BUSCAR_POR_STATUS = 'SELECT id, usuario_id, status_pedido_id, data_pedido, total FROM pedidos WHERE status_pedido_id = ? LIMIT 1';
     const BUSCAR_NOME_STAUS = 'SELECT status_pedido FROM status_pedidos WHERE id = ?';
-    const INSERIR = 'INSERT INTO pedidos(id_usuario,id_status_pedido,data_pedido,total) VALUES (?, ?, ?, ?)';
-    const ATUALIZAR_STATUS = 'UPDATE pedidos SET id_status_pedido = ? WHERE id = ?';
-    
+    const INSERIR = 'INSERT INTO pedidos(usuario_id,status_pedido_id,data_pedido,total) VALUES (?, ?, ?, ?)';
+    const ATUALIZAR_STATUS = 'UPDATE pedidos SET status_pedido_id = ? WHERE id = ?';
+    const CONTAR_TODOS = 'SELECT count(id) FROM pedidos WHERE usuario_id = ?';
+
+
     private $id;
-    private $id_usuario;
-    private $id_status_pedido;
-    private $data_pedido;
+    private $usuarioId;
+    private $statusPedidoId;
+    private $dataPedido;
     private $total;
 
 
     public function __construct(
-        $id_usuario,
-        $id_status_pedido = 1,
-        $data_pedido = null,
+        $usuarioId,
+        $statusPedidoId = 1,
+        $dataPedido = null,
         $total,
         $id = null
     ) {
         $this->id = $id;
-        $this->id_usuario = $id_usuario;
-        $this->id_status_pedido = $id_status_pedido;
-        $this->data_pedido = $data_pedido;
+        $this->usuarioId = $usuarioId;
+        $this->statusPedidoId = $statusPedidoId;
+        $this->dataPedido = $dataPedido;
         $this->total = $total;
 
     }
@@ -46,41 +48,41 @@ class Pedido extends Modelo
         $this->id = $id;
     }
 
-    public function getIdUsuario()
+    public function getUsuarioId()
     {
-        return $this->id_usuario;
+        return $this->usuarioId;
     }
 
-    public function setIdUsuario($id_usuario)
+    public function setUsuarioId($usuarioId)
     {
-        $this->id_usuario = $id_usuario;
+        $this->usuarioId = $usuarioId;
     }
 
     public function getDataPedido()
     {
-        return $this->data_pedido;
+        return $this->dataPedido;
     }
 
     public function getDataPedidoFormatada()
     {
-        $data = date_create($this->data_pedido);
+        $data = date_create($this->dataPedido);
         return date_format($data, 'd/m/Y');
     }
 
     public function setDataPedido()
     {
-        $this->data_pedido = date('Y-m-d h:i:s');
+        $this->dataPedido = date('Y-m-d h:i:s');
     }
 
 
-    public function getIdStausPedido()
+    public function getStausPedidoId()
     {
-        return $this->id_status_pedido;
+        return $this->statusPedidoId;
     }
 
-    public function setIdStausPedido($id_status_pedido)
+    public function setStausPedidoId($statusPedidoId)
     {
-        $this->id_status_pedido = $id_status_pedido;
+        $this->statusPedidoId = $statusPedidoId;
     }
 
     public function getTotal()
@@ -114,9 +116,9 @@ class Pedido extends Modelo
     {
         DW3BancoDeDados::getPdo()->beginTransaction();
         $comando = DW3BancoDeDados::prepare(self::INSERIR);
-        $comando->bindValue(1, $this->id_usuario);
-        $comando->bindValue(2, $this->id_status_pedido);
-        $comando->bindValue(3, $this->data_pedido);
+        $comando->bindValue(1, $this->usuarioId);
+        $comando->bindValue(2, $this->statusPedidoId);
+        $comando->bindValue(3, $this->dataPedido);
         $comando->bindValue(4, $this->total);
         $comando->execute();
         $this->id = DW3BancoDeDados::getPdo()->lastInsertId();
@@ -126,7 +128,7 @@ class Pedido extends Modelo
     public function atualizar()
     {
         $comando = DW3BancoDeDados::prepare(self::ATUALIZAR_STATUS);
-        $comando->bindValue(1, $this->id_status_pedido, PDO::PARAM_STR);
+        $comando->bindValue(1, $this->statusPedidoId, PDO::PARAM_STR);
         $comando->bindValue(2, $this->id, PDO::PARAM_INT);
         $comando->execute();
     }
@@ -138,38 +140,49 @@ class Pedido extends Modelo
         $comando->execute();
         $registro = $comando->fetch();
         return new Pedido(
-            $registro['id_usuario'],
-            $registro['id_status_pedido'],
+            $registro['usuario_id'],
+            $registro['status_pedido_id'],
             $registro['data_pedido'],
             $registro['total'],
             $registro['id']
         );
     }
 
-    public static function buscarPedidoIdUsuario($id)
+    public static function buscarPedidoIdUsuario($id, $limit = 2, $offset = 0)
     {
         $comando = DW3BancoDeDados::prepare(self::BUSCAR_PEDIDO_ID_USUARIO);
         $comando->bindValue(1, $id);
+        $comando->bindValue(2, $limit, PDO::PARAM_INT);
+        $comando->bindValue(3, $offset, PDO::PARAM_INT);
         $comando->execute();
         $registros = $comando->fetchAll();
-        $lista_pedidos = [];
+        $listaPedidos = [];
         foreach ($registros as $registro) {
-            $lista_pedidos[] = new Pedido(
-                $registro['id_usuario'],
-                $registro['id_status_pedido'],
+            $listaPedidos[] = new Pedido(
+                $registro['usuario_id'],
+                $registro['status_pedido_id'],
                 $registro['data_pedido'],
                 $registro['total'],
                 $registro['id']
 
             );
         }
-        return $lista_pedidos;
+        return $listaPedidos;
     }
 
-    public static function buscarNomeStatus($id_status_pedido)
+    public static function contarTodos($id)
+    {
+        $comando = DW3BancoDeDados::prepare(self::CONTAR_TODOS);        
+        $comando->bindValue(1, $id);
+        $comando->execute();
+        $total = $comando->fetch();
+        return intval($total[0]);
+    }
+
+    public static function buscarNomeStatus($statusPedidoId)
     {
         $comando = DW3BancoDeDados::prepare(self::BUSCAR_NOME_STAUS);
-        $comando->bindValue(1, $id_status_pedido, PDO::PARAM_STR);
+        $comando->bindValue(1, $statusPedidoId, PDO::PARAM_STR);
         $comando->execute();
         $objeto = null;
         $registro = $comando->fetch();
@@ -180,17 +193,17 @@ class Pedido extends Modelo
         return $objeto;
     }
 
-    public static function buscarStaus($id_status_pedido)
+    public static function buscarStaus($statusPedidoId)
     {
         $comando = DW3BancoDeDados::prepare(self::BUSCAR_POR_STATUS);
-        $comando->bindValue(1, $id_status_pedido, PDO::PARAM_STR);
+        $comando->bindValue(1, $statusPedidoId, PDO::PARAM_STR);
         $comando->execute();
         $objeto = null;
         $registro = $comando->fetch();
         if ($registro) {
             $objeto = new Pedido(
-                $registro['id_usuario'],
-                $registro['id_status_pedido'],
+                $registro['usuario_id'],
+                $registro['status_pedido_id'],
                 $registro['data_pedido'],
                 $registro['total'],
                 $registro['id']
@@ -202,17 +215,17 @@ class Pedido extends Modelo
     public static function buscarPedido()
     {
         $registros = DW3BancoDeDados::query(self::BUSCAR_PEDIDOS);
-        $lista_pedidos = [];
+        $listaPedidos = [];
         foreach ($registros as $registro) {
-            $lista_pedidos[] = new Pedido(
-                $registro['id_usuario'],
-                $registro['id_status_pedido'],
+            $listaPedidos[] = new Pedido(
+                $registro['usuario_id'],
+                $registro['status_pedido_id'],
                 $registro['data_pedido'],
                 $registro['total'],
                 $registro['id']
 
             );
         }
-        return $lista_pedidos;
+        return $listaPedidos;
     }
 }

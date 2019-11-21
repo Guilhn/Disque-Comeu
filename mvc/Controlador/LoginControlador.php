@@ -17,7 +17,7 @@ class LoginControlador extends Controlador
             ]);
         }
         else {
-            $usuario = DW3Sessao::get('usuario_full');
+            $usuario = DW3Sessao::get('usuario');
             if ($usuario->isAdmin()) {
                 $this->redirecionar(URL_RAIZ . 'pedidos');
             }
@@ -31,8 +31,7 @@ class LoginControlador extends Controlador
     {
         $usuario = Usuario::buscarNomeUsuario($_POST['nome_usuario']);
         if ($usuario && $usuario->verificarSenha($_POST['senha'])) {
-            DW3Sessao::set('usuario', $usuario->getId());
-            DW3Sessao::set('usuario_full', $usuario);
+            DW3Sessao::set('usuario', $usuario);
             if ($usuario->isAdmin()) {
                 $this->redirecionar(URL_RAIZ . 'pedidos');
               } else {
@@ -47,7 +46,6 @@ class LoginControlador extends Controlador
     public function destruir()
     {
         DW3Sessao::deletar('usuario');
-        DW3Sessao::deletar('usuario_full');
         DW3Sessao::deletar('carrinho');
         $this->redirecionar(URL_RAIZ);
     }

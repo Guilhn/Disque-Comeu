@@ -24,7 +24,7 @@ class AdminControlador extends Controlador
         if ($usuario->isValido()) {
             $usuario->salvar();
             DW3Sessao::setFlash('mensagem', 'Cadastro realizado com sucesso!');
-            $this->redirecionar(URL_RAIZ . 'admin/criar');
+            $this->redirecionar(URL_RAIZ . 'admin');
 
         } else {
             $this->setErros($usuario->getValidacaoErros());

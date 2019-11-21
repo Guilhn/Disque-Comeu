@@ -19,12 +19,12 @@ CREATE TABLE categorias (
 
 CREATE TABLE produtos (
     id INT NOT NULL AUTO_INCREMENT ,
-    id_categoria INT NOT NULL ,
+    categoria_id INT NOT NULL ,
     nome VARCHAR(255) NOT NULL ,
     descricao VARCHAR(255) NOT NULL ,
     valor DOUBLE NOT NULL ,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_categoria) REFERENCES categorias (id)
+    FOREIGN KEY (categoria_id) REFERENCES categorias (id)
 );
 
 CREATE TABLE status_pedidos (
@@ -35,23 +35,23 @@ CREATE TABLE status_pedidos (
 
 CREATE TABLE pedidos (
     id INT NOT NULL AUTO_INCREMENT ,
-    id_usuario INT NOT NULL ,
-    id_status_pedido INT NOT NULL ,
+    usuario_id INT NOT NULL ,
+    status_pedido_id INT NOT NULL ,
     data_pedido DATE NOT NULL ,
     total DOUBLE NOT NULL ,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_usuario) REFERENCES usuarios (id),
-    FOREIGN KEY (id_status_pedido) REFERENCES status_pedidos (id)
+    FOREIGN KEY (usuario_id) REFERENCES usuarios (id),
+    FOREIGN KEY (status_pedido_id) REFERENCES status_pedidos (id)
 );
 
 CREATE TABLE itens_pedidos (
     id INT NOT NULL AUTO_INCREMENT ,
-    id_pedido INT NOT NULL ,
-    id_produto INT NOT NULL ,
+    pedido_id INT NOT NULL ,
+    produto_id INT NOT NULL ,
     valor DOUBLE NOT NULL ,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_pedido) REFERENCES pedidos (id),
-    FOREIGN KEY (id_produto) REFERENCES produtos (id)
+    FOREIGN KEY (pedido_id) REFERENCES pedidos (id),
+    FOREIGN KEY (produto_id) REFERENCES produtos (id)
 );
 
 INSERT INTO categorias (id, categoria) VALUES (NULL, 'Pizza'), (NULL, 'Lanche'), (NULL, 'Massa'), (NULL, 'Porção');

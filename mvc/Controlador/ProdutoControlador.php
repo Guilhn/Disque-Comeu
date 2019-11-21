@@ -2,6 +2,7 @@
 namespace Controlador;
 
 use \Modelo\Produto;
+use \Modelo\Categoria;
 use \Framework\DW3Sessao;
 use \Framework\DW3Controlador;
 
@@ -11,9 +12,9 @@ class ProdutoControlador extends Controlador
     public function index()
     {
         $this->verificarLogado();
-        $lista_produtos = Produto::buscarProdutos();
+        $listaProdutos = Produto::buscarProdutos();
         $this->visao('produtos/index.php', [
-            'produtos' => $lista_produtos,
+            'produtos' => $listaProdutos,
             'mensagem' => DW3Sessao::getFlash('mensagem', null)
         ],'consumidor.php');
     }
@@ -21,24 +22,27 @@ class ProdutoControlador extends Controlador
     public function listar()
     {
         $this->verificarLogado();
-        $lista_produtos = Produto::buscarProdutos();
+        $listaProdutos = Produto::buscarProdutos();
         $this->visao('produtos/listar.php', [
-            'produtos' => $lista_produtos,
+            'produtos' => $listaProdutos,
             'mensagem' => DW3Sessao::getFlash('mensagem', null)
         ], 'administrador.php');
     }
 
     public function criar()
     {   
+        $categorias = Categoria::buscarCategorias();
         $this->verificarLogado();
-        $this->visao('produtos/criar.php', [], 'administrador.php');
+        $this->visao('produtos/criar.php', [
+            'categorias' => $categorias
+        ], 'administrador.php');
     }
 
     public function armazenar()
     {
         $this->verificarLogado();
         $foto = array_key_exists('foto', $_FILES) ? $_FILES['foto'] : null;
-        $produto = new Produto($_POST['nome'], $_POST['id_categoria'], $_POST['descricao'], $_POST['valor'], $foto);
+        $produto = new Produto($_POST['nome'], $_POST['categoria_id'], $_POST['descricao'], $_POST['valor'], $foto);
 
         if ($produto->isValido()) {
             $produto->salvar();
@@ -46,8 +50,11 @@ class ProdutoControlador extends Controlador
             $this->redirecionar(URL_RAIZ . 'produtos/listar');
 
         } else {
+            $categorias = Categoria::buscarCategorias();
             $this->setErros($produto->getValidacaoErros());
-            $this->visao('produtos/criar.php', [], 'administrador.php');
+            $this->visao('produtos/criar.php', [
+                'categorias' => $categorias
+            ], 'administrador.php');
         }
     }
 
@@ -55,10 +62,10 @@ class ProdutoControlador extends Controlador
     {
         $this->verificarLogado();
         $produto = Produto::buscarId($id);
-        $categoria = Produto::buscarNomeCategoria($produto->getId());
+        $categorias = Categoria::buscarCategorias();
         $this->visao('produtos/editar.php', [
             'produto' => $produto,
-            'categoria' => $categoria
+            'categorias' => $categorias
         ], 'administrador.php');
     }
 
@@ -66,9 +73,9 @@ class ProdutoControlador extends Controlador
     {
         $this->verificarLogado();
         $produto = Produto::buscarId($id);
-        $categoria = Produto::buscarNomeCategoria($produto->getId());
+        $categorias = Categoria::buscarCategorias();
         $produto->setNome($_POST['nome']);
-        $produto->setIdCategoria($_POST['id_categoria']);
+        $produto->setCategoriaId($_POST['categoria_id']);
         $produto->setDescricao($_POST['descricao']);
         $produto->setValor($_POST['valor']);
         $produto->setId($id);
@@ -81,7 +88,7 @@ class ProdutoControlador extends Controlador
             $this->setErros($produto->getValidacaoErros());
             $this->visao('produtos/editar.php', [
                 'produto' => $produto,
-                'categoria' => $categoria
+                'categorias' => $categorias
             ], 'administrador.php');
         }
         

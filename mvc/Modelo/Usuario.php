@@ -14,7 +14,7 @@ class Usuario extends Modelo
     private $id;
     private $nome;
     private $sobrenome;
-    private $nome_usuario;
+    private $nomeUsuario;
     private $email;
     private $senha;
     private $senhaPlana;
@@ -24,7 +24,7 @@ class Usuario extends Modelo
     public function __construct(
         $nome,
         $sobrenome,
-        $nome_usuario,
+        $nomeUsuario,
         $email,
         $senha,
         $administrador = 0,
@@ -34,7 +34,7 @@ class Usuario extends Modelo
         $this->id = $id;
         $this->nome = $nome;
         $this->sobrenome = $sobrenome;
-        $this->nome_usuario = $nome_usuario;
+        $this->nomeUsuario = $nomeUsuario;
         $this->email = $email;
         $this->foto = $foto;
         $this->senhaPlana = $senha;
@@ -59,7 +59,7 @@ class Usuario extends Modelo
 
     public function getNomeUsuario()
     {
-        return $this->nome_usuario;
+        return $this->nomeUsuario;
     }
 
     public function getEmail()
@@ -96,7 +96,7 @@ class Usuario extends Modelo
         if ((strlen($this->sobrenome) < 3)  || (!preg_match("/^[A-Za-z]+$/", $this->sobrenome))) {
             $this->setErroMensagem('sobrenome', 'deve ter no mínimo 3 letras e não pode possuir numeros e caracteres especiais.');
         }
-        if ((strlen($this->nome_usuario) < 6) || (!preg_match("/^[A-Za-z]+$/", $this->nome_usuario))) {
+        if ((strlen($this->nomeUsuario) < 6) || (!preg_match("/^[A-Za-z]+$/", $this->nomeUsuario))) {
             $this->setErroMensagem('nome_usuario', 'deve ter no mínimo 6 caracteres e não pode possuir numeros e caracteres especiais.');
         }
         if (!preg_match("/^[^0-9][A-z0-9_]+([.][A-z0-9_]+)*[@][A-z0-9_]+([.][A-z0-9_]+)*[.][A-z]{2,4}$/", $this->email)) {
@@ -126,7 +126,7 @@ class Usuario extends Modelo
         $comando = DW3BancoDeDados::prepare(self::INSERIR);
         $comando->bindValue(1, $this->nome);
         $comando->bindValue(2, $this->sobrenome);
-        $comando->bindValue(3, $this->nome_usuario);
+        $comando->bindValue(3, $this->nomeUsuario);
         $comando->bindValue(4, $this->email);
         $comando->bindValue(5, $this->senha);
         $comando->bindValue(6, $this->administrador);
@@ -162,10 +162,10 @@ class Usuario extends Modelo
         );
     }
 
-    public static function buscarNomeUsuario($nome_usuario)
+    public static function buscarNomeUsuario($nomeUsuario)
     {
         $comando = DW3BancoDeDados::prepare(self::BUSCAR_NOME_USUARIO);
-        $comando->bindValue(1, $nome_usuario, PDO::PARAM_STR);
+        $comando->bindValue(1, $nomeUsuario, PDO::PARAM_STR);
         $comando->execute();
         $objeto = null;
         $registro = $comando->fetch();

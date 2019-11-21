@@ -22,22 +22,27 @@
       <a id="logo" href="<?= URL_RAIZ . 'produtos' ?>" class="brand-logo"><span class="front-logo hide-on-small-only">Disque</span> <span class="back-logo hide-on-small-only">Comeu</span> <i class="fas fa-hamburger"></i></a>
       <ul class="right hide-on-med-and-down">
         <li><a href="<?= URL_RAIZ . 'produtos' ?>">Inicio</a></li>
-        <li><a href="<?= URL_RAIZ . 'carrinho/criar' ?>">Carrinho</a></li>
-        <li><a class="dropdown-trigger fontMenu" href="javascript:;" data-target="dropdown1"><?php $usuario = \Framework\DW3Sessao::get("usuario_full"); echo $usuario->getNome(); ?><i class="material-icons right">arrow_drop_down</i></a></li>
-        <li><a title="Sair" href="<?= URL_RAIZ . 'sair' ?>"><i class="material-icons right">exit_to_app</i>Sair</a></li>
+        <li><a href="<?= URL_RAIZ . 'carrinho' ?>">Carrinho</a></li>
+        <li><a class="dropdown-trigger fontMenu" href="javascript:;" data-target="dropdown1"><?php $usuario = \Framework\DW3Sessao::get("usuario"); echo $usuario->getNome(); ?><i class="material-icons right">arrow_drop_down</i></a></li>
+        <li>
+          <form id="form-sair" action="<?= URL_RAIZ . 'login' ?>" method="post">
+            <input id="input-sair" type="text" value="DELETE" name="_metodo">
+          </form>
+          <a title="Sair" href="" onclick="event.preventDefault(); $('#form-sair').submit()"><i class="material-icons right">exit_to_app</i>Sair</a>
+        </li>
       </ul>
 
       <ul id="dropdown1" class="dropdown-content">
-      <li><a href="<?= URL_RAIZ . 'usuarios/perfil' ?>"><span class=""> Perfil</span></a></li>
-        <li><a href="<?= URL_RAIZ . 'usuarios/pedidos' ?>"><span class=""> Pedidos</span></a></li>
+        <li><a href="<?= URL_RAIZ . 'perfil' ?>"><span class=""> Perfil</span></a></li>
+        <li><a href="<?= URL_RAIZ . 'meus-pedidos' ?>"><span class=""> Pedidos</span></a></li>
       </ul>
       <ul id="nav-mobile" class="sidenav">
         <li><a href="<?= URL_RAIZ . 'produtos' ?>">Inicio</a></li>
-        <li><a href="<?= URL_RAIZ . 'carrinho/criar' ?>">Carrinho</a></li>
-        <li><a href="<?= URL_RAIZ . 'usuarios/perfil' ?>">Perfil</a></li>
-        <li><a href="<?= URL_RAIZ . 'usuarios/pedidos' ?>">Pedidos</a></li>
+        <li><a href="<?= URL_RAIZ . 'carrinho' ?>">Carrinho</a></li>
+        <li><a href="<?= URL_RAIZ . 'perfil' ?>">Perfil</a></li>
+        <li><a href="<?= URL_RAIZ . 'meus-pedidos' ?>">Pedidos</a></li>
         <li class="divider" tabindex="-1"></li>
-        <li><a title="Sair" href="<?= URL_RAIZ . 'sair' ?>"><i class="material-icons right">exit_to_app</i>Sair</a></li>
+        <li> <a title="Sair" href="" onclick="event.preventDefault(); $('#form-sair').submit()"><i class="material-icons right">exit_to_app</i>Sair</a></li>
       </ul>
       <a href="javascript:;" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
@@ -60,15 +65,15 @@
         <div class="col l3 s6">
           <h5 class="texto-branco">Carrinho</h5>
           <ul>
-            <li><a class="white-text" href="<?= URL_RAIZ . 'carrinho/criar' ?>"><b>Meu Carrinho</b></a></li>
+            <li><a class="white-text" href="<?= URL_RAIZ . 'carrinho' ?>"><b>Meu Carrinho</b></a></li>
           </ul>
 
         </div>
         <div class="col l3 s6">
           <h5 class="texto-branco">Usuario</h5>
           <ul>
-            <li><a class="white-text" href="<?= URL_RAIZ . 'usuarios/perfil' ?>"><b>Meu Perfil</b></a></li>
-            <li><a class="white-text" href="<?= URL_RAIZ . 'usuarios/pedidos' ?>"><b>Meus Pedidos</b></a></li>
+            <li><a class="white-text" href="<?= URL_RAIZ . 'perfil' ?>"><b>Meu Perfil</b></a></li>
+            <li><a class="white-text" href="<?= URL_RAIZ . 'meus-pedidos' ?>"><b>Meus Pedidos</b></a></li>
           </ul>
 
         </div>

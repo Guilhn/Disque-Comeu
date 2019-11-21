@@ -13,11 +13,11 @@
                   <br>
                   <div class="col s10 offset-s1">
                     <select name="status_pedido" class="fundo-branco">
-                      <option value="<?php echo $pedido->getIdStausPedido(); ?>" selected><?php echo $pedido->buscarNomeStatus($pedido->getIdStausPedido()); ?></option>
-                      <option value="1">Pedido Novo</option>
-                      <option value="2">Leu o pedido</option>
-                      <option value="3">Saiu para Entrega</option>
-                      <option value="4">Entregue</option>
+                      <?php foreach ($status as $status) : ?>
+                        <?php $selected = $status->getId() == $pedido->getStausPedidoId() ? 'selected' : '' ?>
+                        <option value="<?= $status->getId() ?>" <?= $selected ?>><?= $status->getNome() ?></option>
+                      <?php endforeach ?>
+                    </select>
                     </select>
                   </div>
                 </div>
@@ -47,7 +47,7 @@
               </div>
             </div>
             <div class="col s12">
-              <?php if ($pedido->getIdStausPedido() == 1) : ?>
+              <?php if ($pedido->getStausPedidoId() == 1) : ?>
                 <ul class="stepper horizontal" id="horizontal">
                   <li class="step active">
                     <div class="step-title ">Pedido Novo</div>
@@ -63,7 +63,7 @@
                   </li>
                 </ul>
               <?php endif ?>
-              <?php if ($pedido->getIdStausPedido() == 2) : ?>
+              <?php if ($pedido->getStausPedidoId() == 2) : ?>
                 <ul class="stepper horizontal" id="horizontal">
                   <li class="step">
                     <div class="step-title ">Pedido Novo</div>
@@ -79,7 +79,7 @@
                   </li>
                 </ul>
               <?php endif ?>
-              <?php if ($pedido->getIdStausPedido() == 3) : ?>
+              <?php if ($pedido->getStausPedidoId() == 3) : ?>
                 <ul class="stepper horizontal" id="horizontal">
                   <li class="step">
                     <div class="step-title ">Pedido Novo</div>
@@ -95,7 +95,7 @@
                   </li>
                 </ul>
               <?php endif ?>
-              <?php if ($pedido->getIdStausPedido() == 4) : ?>
+              <?php if ($pedido->getStausPedidoId() == 4) : ?>
                 <ul class="stepper horizontal" id="horizontal">
                   <li class="step">
                     <div class="step-title ">Pedido Novo</div>

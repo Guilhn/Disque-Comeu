@@ -26,14 +26,13 @@
                                             <?php $this->incluirVisao('util/formErro.php', ['campo' => 'nome']) ?>
                                         </div>
                                         <div class="input-field col s12 m6">
-                                            <select name="id_categoria" >
-                                                <option selected value="1">Pizza</option>
-                                                <option value="2">Lanche</option>
-                                                <option value="3">Massa</option>
-                                                <option value="4">Porção</option>
+                                            <select name="categoria_id">
+                                                <?php foreach ($categorias as $categorias) : ?>
+                                                    <option value="<?= $categorias->getId() ?>"><?= $categorias->getNome() ?></option>
+                                                <?php endforeach ?>
                                             </select>
                                             <label>Categoria</label>
-                                            <?php $this->incluirVisao('util/formErro.php', ['campo' => 'id_categoria']) ?>
+                                            <?php $this->incluirVisao('util/formErro.php', ['campo' => 'categoria_id']) ?>
                                         </div>
                                     </div>
 

@@ -26,11 +26,16 @@
         <li><a class="dropdown-trigger" href="javascript:;" data-target="dropdown1">Funcionarios<i class="material-icons right">arrow_drop_down</i></a></li>
         <li><a class="dropdown-trigger" href="javascript:;" data-target="dropdown2">Pratos<i class="material-icons right">arrow_drop_down</i></a></li>
         <li><a href="<?= URL_RAIZ . 'pedidos' ?>">Pedidos</a></li>
-        <li><a title="Sair" href="<?= URL_RAIZ . 'sair' ?>"><i class="material-icons right">exit_to_app</i>Sair</a></li>
+        <li>
+          <form id="form-sair" action="<?= URL_RAIZ . 'login' ?>" method="post">
+            <input id="input-sair" type="text" value="DELETE" name="_metodo">
+          </form>
+          <a title="Sair" href="" onclick="event.preventDefault(); $('#form-sair').submit()"><i class="material-icons right">exit_to_app</i>Sair</a>
+        </li>
       </ul>
 
       <ul id="dropdown1" class="dropdown-content">
-        <li><a href="<?= URL_RAIZ . 'admin/criar' ?>"><span>Cadastrar</span></a></li>
+        <li><a href="<?= URL_RAIZ . 'admin' ?>"><span>Cadastrar</span></a></li>
       </ul>
 
       <ul id="dropdown2" class="dropdown-content">
@@ -43,13 +48,13 @@
         <li><a href="<?= URL_RAIZ . 'relatorio' ?>">Relatório</a></li>
         <li class="divider" tabindex="-1"></li>
         <li class="cor-texto-primaria titulo-itens"><b>Funcionario</b></li>
-        <li><a href="<?= URL_RAIZ . 'usuarios/criar_admin' ?>">Cadastrar</a></li>
+        <li><a href="<?= URL_RAIZ . 'admin' ?>">Cadastrar</a></li>
         <li class="divider" tabindex="-1"></li>
         <li class="cor-texto-primaria titulo-itens"><b>Pratos</b></li>
         <li><a href="<?= URL_RAIZ . 'produtos/criar' ?>">Cadastrar</a></li>
         <li><a href="<?= URL_RAIZ . 'produtos/listar' ?>">Listar</a></li>
         <li class="divider" tabindex="-1"></li>
-        <li><a title="Sair" href="<?= URL_RAIZ . 'sair' ?>"><i class="material-icons right">exit_to_app</i>Sair</a></li>
+        <li> <a title="Sair" href="" onclick="event.preventDefault(); $('#form-sair').submit()"><i class="material-icons right">exit_to_app</i>Sair</a></li>
       </ul>
       <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
@@ -78,7 +83,7 @@
         <div class="col l2 s6">
           <h5 class="texto-branco">Funcionario</h5>
           <ul>
-            <li><a class="white-text" href="<?= URL_RAIZ . 'admin/criar' ?>"><b>Cadastrar Funcionario</b></a></li>
+            <li><a class="white-text" href="<?= URL_RAIZ . 'admin' ?>"><b>Cadastrar Funcionario</b></a></li>
           </ul>
 
         </div>
