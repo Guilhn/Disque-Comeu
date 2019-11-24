@@ -22,13 +22,13 @@
       <a id="logo" href="<?= URL_RAIZ ?>" class="brand-logo"><span class="front-logo hide-on-small-only">Disque</span> <span class="back-logo hide-on-small-only">Comeu</span> <i class="fas fa-hamburger"></i></a>
       <ul class="right hide-on-med-and-down">
         <li><a href="<?= URL_RAIZ ?>">Inicio</a></li>
-        <li><a href="<?= URL_RAIZ . 'usuario' ?>">Cadastre-se</a></li>
+        <li><a href="<?= URL_RAIZ . 'usuarios/criar' ?>">Cadastre-se</a></li>
         <li><a href="<?= URL_RAIZ . 'login' ?>">Entrar</a></li>
       </ul>
 
       <ul id="nav-mobile" class="sidenav">
         <li><a href="<?= URL_RAIZ ?>">Inicio</a></li>
-        <li><a href="<?= URL_RAIZ . 'usuario' ?>">Cadastre-se</a></li>
+        <li><a href="<?= URL_RAIZ . 'usuarios/criar' ?>">Cadastre-se</a></li>
         <li><a href="<?= URL_RAIZ . 'login' ?>">Entrar</a></li>
       </ul>
       <a href="javascript:;" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -52,7 +52,7 @@
         <div class="col l3 s12">
           <h5 class="texto-branco">Cadastre-se</h5>
           <ul>
-            <li><a class="white-text" href="<?= URL_RAIZ . 'usuario' ?>"><b>Criar Conta</b></a></li>
+            <li><a class="white-text" href="<?= URL_RAIZ . 'usuarios/criar' ?>"><b>Criar Conta</b></a></li>
           </ul>
 
 

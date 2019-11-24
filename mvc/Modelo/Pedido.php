@@ -8,13 +8,14 @@ use \Framework\DW3BancoDeDados;
 class Pedido extends Modelo
 {
     const BUSCAR_ID = 'SELECT id, usuario_id, status_pedido_id, data_pedido, total FROM pedidos WHERE id = ?';
-    const BUSCAR_PEDIDO_ID_USUARIO = 'SELECT id, usuario_id, status_pedido_id, data_pedido, total FROM pedidos WHERE usuario_id = ?  ORDER BY id desc LIMIT ? OFFSET ?';
+    const BUSCAR_PEDIDO_ID_USUARIO = 'SELECT id, usuario_id, status_pedido_id, data_pedido, total FROM pedidos WHERE usuario_id = ?';
     const BUSCAR_PEDIDOS = 'SELECT id, usuario_id, status_pedido_id, data_pedido, total FROM pedidos ORDER BY id desc';
     const BUSCAR_POR_STATUS = 'SELECT id, usuario_id, status_pedido_id, data_pedido, total FROM pedidos WHERE status_pedido_id = ? LIMIT 1';
     const BUSCAR_NOME_STAUS = 'SELECT status_pedido FROM status_pedidos WHERE id = ?';
     const INSERIR = 'INSERT INTO pedidos(usuario_id,status_pedido_id,data_pedido,total) VALUES (?, ?, ?, ?)';
     const ATUALIZAR_STATUS = 'UPDATE pedidos SET status_pedido_id = ? WHERE id = ?';
     const CONTAR_TODOS = 'SELECT count(id) FROM pedidos WHERE usuario_id = ?';
+    const CONTAR_PEDIDOS_STATUS = 'SELECT count(id) FROM pedidos WHERE usuario_id = ?';
 
 
     private $id;
@@ -68,12 +69,6 @@ class Pedido extends Modelo
         $data = date_create($this->dataPedido);
         return date_format($data, 'd/m/Y');
     }
-
-    public function setDataPedido()
-    {
-        $this->dataPedido = date('Y-m-d h:i:s');
-    }
-
 
     public function getStausPedidoId()
     {
@@ -148,12 +143,30 @@ class Pedido extends Modelo
         );
     }
 
-    public static function buscarPedidoIdUsuario($id, $limit = 2, $offset = 0)
+    public static function buscarPedidoIdUsuario($filtro = [], $id, $limit = 2, $offset = 0)
     {
-        $comando = DW3BancoDeDados::prepare(self::BUSCAR_PEDIDO_ID_USUARIO);
-        $comando->bindValue(1, $id);
-        $comando->bindValue(2, $limit, PDO::PARAM_INT);
-        $comando->bindValue(3, $offset, PDO::PARAM_INT);
+
+        $sqlWhere = '';
+        $parametro = '';
+   
+        if (array_key_exists('status_id', $filtro) && $filtro['status_id'] != '') {
+            $parametro = $filtro['status_id'];
+            $sqlWhere .= ' AND status_pedido_id = ?';
+        }
+
+        $sql = self::BUSCAR_PEDIDO_ID_USUARIO . $sqlWhere . ' ORDER BY id desc LIMIT ? OFFSET ?';
+
+        $comando = DW3BancoDeDados::prepare($sql);
+        $parametroNumero = 1;
+        $comando->bindValue($parametroNumero, $id, PDO::PARAM_INT);
+
+        if ($parametro != '') {
+            $comando->bindValue($parametroNumero + 1, $parametro, PDO::PARAM_INT);
+            $parametroNumero++;
+        }
+
+        $comando->bindValue($parametroNumero + 1, $limit, PDO::PARAM_INT);
+        $comando->bindValue($parametroNumero + 2, $offset, PDO::PARAM_INT);
         $comando->execute();
         $registros = $comando->fetchAll();
         $listaPedidos = [];
@@ -177,6 +190,30 @@ class Pedido extends Modelo
         $comando->execute();
         $total = $comando->fetch();
         return intval($total[0]);
+    }
+
+    public static function contarPedidosStatus($usuarioId, $statusId)
+    {
+        $sqlWhere = '';
+
+        if ($statusId != null) {
+            $sqlWhere .= ' AND status_pedido_id = ?';
+        }
+
+        $sql = self::CONTAR_PEDIDOS_STATUS . $sqlWhere;
+        $comando = DW3BancoDeDados::prepare($sql);
+        $parametroNumero = 1;
+        $comando->bindValue($parametroNumero, $usuarioId);
+        if ($usuarioId != null) {
+            $comando->bindValue($parametroNumero + 1, $statusId);
+        }
+        $comando->execute();
+        
+        $total = $comando->fetch();
+        
+        return intval($total[0]);
+
+        
     }
 
     public static function buscarNomeStatus($statusPedidoId)

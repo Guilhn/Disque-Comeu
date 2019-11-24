@@ -15,6 +15,7 @@ class Produto extends Modelo
     const INSERIR = 'INSERT INTO produtos(nome,categoria_id,descricao,valor) VALUES (?, ?, ?, ?)';
     const ATUALIZAR = 'UPDATE produtos SET categoria_id = ?, nome = ?, descricao = ?, valor = ?  WHERE id = ?';
     const CONTAR_TODOS = 'SELECT count(id) FROM produtos';
+    const CONTAR_PRODUTOS_CATEGORIA = 'SELECT count(id) FROM produtos WHERE TRUE';
 
     private $id;
     private $nome;
@@ -219,17 +220,22 @@ class Produto extends Modelo
     {
         $sqlWhere = '';
         $parametro = '';
-
+   
         if (array_key_exists('categoria_id', $filtro) && $filtro['categoria_id'] != '') {
             $parametro = $filtro['categoria_id'];
-            $sqlWhere .= ' AND id = ?';
+            $sqlWhere .= ' AND categoria_id = ?';
         }
 
         $sql = self::BUSCAR_PRODUTOS . $sqlWhere . ' LIMIT ? OFFSET ?';
+
         $comando = DW3BancoDeDados::prepare($sql);
-        $comando->bindValue(1, $parametro, PDO::PARAM_STR);
-        $comando->bindValue(2, $limit, PDO::PARAM_INT);
-        $comando->bindValue(3, $offset, PDO::PARAM_INT);
+        $parametroNumero = 1;
+        if ($parametro != '') {
+            $comando->bindValue($parametroNumero, $parametro, PDO::PARAM_INT);
+            $parametroNumero++;
+        }
+        $comando->bindValue($parametroNumero, $limit, PDO::PARAM_INT);
+        $comando->bindValue($parametroNumero + 1, $offset, PDO::PARAM_INT);
         $comando->execute();
         $registros = $comando->fetchAll();
         $listaProdutos = [];
@@ -252,5 +258,29 @@ class Produto extends Modelo
         $registros = DW3BancoDeDados::query(self::CONTAR_TODOS);
         $total = $registros->fetch();
         return intval($total[0]);
+    }
+
+    public static function contarProdutosCategoria($id)
+    {
+        $sqlWhere = '';
+
+        if ($id != null) {
+            $sqlWhere .= ' AND categoria_id = ?';
+        }
+
+        $sql = self::CONTAR_PRODUTOS_CATEGORIA . $sqlWhere;
+        $comando = DW3BancoDeDados::prepare($sql);
+        $parametroNumero = 1;
+        if ($id != null) {
+            $comando->bindValue($parametroNumero, $id);
+            $parametroNumero++;
+        }
+        $comando->execute();
+        
+        $total = $comando->fetch();
+        
+        return intval($total[0]);
+
+        
     }
 }

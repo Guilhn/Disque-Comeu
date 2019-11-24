@@ -3,7 +3,7 @@
 namespace Controlador;
 
 use \Modelo\Usuario;
-use \Modelo\Produto;
+use \Modelo\Categoria;
 use \Modelo\Pedido;
 use \Modelo\ItemPedido;
 use \Framework\DW3Sessao;
@@ -21,25 +21,33 @@ class UsuarioControlador extends Controlador
         $this->visao('usuarios/perfil.php', [], 'consumidor.php');
     }
 
-    private function calcularPaginacao()
+    private function calcularPaginacao($limit)
     {
         $pagina = array_key_exists('p', $_GET) ? intval($_GET['p']) : 1;
-        $limit = 2;
         $offset = ($pagina - 1) * $limit;
         $usuario = DW3Sessao::get('usuario');
-        $pedidos = Pedido::buscarPedidoIdUsuario($usuario->getId(), $limit, $offset);
+        $pedidos = Pedido::buscarPedidoIdUsuario($_GET, $usuario->getId(), $limit, $offset);
         $ultimaPagina = ceil(Pedido::contarTodos($usuario->getId()) / $limit);
-        return compact('pagina', 'pedidos', 'ultimaPagina');
+        if (!empty($_GET['status_id'])) {
+            $totalPedidos = Pedido::contarPedidosStatus($usuario->getId(), $_GET['status_id']);
+        } else {
+            $totalPedidos = Pedido::contarTodos(($usuario->getId()));
+        }
+        return compact('pagina', 'pedidos', 'ultimaPagina', 'limit', 'totalPedidos');
     }
 
     public function pedidos()
     {
         $this->verificarLogado();
-        $paginacao = $this->calcularPaginacao();
+        $status = Categoria::buscarStatus();
+        $paginacao = $this->calcularPaginacao(2);
         $this->visao('usuarios/pedidos.php', [
+            'totalPedidos' => $paginacao['totalPedidos'],
+            'limit' => $paginacao['limit'],
             'pedidos' => $paginacao['pedidos'],
             'pagina' => $paginacao['pagina'],
             'ultimaPagina' => $paginacao['ultimaPagina'],
+            'status' => $status
         ], 'consumidor.php');
     }
     

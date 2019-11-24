@@ -5,7 +5,7 @@
 
         <div class="row">
           <div class="col s12 m6 offset-m3">
-            <form action="<?= URL_RAIZ . 'pedidos/' . $pedido->getId() . '/editar' ?>" method="post" class="col s12">
+            <form action="<?= URL_RAIZ . 'pedidos/' . $pedido->getId() ?>" method="post" class="col s12">
               <input type="hidden" name="_metodo" value="PATCH">
               <div class="card white darken-1">
                 <div class="card-content white-text row">

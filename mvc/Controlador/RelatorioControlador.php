@@ -2,13 +2,16 @@
 namespace Controlador;
 
 use \Modelo\Produto;
+use \Modelo\Relatorio;
 
 class RelatorioControlador extends Controlador
 {
 
     public function index()
     {
-        $this->verificarLogado();
-        $this->visao('relatorio/index.php', [], 'administrador.php');
+
+        $this->visao('relatorios/index.php', [
+            'registros' => Relatorio::buscarRegistros($_GET)
+        ], 'administrador.php');
     }
 }

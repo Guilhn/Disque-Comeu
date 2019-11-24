@@ -9,28 +9,32 @@ use \Framework\DW3Controlador;
 class ProdutoControlador extends Controlador
 {
 
-    private function calcularPaginacao()
+    private function calcularPaginacao($limit)
     {
         $pagina = array_key_exists('p', $_GET) ? intval($_GET['p']) : 1;
-        $limit = 6;
-        $limitListar = 8;
         $offset = ($pagina - 1) * $limit;
-        $listaProdutos = Produto::buscarProdutos($limit, $offset);
+        $listaProdutos = Produto::buscarProdutos($_GET, $limit, $offset);
         $ultimaPagina = ceil(Produto::contarTodos() / $limit);
-        
-        $produtos = Produto::buscarProdutos($limitListar, $offset);
-        $ultimaPaginaListar = ceil(Produto::contarTodos() / $limitListar);
-        return compact('pagina', 'listaProdutos', 'produtos', 'ultimaPagina', 'ultimaPaginaListar');
+        if (!empty($_GET['categoria_id'])) {
+            $totalProdutos = Produto::contarProdutosCategoria($_GET['categoria_id']);
+        } else {
+            $totalProdutos = Produto::contarTodos();
+        }
+        return compact('pagina', 'listaProdutos', 'ultimaPagina', 'limit', 'totalProdutos');
     }
 
     public function index()
     {
         $this->verificarLogado();
-        $paginacao = $this->calcularPaginacao();
+        $paginacao = $this->calcularPaginacao(6);
+        $categorias = Categoria::buscarCategorias();
         $this->visao('produtos/index.php', [
+            'totalProdutos' => $paginacao['totalProdutos'],
+            'limit' => $paginacao['limit'],
             'produtos' => $paginacao['listaProdutos'],
             'pagina' => $paginacao['pagina'],
             'ultimaPagina' => $paginacao['ultimaPagina'],
+            'categorias' => $categorias,
             'mensagem' => DW3Sessao::getFlash('mensagem', null)
         ],'consumidor.php');
     }
@@ -39,11 +43,15 @@ class ProdutoControlador extends Controlador
     {
 
         $this->verificarLogado();
-        $paginacao = $this->calcularPaginacao();
+        $paginacao = $this->calcularPaginacao(8);
+        $categorias = Categoria::buscarCategorias();
         $this->visao('produtos/listar.php', [
-            'produtos' => $paginacao['produtos'],
+            'totalProdutos' => $paginacao['totalProdutos'],
+            'limit' => $paginacao['limit'],
+            'produtos' => $paginacao['listaProdutos'],
             'pagina' => $paginacao['pagina'],
-            'ultimaPagina' => $paginacao['ultimaPaginaListar'],
+            'ultimaPagina' => $paginacao['ultimaPagina'],
+            'categorias' => $categorias,
             'mensagem' => DW3Sessao::getFlash('mensagem', null)
         ],'administrador.php');
     }

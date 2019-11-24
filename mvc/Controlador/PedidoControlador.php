@@ -7,7 +7,6 @@ use \Modelo\Pedido;
 use \Modelo\Categoria;
 use \Modelo\ItemPedido;
 use \Framework\DW3Sessao;
-use \Framework\DW3Controlador;
 
 class PedidoControlador extends Controlador
 {

@@ -12,9 +12,11 @@ $rotas = [
         'POST' => '\Controlador\LoginControlador#armazenar',
         'DELETE' => '\Controlador\LoginControlador#destruir',
     ],
-    '/usuario' => [
-        'GET' => '\Controlador\UsuarioControlador#criar',
+    '/usuarios' => [
         'POST' => '\Controlador\UsuarioControlador#armazenar',
+    ],
+    '/usuarios/criar' => [
+        'GET' => '\Controlador\UsuarioControlador#criar',
     ],    
     '/admin' => [
         'GET' => '\Controlador\AdminControlador#criar',
@@ -24,6 +26,9 @@ $rotas = [
         'GET' => '\Controlador\ProdutoControlador#index',
         'POST' => '\Controlador\ProdutoControlador#armazenar',
     ],
+    '/produtos/?' => [
+        'PATCH' => '\Controlador\ProdutoControlador#atualizar',
+    ],
     '/produtos/listar' => [
         'GET' => '\Controlador\ProdutoControlador#listar',
     ],
@@ -32,15 +37,16 @@ $rotas = [
     ],
     '/produtos/?/editar' => [
         'GET' => '\Controlador\ProdutoControlador#editar',
-        'PATCH' => '\Controlador\ProdutoControlador#atualizar',
     ],
     '/pedidos' => [
         'GET' => '\Controlador\PedidoControlador#index',
         'POST' => '\Controlador\PedidoControlador#armazenar',
     ],
+    '/pedidos/?' => [
+        'PATCH' => '\Controlador\PedidoControlador#atualizar',
+    ],
     '/pedidos/?/editar' => [
         'GET' => '\Controlador\PedidoControlador#editar',
-        'PATCH' => '\Controlador\PedidoControlador#atualizar',
     ],
     '/carrinho' => [
         'GET' => '\Controlador\CarrinhoControlador#criar',

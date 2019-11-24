@@ -33,10 +33,12 @@ class TesteProduto extends Teste
         $categoria2 = 2;
         $produto1 = new Produto('produto - 01 ', $categoria1, 'produto - 01', '00.00');
         $produto1->salvar();
-        $produto2 = new Produto('produto - 02', $categoria2, 'produto - 02', '00.00');
+        $produto2 = new Produto('produto - 01 ', $categoria1, 'produto - 01', '00.00');
         $produto2->salvar();
+        $produto3 = new Produto('produto - 02', $categoria2, 'produto - 02', '00.00');
+        $produto3->salvar();
         $produtos = Produto::buscarCategoria($categoria1);
-        $this->verificar(count($produtos) == 1);
+        $this->verificar(count($produtos) == 2);
     }
 
     public function testeBuscarProdutos()
