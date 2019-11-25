@@ -15,5 +15,11 @@ class Teste extends DW3Teste
 		$this->usuario->salvar();
 		DW3Sessao::set('usuario', $this->usuario);
 	}
+	public function logarAdmin()
+	{
+		$this->usuario = new Usuario('administrador', 'administrador', 'administrador', 'email@admin.com', '123456', 1);
+		$this->usuario->salvar();
+		DW3Sessao::set('usuario', $this->usuario);
+	}
 	
 }

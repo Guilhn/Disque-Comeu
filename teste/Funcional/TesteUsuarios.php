@@ -2,7 +2,6 @@
 namespace Teste\Funcional;
 
 use \Teste\Teste;
-use \Modelo\Usuario;
 use \Framework\DW3BancoDeDados;
 
 class TesteUsuarios extends Teste

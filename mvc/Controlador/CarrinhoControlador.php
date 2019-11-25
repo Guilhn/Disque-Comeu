@@ -9,22 +9,6 @@ use \Framework\DW3Controlador;
 class CarrinhoControlador extends Controlador
 {
 
-    public function armazenar()
-    {
-        
-        $this->verificarLogado();
-        $carrinho = [];
-
-        $carrinho = DW3Sessao::get('carrinho', []);
-        
-        $carrinho [] = $_POST['produto_id'];
-
-        DW3Sessao::set('carrinho', $carrinho);
-        DW3Sessao::setFlash('mensagem', 'Produto adicionado ao carrinho!');
-        $this->redirecionar(URL_RAIZ . 'produtos');
-        //Redirecionar - Criar flash
-    }
-
     public function criar()
     {
         $this->verificarLogado();
@@ -49,6 +33,22 @@ class CarrinhoControlador extends Controlador
             $this->visao('carrinho/index.php', [], 'consumidor.php');
         }
     }
+
+    public function armazenar()
+    {        
+        $this->verificarLogado();
+        $carrinho = [];
+
+        $carrinho = DW3Sessao::get('carrinho', []);
+        
+        $carrinho [] = $_POST['produto_id'];
+
+        DW3Sessao::set('carrinho', $carrinho);
+        DW3Sessao::setFlash('mensagem', 'Produto adicionado ao carrinho!');
+        $this->redirecionar(URL_RAIZ . 'produtos');
+    }
+
+    
 
     public function destruir()
     {
