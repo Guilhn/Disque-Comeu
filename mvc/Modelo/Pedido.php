@@ -10,7 +10,6 @@ class Pedido extends Modelo
     const BUSCAR_ID = 'SELECT id, usuario_id, status_pedido_id, data_pedido, total FROM pedidos WHERE id = ?';
     const BUSCAR_PEDIDO_ID_USUARIO = 'SELECT id, usuario_id, status_pedido_id, data_pedido, total FROM pedidos WHERE usuario_id = ?';
     const BUSCAR_PEDIDOS = 'SELECT id, usuario_id, status_pedido_id, data_pedido, total FROM pedidos ORDER BY id desc';
-    const BUSCAR_POR_STATUS = 'SELECT id, usuario_id, status_pedido_id, data_pedido, total FROM pedidos WHERE status_pedido_id = ? LIMIT 1';
     const BUSCAR_NOME_STAUS = 'SELECT status_pedido FROM status_pedidos WHERE id = ?';
     const INSERIR = 'INSERT INTO pedidos(usuario_id,status_pedido_id,data_pedido,total) VALUES (?, ?, ?, ?)';
     const ATUALIZAR_STATUS = 'UPDATE pedidos SET status_pedido_id = ? WHERE id = ?';
@@ -230,24 +229,6 @@ class Pedido extends Modelo
         return $objeto;
     }
 
-    public static function buscarStaus($statusPedidoId)
-    {
-        $comando = DW3BancoDeDados::prepare(self::BUSCAR_POR_STATUS);
-        $comando->bindValue(1, $statusPedidoId, PDO::PARAM_STR);
-        $comando->execute();
-        $objeto = null;
-        $registro = $comando->fetch();
-        if ($registro) {
-            $objeto = new Pedido(
-                $registro['usuario_id'],
-                $registro['status_pedido_id'],
-                $registro['data_pedido'],
-                $registro['total'],
-                $registro['id']
-            );
-        }
-        return $objeto;
-    }
 
     public static function buscarPedido()
     {

@@ -10,7 +10,6 @@ class Produto extends Modelo
 {
     const BUSCAR_ID = 'SELECT id, categoria_id, nome, descricao, valor FROM produtos WHERE id = ?';
     const BUSCAR_PRODUTOS = 'SELECT id, categoria_id, nome, descricao, valor FROM produtos WHERE TRUE';
-    const BUSCAR_POR_CATEGORIA = 'SELECT id, categoria_id, nome, descricao, valor FROM produtos WHERE categoria_id = ? LIMIT 1';
     const BUSCAR_NOME_CATEGORIA = 'SELECT categoria FROM categorias WHERE id = ?';
     const INSERIR = 'INSERT INTO produtos(nome,categoria_id,descricao,valor) VALUES (?, ?, ?, ?)';
     const ATUALIZAR = 'UPDATE produtos SET categoria_id = ?, nome = ?, descricao = ?, valor = ?  WHERE id = ?';
@@ -192,26 +191,6 @@ class Produto extends Modelo
         $registro = $comando->fetch();
         if ($registro) {
             $objeto = $registro['categoria'];
-        }
-        return $objeto;
-    }
-
-    public static function buscarCategoria($categoriaId)
-    {
-        $comando = DW3BancoDeDados::prepare(self::BUSCAR_POR_CATEGORIA);
-        $comando->bindValue(1, $categoriaId, PDO::PARAM_STR);
-        $comando->execute();
-        $objeto = null;
-        $registro = $comando->fetch();
-        if ($registro) {
-            $objeto = new Produto(
-                $registro['nome'],
-                $registro['categoria_id'],
-                $registro['descricao'],
-                $registro['valor'],
-                null,
-                $registro['id']
-            );
         }
         return $objeto;
     }

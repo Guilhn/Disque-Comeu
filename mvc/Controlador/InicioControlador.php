@@ -25,8 +25,6 @@ class InicioControlador extends Controlador
 
     public function criar()
     {
-
-
         $paginacao = $this->calcularPaginacao(6);
         $categorias = Categoria::buscarCategorias();
         $this->visao('inicio/index.php', [
