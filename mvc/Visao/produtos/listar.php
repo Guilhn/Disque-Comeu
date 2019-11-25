@@ -32,7 +32,8 @@
                         <select name="categoria_id">
                           <option value="">---</option>
                           <?php foreach ($categorias as $categorias) : ?>
-                            <option value="<?= $categorias->getId() ?>"><?= $categorias->getNome() ?></option>
+                            <?php $selected = $this->getGet('categoria_id') == $categorias->getId() ? 'selected' : '' ?>
+                            <option value="<?= $categorias->getId() ?>" <?= $selected ?>><?= $categorias->getNome() ?></option>
                           <?php endforeach ?>
                         </select>
                       </div>

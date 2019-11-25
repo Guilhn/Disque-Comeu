@@ -58,11 +58,11 @@ class TestePedido extends Teste
         $this->verificar(count($pedidos) == 1);
     }
 
-    public function testeContarTodos()
+    public function testeContarPedidosUsuario()
     {
         $pedido1 = new Pedido($this->usuarioId, 1, $this->data, 100);
         $pedido1->salvar();
-        $total = Pedido::contarTodos($this->usuarioId);
+        $total = Pedido::contarPedidosUsuario($this->usuarioId);
         $this->verificar($total == 1);
     }
 
@@ -73,6 +73,24 @@ class TestePedido extends Teste
         $pedido2 = new Pedido($this->usuarioId, 1, $this->data, 100);
         $pedido2->salvar();
         $bdpedido = Pedido::contarPedidosStatus($this->usuarioId, $pedido1->getStausPedidoId());
+        $this->verificar($bdpedido == 2);
+    }
+
+    public function testeContarTodosPedidos()
+    {
+        $pedido1 = new Pedido($this->usuarioId, 1, $this->data, 100);
+        $pedido1->salvar();
+        $total = Pedido::contarTodosPedidos();
+        $this->verificar($total == 1);
+    }
+
+    public function testeContarTodosPedidosStatus()
+    {
+        $pedido1 = new Pedido($this->usuarioId, 1, $this->data, 100);
+        $pedido1->salvar();
+        $pedido2 = new Pedido($this->usuarioId, 1, $this->data, 100);
+        $pedido2->salvar();
+        $bdpedido = Pedido::contarTodosPedidosStatus($pedido1->getStausPedidoId());
         $this->verificar($bdpedido == 2);
     }
 
@@ -90,7 +108,7 @@ class TestePedido extends Teste
         $pedido1->salvar();
         $pedido2 = new Pedido($this->usuarioId, 1, $this->data, 100);
         $pedido2->salvar();
-        $bdpedido = Pedido::buscarPedido();
+        $bdpedido = Pedido::buscarPedidos();
         $this->verificar(count($bdpedido) == 2);
 
 

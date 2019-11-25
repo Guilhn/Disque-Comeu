@@ -37,7 +37,8 @@
                       <select name="categoria_id">
                         <option value="">---</option>
                         <?php foreach ($categorias as $categorias) : ?>
-                          <option value="<?= $categorias->getId() ?>"><?= $categorias->getNome() ?></option>
+                          <?php $selected = $this->getGet('categoria_id') == $categorias->getId() ? 'selected' : '' ?>
+                          <option value="<?= $categorias->getId() ?>" <?= $selected ?>><?= $categorias->getNome() ?></option>
                         <?php endforeach ?>
                       </select>
                     </div>
@@ -137,10 +138,10 @@
         <div class="center col s12">
           <?php if ($totalProdutos > $limit) : ?>
             <?php if ($pagina > 1) : ?>
-              <a href="<?= URL_RAIZ . 'inicio?p=' . ($pagina - 1) ?>" class="center btn waves-effect waves-light btn btn-esquerda">Página anterior</a>
+              <a href="<?= URL_RAIZ . 'produtos?p=' . ($pagina - 1) ?>" class="center btn waves-effect waves-light btn btn-esquerda">Página anterior</a>
             <?php endif ?>
             <?php if ($pagina < $ultimaPagina) : ?>
-              <a href="<?= URL_RAIZ . 'inicio?p=' . ($pagina + 1) ?>" class="btn waves-effect waves-light btn btn-direita">Próxima página</a>
+              <a href="<?= URL_RAIZ . 'produtos?p=' . ($pagina + 1) ?>" class="btn waves-effect waves-light btn btn-direita">Próxima página</a>
             <?php endif ?>
           <?php endif ?>
         </div>

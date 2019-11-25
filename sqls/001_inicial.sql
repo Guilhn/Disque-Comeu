@@ -2,10 +2,10 @@ CREATE DATABASE disquecomeu COLLATE 'utf8_unicode_ci';
 USE disquecomeu;
 CREATE TABLE usuarios (
     id INT NOT NULL AUTO_INCREMENT ,
-    nome VARCHAR(255) NOT NULL ,
-    sobrenome VARCHAR(255) NOT NULL ,
-    nome_usuario VARCHAR(255) NOT NULL ,
-    email VARCHAR(255) NOT NULL ,
+    nome VARCHAR(100) NOT NULL ,
+    sobrenome VARCHAR(100) NOT NULL ,
+    nome_usuario VARCHAR(50) NOT NULL ,
+    email VARCHAR(100) NOT NULL ,
     senha CHAR(60) NOT NULL ,
     administrador BOOLEAN NOT NULL DEFAULT 0,
     PRIMARY KEY (id)
@@ -13,14 +13,14 @@ CREATE TABLE usuarios (
 
 CREATE TABLE categorias (
     id INT NOT NULL AUTO_INCREMENT ,
-    categoria VARCHAR(255) NOT NULL ,
+    categoria VARCHAR(50) NOT NULL ,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE produtos (
     id INT NOT NULL AUTO_INCREMENT ,
     categoria_id INT NOT NULL ,
-    nome VARCHAR(255) NOT NULL ,
+    nome VARCHAR(100) NOT NULL ,
     descricao VARCHAR(255) NOT NULL ,
     valor DOUBLE NOT NULL ,
     PRIMARY KEY (id),
@@ -29,7 +29,7 @@ CREATE TABLE produtos (
 
 CREATE TABLE status_pedidos (
     id INT NOT NULL AUTO_INCREMENT ,
-    status_pedido VARCHAR(255) NOT NULL ,
+    status_pedido VARCHAR(50) NOT NULL ,
     PRIMARY KEY (id)
 );
 

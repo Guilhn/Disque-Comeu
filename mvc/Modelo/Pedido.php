@@ -9,12 +9,12 @@ class Pedido extends Modelo
 {
     const BUSCAR_ID = 'SELECT id, usuario_id, status_pedido_id, data_pedido, total FROM pedidos WHERE id = ?';
     const BUSCAR_PEDIDO_ID_USUARIO = 'SELECT id, usuario_id, status_pedido_id, data_pedido, total FROM pedidos WHERE usuario_id = ?';
-    const BUSCAR_PEDIDOS = 'SELECT id, usuario_id, status_pedido_id, data_pedido, total FROM pedidos ORDER BY id desc';
+    const BUSCAR_PEDIDOS = 'SELECT id, usuario_id, status_pedido_id, data_pedido, total FROM pedidos WHERE TRUE';
     const BUSCAR_NOME_STAUS = 'SELECT status_pedido FROM status_pedidos WHERE id = ?';
     const INSERIR = 'INSERT INTO pedidos(usuario_id,status_pedido_id,data_pedido,total) VALUES (?, ?, ?, ?)';
     const ATUALIZAR_STATUS = 'UPDATE pedidos SET status_pedido_id = ? WHERE id = ?';
     const CONTAR_TODOS = 'SELECT count(id) FROM pedidos WHERE usuario_id = ?';
-    const CONTAR_PEDIDOS_STATUS = 'SELECT count(id) FROM pedidos WHERE usuario_id = ?';
+    const CONTAR_TODOS_PEDIDOS = 'SELECT count(id) FROM pedidos WHERE TRUE';
 
 
     private $id;
@@ -142,6 +142,20 @@ class Pedido extends Modelo
         );
     }
 
+    public static function buscarNomeStatus($statusPedidoId)
+    {
+        $comando = DW3BancoDeDados::prepare(self::BUSCAR_NOME_STAUS);
+        $comando->bindValue(1, $statusPedidoId, PDO::PARAM_STR);
+        $comando->execute();
+        $objeto = null;
+        $registro = $comando->fetch();
+        if ($registro) {
+
+            $objeto = $registro['status_pedido'];
+        }
+        return $objeto;
+    }
+
     public static function buscarPedidoIdUsuario($filtro = [], $id, $limit = 2, $offset = 0)
     {
 
@@ -182,7 +196,7 @@ class Pedido extends Modelo
         return $listaPedidos;
     }
 
-    public static function contarTodos($id)
+    public static function contarPedidosUsuario($id)
     {
         $comando = DW3BancoDeDados::prepare(self::CONTAR_TODOS);        
         $comando->bindValue(1, $id);
@@ -199,40 +213,41 @@ class Pedido extends Modelo
             $sqlWhere .= ' AND status_pedido_id = ?';
         }
 
-        $sql = self::CONTAR_PEDIDOS_STATUS . $sqlWhere;
+        $sql = self::CONTAR_TODOS . $sqlWhere;
         $comando = DW3BancoDeDados::prepare($sql);
         $parametroNumero = 1;
         $comando->bindValue($parametroNumero, $usuarioId);
-        if ($usuarioId != null) {
+        if ($statusId != null) {
             $comando->bindValue($parametroNumero + 1, $statusId);
         }
         $comando->execute();
-        
         $total = $comando->fetch();
-        
         return intval($total[0]);
-
-        
     }
 
-    public static function buscarNomeStatus($statusPedidoId)
-    {
-        $comando = DW3BancoDeDados::prepare(self::BUSCAR_NOME_STAUS);
-        $comando->bindValue(1, $statusPedidoId, PDO::PARAM_STR);
-        $comando->execute();
-        $objeto = null;
-        $registro = $comando->fetch();
-        if ($registro) {
 
-            $objeto = $registro['status_pedido'];
+    public static function buscarPedidos($filtro = [], $limit = 2, $offset = 0)
+    {
+
+        $sqlWhere = '';
+        $parametro = '';
+   
+        if (array_key_exists('status_id', $filtro) && $filtro['status_id'] != '') {
+            $parametro = $filtro['status_id'];
+            $sqlWhere .= ' AND status_pedido_id = ?';
         }
-        return $objeto;
-    }
 
-
-    public static function buscarPedido()
-    {
-        $registros = DW3BancoDeDados::query(self::BUSCAR_PEDIDOS);
+        $sql = self::BUSCAR_PEDIDOS . $sqlWhere . ' ORDER BY id desc LIMIT ? OFFSET ?';
+        $comando = DW3BancoDeDados::prepare($sql);
+        $parametroNumero = 1;
+        if ($parametro != '') {
+            $comando->bindValue($parametroNumero, $parametro, PDO::PARAM_INT);
+            $parametroNumero++;
+        }
+        $comando->bindValue($parametroNumero, $limit, PDO::PARAM_INT);
+        $comando->bindValue($parametroNumero + 1, $offset, PDO::PARAM_INT);
+        $comando->execute();
+        $registros = $comando->fetchAll();
         $listaPedidos = [];
         foreach ($registros as $registro) {
             $listaPedidos[] = new Pedido(
@@ -245,5 +260,36 @@ class Pedido extends Modelo
             );
         }
         return $listaPedidos;
+    }
+
+    public static function contarTodosPedidos()
+    {
+        $registros = DW3BancoDeDados::query(self::CONTAR_TODOS_PEDIDOS);
+        $total = $registros->fetch();
+        return intval($total[0]);
+    }
+
+    public static function contarTodosPedidosStatus($id)
+    {
+        $sqlWhere = '';
+
+        if ($id != null) {
+            $sqlWhere .= ' AND status_pedido_id = ?';
+        }
+
+        $sql = self::CONTAR_TODOS_PEDIDOS . $sqlWhere;
+        $comando = DW3BancoDeDados::prepare($sql);
+        $parametroNumero = 1;
+        if ($id != null) {
+            $comando->bindValue($parametroNumero, $id);
+            $parametroNumero++;
+        }
+        $comando->execute();
+        
+        $total = $comando->fetch();
+        
+        return intval($total[0]);
+
+        
     }
 }

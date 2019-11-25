@@ -116,44 +116,6 @@
 
 
             <div class="col s12">
-              <hr>
-              <div class="row">
-                <div class="col s6 offset-s3 m2">
-                  <img src="../../../assets/img/pizza.jpg" class="responsive-img materialboxed" alt="">
-                </div>
-                <div class="col s12 m10">
-                  <div class="row">
-                    <div class="col s12 m4">
-                      <p class="center"><b>Pizza de Calabresa</b></p>
-                    </div>
-                    <div class="col s12 m4">
-                      <p class="center">Categoria: Pizza</p>
-                    </div>
-                    <div class="col s12 m4">
-                      <p class="center"><b>R$ 35,00</b></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col s6 offset-s3 m2">
-                  <img src="../../../assets/img/batata-frita.jpg" class="responsive-img materialboxed" alt="">
-                </div>
-                <div class="col s12 m10">
-                  <div class="row">
-                    <div class="col s12 m4">
-                      <p class="center"><b>Batata Frita</b></p>
-                    </div>
-                    <div class="col s12 m4">
-                      <p class="center">Data: 19/09/19</p>
-                    </div>
-                    <div class="col s12 m4">
-                      <p class="center"><b>R$ 10,00</b></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
               <div class="row">
                 <div class="col s12">
                   <h5 class="center"><b>Total:</b> R$ <?= number_format($pedido->getTotal(), 2, ',', '.') ?></h5>
@@ -163,11 +125,6 @@
           </div>
 
         </div>
-
-
-
-
-
         <br>
         <br>
 

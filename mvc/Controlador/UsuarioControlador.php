@@ -27,11 +27,11 @@ class UsuarioControlador extends Controlador
         $offset = ($pagina - 1) * $limit;
         $usuario = DW3Sessao::get('usuario');
         $pedidos = Pedido::buscarPedidoIdUsuario($_GET, $usuario->getId(), $limit, $offset);
-        $ultimaPagina = ceil(Pedido::contarTodos($usuario->getId()) / $limit);
+        $ultimaPagina = ceil(Pedido::contarPedidosUsuario($usuario->getId()) / $limit);
         if (!empty($_GET['status_id'])) {
             $totalPedidos = Pedido::contarPedidosStatus($usuario->getId(), $_GET['status_id']);
         } else {
-            $totalPedidos = Pedido::contarTodos(($usuario->getId()));
+            $totalPedidos = Pedido::contarPedidosUsuario(($usuario->getId()));
         }
         return compact('pagina', 'pedidos', 'ultimaPagina', 'limit', 'totalPedidos');
     }

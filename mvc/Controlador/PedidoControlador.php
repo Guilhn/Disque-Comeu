@@ -11,12 +11,32 @@ use \Framework\DW3Sessao;
 class PedidoControlador extends Controlador
 {
 
+    private function calcularPaginacao($limit)
+    {
+        $pagina = array_key_exists('p', $_GET) ? intval($_GET['p']) : 1;
+        $offset = ($pagina - 1) * $limit;
+        $pedidos = Pedido::buscarPedidos($_GET, $limit, $offset);
+        $ultimaPagina = ceil(Pedido::contarTodosPedidos() / $limit);
+        if (!empty($_GET['status_id'])) {
+            $totalPedidos = Pedido::contarTodosPedidosStatus($_GET['status_id']);
+        } else {
+            $totalPedidos = Pedido::contarTodosPedidos();
+        }
+        return compact('pagina', 'pedidos', 'ultimaPagina', 'limit', 'totalPedidos');
+    }
+
     public function index()
     {
         $this->verificarLogado();
-        $listaPedidos = Pedido::buscarPedido();
+        $status = Categoria::buscarStatus();
+        $paginacao = $this->calcularPaginacao(6);
         $this->visao('pedidos/index.php', [
-            'pedidos' => $listaPedidos,
+            'totalPedidos' => $paginacao['totalPedidos'],
+            'limit' => $paginacao['limit'],
+            'pedidos' => $paginacao['pedidos'],
+            'pagina' => $paginacao['pagina'],
+            'ultimaPagina' => $paginacao['ultimaPagina'],
+            'status' => $status,
             'mensagem' => DW3Sessao::getFlash('mensagem', null)
         ], 'administrador.php');
     }

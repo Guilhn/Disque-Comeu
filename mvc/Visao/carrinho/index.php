@@ -68,7 +68,7 @@
               <button type="submit" class="waves-effect waves-light btn btn-esquerda margin-btn">Finalizar Compra</button>
             </form>
             <form id="form-deletar" action="<?= URL_RAIZ . 'carrinho' ?>" method="post">
-                <input id="input-sair" type="text" value="DELETE" name="_metodo">
+              <input id="input-sair" type="text" value="DELETE" name="_metodo">
             </form>
             <a class="waves-effect waves-light btn btn-direita margin-btn" onclick="event.preventDefault(); $('#form-deletar').submit()" href="">Deletar Carrinho</a>
 

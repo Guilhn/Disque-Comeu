@@ -2,13 +2,13 @@
 
 
   <?php if (!empty($mensagem)) : ?>
-      <div class="row">
-        <div class="col s10 offset-s1 m4 offset-m4 l2 offset-l5 msg-green center toast" >
-          <p class="center"><?= $mensagem ?></p>
-        </div>
+    <div class="row">
+      <div class="col s10 offset-s1 m4 offset-m4 l2 offset-l5 msg-green center toast">
+        <p class="center"><?= $mensagem ?></p>
       </div>
-      <br>
-      <br>
+    </div>
+    <br>
+    <br>
   <?php endif ?>
 
 

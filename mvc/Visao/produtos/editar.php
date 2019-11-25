@@ -13,7 +13,7 @@
                         </div>
 
                         <div class="card-content">
-                            <form action="<?= URL_RAIZ . 'produtos/' . $produto->getId() . '/editar' ?>" method="post" enctype="multipart/form-data" class="col s12">
+                            <form action="<?= URL_RAIZ . 'produtos/' . $produto->getId() ?>" method="post" enctype="multipart/form-data" class="col s12">
                                 <input type="hidden" name="_metodo" value="PATCH">
 
                                 <div class="row">
@@ -28,7 +28,7 @@
                                             <select name="categoria_id">
                                                 <?php foreach ($categorias as $categorias) : ?>
                                                     <?php $selected = $categorias->getId() == $produto->getCategoriaId() ? 'selected' : '' ?>
-                                                    <option value="<?= $categorias->getId() ?>"<?= $selected ?>><?= $categorias->getNome() ?></option>
+                                                    <option value="<?= $categorias->getId() ?>" <?= $selected ?>><?= $categorias->getNome() ?></option>
                                                 <?php endforeach ?>
                                             </select>
                                             <label>Categoria</label>
