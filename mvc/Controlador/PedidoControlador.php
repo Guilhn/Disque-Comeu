@@ -78,8 +78,6 @@ class PedidoControlador extends Controlador
             $carrinho = [];
             for ($i = 0; $i < $tamanho; $i++) {
                 $carrinho[] = Produto::buscarId($itemCarrinho[$i]);
-            }
-            for ($i = 0; $i < $tamanho; $i++) {
                 $itensPedido = new ItemPedido($idPedido, $carrinho[$i]->getId(), $carrinho[$i]->getValor());
                 $itensPedido->salvar();
             }

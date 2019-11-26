@@ -7,7 +7,6 @@ use \Framework\DW3BancoDeDados;
 
 class TesteProduto extends Teste
 {
-    private $usuarioId;
 
     public function testeInserir()
     {
