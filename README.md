@@ -1,15 +1,11 @@
 
 Disque Comeu
 
+ATENÇÃO                       
 
-|-----------------------------------------------------|
-|                                                     |
-|                     ATENÇÃO                         |
-|                                                     |
-|  Para abrir o sistema como admin pela promeira vez  |
-|   usar o login: admin e senha: admin                |
-|                                                     |
-|-----------------------------------------------------|
+Para abrir o sistema como admin pela promeira vez 
+usar o login: admin e senha: admin 
+
 
 Repositorio no Github: https://github.com/Guilhn/Disque-Comeu
 
